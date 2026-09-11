@@ -1,20 +1,17 @@
-# Gabriel Automações — Portfolio V3
+# Gabriel Automações — V4
 
-Site estático em HTML, CSS e JavaScript, pronto para GitHub Pages.
+Site estático separado em:
 
-## Conteúdo
-- Página institucional com efeitos de scroll e microinterações.
-- Demonstração local da Iana para clínicas.
-- Demonstração funcional de reposição inteligente.
-- Demonstração de qualificação imobiliária com CRM visual.
-- Arquitetura preparada para futura integração com webhooks/n8n.
+- `index.html` — estrutura e conteúdo
+- `styles.css` — layout, responsividade e efeitos visuais
+- `script.js` — interações, demos e efeitos de scroll
+
+Não usa framework, API ou backend nesta versão. Pode ser hospedado gratuitamente no GitHub Pages.
 
 ## Publicar no GitHub Pages
-1. Crie um repositório no GitHub.
-2. Envie `index.html`, `styles.css` e `script.js` para a raiz do repositório.
-3. Abra **Settings > Pages**.
-4. Em **Build and deployment**, selecione **Deploy from a branch**.
-5. Escolha a branch `main` e a pasta `/root`.
-6. Salve e aguarde o endereço do GitHub Pages aparecer.
+1. Crie um repositório.
+2. Envie `index.html`, `styles.css` e `script.js` para a raiz.
+3. Em **Settings → Pages**, selecione **Deploy from a branch**.
+4. Escolha `main` e `/root`.
 
-Nenhuma API, chave ou credencial é necessária nesta versão.
+As demonstrações são locais e usam apenas dados fictícios.
