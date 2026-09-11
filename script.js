@@ -269,3 +269,42 @@ if(window.visualViewport){
     document.documentElement.style.setProperty('--vvh',`${window.visualViewport.height}px`);
   });
 }
+
+// V9 — estimador comercial e continuidade entre demo → proposta
+const estimatorState={lastSolution:localStorage.getItem('zion_last_interest')||'clinica'};
+const solutionCatalog={
+  clinica:{name:'Zion Atendimento Inteligente',desc:'Atendimento automatizado com contexto, regras de negócio e jornada de agendamento.',base:[1800,2800],monthly:[397,697],features:['Atendimento com IA','Triagem e contexto','Agendamento / reagendamento','Encaminhamento humano']},
+  imobiliaria:{name:'Zion Qualificação Comercial',desc:'Qualificação de leads, organização de contexto, CRM e encaminhamento para o comercial.',base:[2200,3400],monthly:[497,797],features:['Qualificação de leads','CRM e histórico','Classificação de oportunidade','Visitas e encaminhamento']},
+  reposicao:{name:'Zion Operação Inteligente',desc:'Automação operacional para estoque, reposição, regras de pedido e acompanhamento.',base:[2800,4500],monthly:[597,997],features:['Contagem orientada','Sugestão de pedido','Regras por produto','Histórico operacional']},
+  personalizada:{name:'Zion Automação Sob Medida',desc:'Projeto desenhado a partir do processo real da empresa, com regras e integrações específicas.',base:[2500,4800],monthly:[497,1097],features:['Diagnóstico de processo','Fluxos personalizados','Regras de negócio','Integrações sob medida']}
+};
+const volumeFactors={small:1,medium:1.16,large:1.38};
+const levelFactors={essential:.88,professional:1.08,advanced:1.42};
+const levelLabels={essential:'Essencial',professional:'Profissional',advanced:'Avançado'};
+const timelineMap={essential:'7–15 dias',professional:'10–20 dias',advanced:'15–30 dias'};
+function brlRounded(v){const rounded=Math.ceil(v/100)*100;return rounded.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0})}
+function selectedValue(name){return document.querySelector(`input[name="${name}"]:checked`)?.value}
+function selectedIntegrations(){return [...document.querySelectorAll('input[name="estimateIntegration"]:checked')].map(i=>i.value)}
+function setEstimatorSolution(name,scroll=false){const input=document.querySelector(`input[name="estimateSolution"][value="${name}"]`);if(!input)return;input.checked=true;estimatorState.lastSolution=name;localStorage.setItem('zion_last_interest',name);updateEstimateProgress();if(scroll)document.querySelector('#investimento')?.scrollIntoView({behavior:'smooth',block:'start'})}
+function updateEstimateProgress(){const complete=[selectedValue('estimateSolution'),selectedValue('estimateVolume'),selectedIntegrations().length,selectedValue('estimateLevel'),document.querySelector('#estimatePriority')?.value].filter(Boolean).length;const pct=Math.max(20,complete*20);const bar=document.querySelector('#estimateProgressBar');const txt=document.querySelector('#estimateProgressText');if(bar)bar.style.width=pct+'%';if(txt)txt.textContent=complete>=5?'Pronto para calcular':`Etapa ${Math.min(complete+1,5)} de 5`}
+function projectEstimate(){
+  const solution=selectedValue('estimateSolution')||'clinica',volume=selectedValue('estimateVolume')||'small',level=selectedValue('estimateLevel')||'professional',integrations=selectedIntegrations(),priority=document.querySelector('#estimatePriority')?.value||'tempo';
+  const c=solutionCatalog[solution],vf=volumeFactors[volume],lf=levelFactors[level];const extra=Math.max(0,integrations.length-1);
+  const lo=c.base[0]*vf*lf+extra*220,hi=c.base[1]*vf*lf+extra*420;
+  const mlo=c.monthly[0]*(level==='essential'?.85:level==='advanced'?1.22:1)+(volume==='large'?120:volume==='medium'?50:0);
+  const mhi=c.monthly[1]*(level==='essential'?.9:level==='advanced'?1.28:1)+(volume==='large'?220:volume==='medium'?90:0);
+  const priorityLabel={tempo:'Reduzir tarefas repetitivas',vendas:'Responder mais rápido e perder menos oportunidades',controle:'Ter mais controle e histórico',escala:'Escalar a operação com eficiência'}[priority];
+  const volumeLabel={small:'Até 500/mês',medium:'500–2.000/mês',large:'Mais de 2.000/mês'}[volume];
+  const features=[...c.features,...integrations.filter(x=>!c.features.some(f=>f.toLowerCase().includes(x.toLowerCase()))).map(x=>'Integração: '+x)].slice(0,7);
+  document.querySelector('#estimatePlaceholder').hidden=true;document.querySelector('#estimateContent').hidden=false;
+  document.querySelector('#estimateComplexity').textContent=levelLabels[level];document.querySelector('#estimateProjectName').textContent=c.name;document.querySelector('#estimateProjectDescription').textContent=`Cenário ${levelLabels[level].toLowerCase()} • ${volumeLabel} • foco em ${priorityLabel.toLowerCase()}.`;
+  document.querySelector('#estimateFeatures').innerHTML=features.map(x=>`<span>${x}</span>`).join('');document.querySelector('#estimateSetup').textContent=`${brlRounded(lo)} – ${brlRounded(hi)}`;document.querySelector('#estimateMonthly').textContent=`${brlRounded(mlo)} – ${brlRounded(mhi)}/mês`;document.querySelector('#estimateTimeline').textContent=timelineMap[level];document.querySelector('#estimateProfile').textContent=`Projeto ${levelLabels[level].toLowerCase()}`;
+  const msg=[`Olá, Gabriel. Testei o site da Zion Automações e gostaria de uma proposta para este cenário:`,``,`Solução: ${c.name}`,`Volume: ${volumeLabel}`,`Personalização: ${levelLabels[level]}`,`Integrações: ${integrations.join(', ')||'A definir'}`,`Prioridade: ${priorityLabel}`,``,`Estimativa exibida no site:`,`Implantação: ${brlRounded(lo)} – ${brlRounded(hi)}`,`Operação/suporte: ${brlRounded(mlo)} – ${brlRounded(mhi)}/mês`,`Prazo: ${timelineMap[level]}`,``,`Quero entender como adaptar isso à minha empresa.`].join('\n');
+  document.querySelector('#estimateWhatsapp').href='https://wa.me/5547988927391?text='+encodeURIComponent(msg);localStorage.setItem('zion_last_interest',solution);
+  recordDemo('orcamento',`Estimativa • ${c.name} • ${brlRounded(lo)}–${brlRounded(hi)}`);toast('Projeto recomendado calculado');if(window.innerWidth<901)setTimeout(()=>document.querySelector('#estimateResult')?.scrollIntoView({behavior:'smooth',block:'center'}),120)
+}
+['estimateSolution','estimateVolume','estimateLevel','estimateIntegration'].forEach(name=>document.querySelectorAll(`input[name="${name}"]`).forEach(i=>i.addEventListener('change',updateEstimateProgress)));
+document.querySelector('#estimatePriority')?.addEventListener('change',updateEstimateProgress);document.querySelector('#calculateProjectBtn')?.addEventListener('click',projectEstimate);document.querySelector('#recalculateProjectBtn')?.addEventListener('click',()=>{document.querySelector('#estimateContent').hidden=true;document.querySelector('#estimatePlaceholder').hidden=false;document.querySelector('#projectEstimator')?.scrollIntoView({behavior:'smooth',block:'start'})});
+setEstimatorSolution(estimatorState.lastSolution);updateEstimateProgress();
+document.querySelectorAll('.demo-tab').forEach(btn=>btn.addEventListener('click',()=>setEstimatorSolution(btn.dataset.demo)));
+document.querySelectorAll('[data-jump]').forEach(el=>el.addEventListener('click',()=>setEstimatorSolution(el.dataset.jump)));

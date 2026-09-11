@@ -1,15 +1,14 @@
-# Zion Automações — Portfólio Interativo V8
+# Zion Automações — V9
 
-Site estático em HTML + CSS + JavaScript, preparado para GitHub Pages.
+Site estático em HTML + CSS + JavaScript, pronto para GitHub Pages.
 
-## Destaques da V8
-- Marca Zion Automações consolidada.
-- Demos realistas para Clínica, Reposição e Imobiliária.
-- Modo imersivo/tela cheia para testar as automações como um app.
-- Navegação mobile fixa e suporte a safe areas do iPhone.
-- Layout específico para telas pequenas, inclusive abaixo de 390px.
-- Seção sobre personalização da automação para cada operação.
-- Suporte a `prefers-reduced-motion` para acessibilidade.
-- Sem backend, sem n8n e sem credenciais nesta versão.
+## V9
+- Demos interativas para Clínica, Reposição e Imobiliária.
+- Layout responsivo e modo imersivo para celular.
+- Calculadora de impacto operacional.
+- Funil comercial com estimador de projeto.
+- Faixa dinâmica de implantação, mensalidade e prazo.
+- WhatsApp pré-preenchido com o cenário configurado pelo lead.
+- Continuidade entre a demo testada e a solução pré-selecionada no estimador.
 
-Abra `index.html` localmente ou publique os arquivos no GitHub Pages.
+Os valores exibidos são estimativas demonstrativas e não constituem proposta comercial vinculante.

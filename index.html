@@ -29,6 +29,7 @@
         <a href="#demos">Demonstrações</a>
         <a href="#processo">Como funciona</a>
         <a href="#roi">ROI</a>
+        <a href="#investimento">Investimento</a>
         <a href="#contato" class="nav-cta">Falar comigo</a>
       </nav>
     </div>
@@ -392,6 +393,109 @@
       </div>
     </section>
 
+
+    <section class="investment-section section-space" id="investimento">
+      <div class="container">
+        <div class="section-heading reveal investment-heading">
+          <div><span class="eyebrow">ESTIMATIVA DE PROJETO</span><h2>Quanto custaria uma automação para a sua operação?</h2></div>
+          <p>Monte seu cenário em menos de 1 minuto. A Zion calcula uma faixa inicial de implantação, operação mensal e prazo — sem transformar um projeto sob medida em um preço engessado.</p>
+        </div>
+
+        <div class="price-anchor reveal">
+          <div><span>PROJETOS ZION</span><strong>A partir de R$ 1.500</strong><small>Implantação. O valor final depende de escopo, integrações, volume e complexidade.</small></div>
+          <div class="price-anchor-badges"><span>✓ Diagnóstico</span><span>✓ Personalização</span><span>✓ Testes</span><span>✓ Implantação</span></div>
+        </div>
+
+        <div class="estimator-shell reveal" id="projectEstimator">
+          <div class="estimator-form">
+            <div class="estimator-progress"><span id="estimateProgressBar"></span></div>
+            <div class="estimator-kicker"><span>CONFIGURE SEU CENÁRIO</span><b id="estimateProgressText">Etapa 1 de 5</b></div>
+
+            <fieldset class="estimate-group">
+              <legend>1. Qual solução mais se aproxima do que você precisa?</legend>
+              <div class="choice-grid" id="solutionChoices">
+                <label class="choice-card"><input type="radio" name="estimateSolution" value="clinica" checked><span><i>✦</i><b>Atendimento com IA</b><small>Clínicas, estética e serviços</small></span></label>
+                <label class="choice-card"><input type="radio" name="estimateSolution" value="imobiliaria"><span><i>⌂</i><b>Qualificação comercial</b><small>Leads, CRM e visitas</small></span></label>
+                <label class="choice-card"><input type="radio" name="estimateSolution" value="reposicao"><span><i>▦</i><b>Operação e estoque</b><small>Reposição, pedidos e controle</small></span></label>
+                <label class="choice-card"><input type="radio" name="estimateSolution" value="personalizada"><span><i>+</i><b>Automação personalizada</b><small>Outro processo da empresa</small></span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="estimate-group">
+              <legend>2. Qual é o volume aproximado da operação?</legend>
+              <div class="segmented-choice">
+                <label><input type="radio" name="estimateVolume" value="small" checked><span>Até 500/mês</span></label>
+                <label><input type="radio" name="estimateVolume" value="medium"><span>500–2.000/mês</span></label>
+                <label><input type="radio" name="estimateVolume" value="large"><span>Mais de 2.000/mês</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="estimate-group">
+              <legend>3. O que precisa conversar com a automação?</legend>
+              <div class="integration-grid">
+                <label><input type="checkbox" name="estimateIntegration" value="WhatsApp" checked><span>WhatsApp</span></label>
+                <label><input type="checkbox" name="estimateIntegration" value="Agenda"><span>Agenda</span></label>
+                <label><input type="checkbox" name="estimateIntegration" value="CRM"><span>CRM</span></label>
+                <label><input type="checkbox" name="estimateIntegration" value="Banco de dados"><span>Banco de dados</span></label>
+                <label><input type="checkbox" name="estimateIntegration" value="Sistema próprio"><span>Sistema próprio / ERP</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="estimate-group">
+              <legend>4. Qual nível de personalização você imagina?</legend>
+              <div class="level-grid">
+                <label><input type="radio" name="estimateLevel" value="essential"><span><b>Essencial</b><small>Fluxo enxuto e objetivo</small></span></label>
+                <label><input type="radio" name="estimateLevel" value="professional" checked><span><b>Profissional</b><small>Regras, integrações e jornadas</small></span></label>
+                <label><input type="radio" name="estimateLevel" value="advanced"><span><b>Avançado</b><small>Múltiplos fluxos e lógica sob medida</small></span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="estimate-group">
+              <legend>5. Qual é sua principal prioridade?</legend>
+              <select id="estimatePriority">
+                <option value="tempo">Reduzir tarefas repetitivas e tempo operacional</option>
+                <option value="vendas">Responder mais rápido e perder menos oportunidades</option>
+                <option value="controle">Ter mais controle e histórico do processo</option>
+                <option value="escala">Atender mais volume sem aumentar a operação na mesma proporção</option>
+              </select>
+            </fieldset>
+
+            <button class="button button-primary estimate-button" id="calculateProjectBtn" type="button">Calcular projeto recomendado →</button>
+            <p class="estimate-note">Estimativa comercial preliminar. O escopo final é definido após uma conversa curta sobre sua operação.</p>
+          </div>
+
+          <aside class="estimate-result" id="estimateResult" aria-live="polite">
+            <div class="result-placeholder" id="estimatePlaceholder">
+              <span class="result-icon">Z</span>
+              <h3>Seu projeto aparece aqui.</h3>
+              <p>Configure o cenário ao lado para receber uma recomendação de investimento, mensalidade e prazo.</p>
+              <div class="placeholder-lines"><i></i><i></i><i></i></div>
+            </div>
+            <div class="result-content" id="estimateContent" hidden>
+              <div class="result-top"><span>PROJETO RECOMENDADO</span><b id="estimateComplexity">Profissional</b></div>
+              <h3 id="estimateProjectName">Zion Atendimento Inteligente</h3>
+              <p id="estimateProjectDescription">Automação personalizada para sua operação.</p>
+              <div class="result-features" id="estimateFeatures"></div>
+              <div class="result-prices">
+                <article><span>IMPLANTAÇÃO ESTIMADA</span><strong id="estimateSetup">R$ 2.500 – R$ 4.000</strong><small>pagamento de implantação</small></article>
+                <article><span>OPERAÇÃO E SUPORTE</span><strong id="estimateMonthly">R$ 497 – R$ 697/mês</strong><small>faixa mensal estimada</small></article>
+              </div>
+              <div class="result-meta"><div><span>PRAZO</span><b id="estimateTimeline">10–20 dias</b></div><div><span>PERFIL</span><b id="estimateProfile">Projeto profissional</b></div></div>
+              <div class="result-warning">Esta faixa não é uma proposta vinculante. Serve para você saber a ordem de investimento antes de conversar com a Zion.</div>
+              <a class="button button-primary result-whatsapp" id="estimateWhatsapp" href="#" target="_blank" rel="noopener">Quero uma proposta para este cenário ↗</a>
+              <button class="result-recalculate" id="recalculateProjectBtn" type="button">Alterar cenário</button>
+            </div>
+          </aside>
+        </div>
+
+        <div class="pricing-principles reveal">
+          <article><span>01</span><div><b>Implantação</b><p>Diagnóstico, configuração, personalização, integrações, testes e entrada em produção.</p></div></article>
+          <article><span>02</span><div><b>Operação mensal</b><p>Infraestrutura, manutenção, monitoramento, suporte e evolução conforme o pacote contratado.</p></div></article>
+          <article><span>03</span><div><b>Sem surpresa</b><p>Antes de começar, escopo, prazo e responsabilidades ficam definidos em proposta.</p></div></article>
+        </div>
+      </div>
+    </section>
+
     <section class="history-section section-space">
       <div class="container">
         <div class="section-heading reveal"><div><span class="eyebrow">HISTÓRICO LOCAL</span><h2>Veja o que você já testou.</h2></div><p>O histórico abaixo fica salvo apenas neste navegador usando localStorage. Nenhuma informação é enviada para servidor.</p></div>
@@ -403,7 +507,7 @@
       <div class="container">
         <div class="cta-card reveal">
           <div><span class="eyebrow">PROJETO SOB MEDIDA</span><h2 id="contextCtaTitle">Existe um processo repetitivo no seu negócio?</h2><p id="contextCtaText">Posso analisar a rotina e transformar parte dela em uma automação demonstrável, integrada e preparada para crescer.</p></div>
-          <a class="button button-primary" href="https://wa.me/5547988927391" target="_blank" rel="noopener">Conversar no WhatsApp ↗</a>
+          <div class="cta-actions"><a class="button button-primary" href="#investimento">Estimar meu projeto</a><a class="button button-secondary" href="https://wa.me/5547988927391?text=Ol%C3%A1%2C%20Gabriel.%20Conheci%20o%20site%20da%20Zion%20Automa%C3%A7%C3%B5es%20e%20gostaria%20de%20conversar%20sobre%20uma%20automa%C3%A7%C3%A3o." target="_blank" rel="noopener">Falar direto no WhatsApp ↗</a></div>
         </div>
       </div>
     </section>
