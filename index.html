@@ -27,6 +27,7 @@
         <a href="#solucoes">Soluções</a>
         <a href="#demos">Demonstrações</a>
         <a href="#processo">Como funciona</a>
+        <a href="#roi">ROI</a>
         <a href="#contato" class="nav-cta">Falar comigo</a>
       </nav>
     </div>
@@ -133,6 +134,25 @@
           <p>Estas demos rodam localmente no navegador. Elas simulam o comportamento de uma automação real sem acessar clientes, banco de dados ou credenciais.</p>
         </div>
 
+        <div class="demo-onboarding reveal">
+          <div>
+            <span class="eyebrow">MODO DEMONSTRAÇÃO</span>
+            <h3>Você pode assistir ou assumir o controle.</h3>
+            <p>Comece com uma jornada automática para entender o fluxo e depois teste livremente. As execuções ficam registradas apenas neste navegador.</p>
+          </div>
+          <div class="onboarding-actions">
+            <button type="button" class="button button-primary" id="autoDemoBtn">▶ Ver demo automática</button>
+            <button type="button" class="button button-secondary" id="clearHistoryBtn">Limpar histórico local</button>
+          </div>
+        </div>
+
+        <div class="demo-dashboard reveal">
+          <article><span>EXECUÇÕES NESTE NAVEGADOR</span><strong id="dashRuns">0</strong><small>interações registradas</small></article>
+          <article><span>CLÍNICA</span><strong id="dashClinic">0</strong><small>mensagens processadas</small></article>
+          <article><span>REPOSIÇÃO</span><strong id="dashStock">0</strong><small>análises concluídas</small></article>
+          <article><span>IMOBILIÁRIA</span><strong id="dashLead">0</strong><small>leads qualificados</small></article>
+        </div>
+
         <div class="demo-shell reveal">
           <div class="demo-tabs" role="tablist" aria-label="Demonstrações">
             <button class="demo-tab active" data-demo="clinica" type="button"><span>✦</span><div><b>Clínica</b><small>Atendimento</small></div></button>
@@ -144,7 +164,7 @@
             <section class="demo-panel active" id="demo-clinica">
               <div class="demo-panel-head">
                 <div><span class="live-dot"></span><p><b>Iana — Clínica Estética</b><small>Ambiente demonstrativo</small></p></div>
-                <button type="button" class="ghost-button" data-reset="clinica">↻ Reiniciar</button>
+                <div class="head-actions"><button type="button" class="ghost-button" data-auto="clinica">▶ Auto</button><button type="button" class="ghost-button" data-share="clinica">↗ Compartilhar</button><button type="button" class="ghost-button" data-reset="clinica">↻ Reiniciar</button></div>
               </div>
               <div class="clinic-grid">
                 <div class="phone-card">
@@ -164,7 +184,7 @@
             </section>
 
             <section class="demo-panel" id="demo-reposicao">
-              <div class="demo-panel-head"><div><span class="live-dot"></span><p><b>Reposição Inteligente</b><small>Simulação operacional</small></p></div><button type="button" class="ghost-button" data-reset="reposicao">↻ Reiniciar</button></div>
+              <div class="demo-panel-head"><div><span class="live-dot"></span><p><b>Reposição Inteligente</b><small>Simulação operacional</small></p></div><div class="head-actions"><button type="button" class="ghost-button" data-auto="reposicao">▶ Auto</button><button type="button" class="ghost-button" data-share="reposicao">↗ Compartilhar</button><button type="button" class="ghost-button" data-reset="reposicao">↻ Reiniciar</button></div></div>
               <div class="stock-grid">
                 <div class="input-card">
                   <span class="panel-label">DADOS DA VISITA</span>
@@ -183,7 +203,7 @@
             </section>
 
             <section class="demo-panel" id="demo-imobiliaria">
-              <div class="demo-panel-head"><div><span class="live-dot"></span><p><b>Iana — Imobiliária</b><small>Qualificação de lead</small></p></div><button type="button" class="ghost-button" data-reset="imobiliaria">↻ Reiniciar</button></div>
+              <div class="demo-panel-head"><div><span class="live-dot"></span><p><b>Iana — Imobiliária</b><small>Qualificação de lead</small></p></div><div class="head-actions"><button type="button" class="ghost-button" data-auto="imobiliaria">▶ Auto</button><button type="button" class="ghost-button" data-share="imobiliaria">↗ Compartilhar</button><button type="button" class="ghost-button" data-reset="imobiliaria">↻ Reiniciar</button></div></div>
               <div class="lead-grid">
                 <div class="lead-chat-card">
                   <div class="phone-header"><div class="avatar alt">I</div><p><b>Iana</b><small>Horizonte Prime • online</small></p><span>⋮</span></div>
@@ -233,10 +253,43 @@
       </div>
     </section>
 
+
+    <section class="experience-section section-space" id="experiencia">
+      <div class="container">
+        <div class="section-heading reveal"><div><span class="eyebrow">ANTES × DEPOIS</span><h2>O valor aparece quando o processo deixa de depender de esforço manual.</h2></div><p>Use o comparador para enxergar a diferença entre uma rotina fragmentada e uma jornada automatizada.</p></div>
+        <div class="before-after reveal" id="beforeAfter">
+          <div class="ba-grid">
+            <article class="ba-card manual"><span>SEM AUTOMAÇÃO</span><h3>Operação manual</h3><ul><li>Respostas dependem de disponibilidade</li><li>Informações espalhadas entre pessoas</li><li>Leads podem esfriar sem acompanhamento</li><li>Decisões operacionais dependem de planilha e memória</li></ul></article>
+            <article class="ba-card auto"><span>COM AUTOMAÇÃO</span><h3>Fluxo orientado por regras e dados</h3><ul><li>Atendimento inicia imediatamente</li><li>Contexto organizado durante a conversa</li><li>Próxima ação definida automaticamente</li><li>Indicadores e histórico ficam visíveis</li></ul></article>
+          </div>
+          <div class="ba-note"><span>O objetivo não é substituir toda a operação.</span><b>É automatizar o que é repetitivo e deixar as pessoas focadas nas decisões que exigem atenção humana.</b></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="roi-section section-space" id="roi">
+      <div class="container roi-grid">
+        <div class="roi-copy reveal"><span class="eyebrow">CALCULADORA DE IMPACTO</span><h2>Quanto trabalho repetitivo existe hoje?</h2><p>Esta estimativa é demonstrativa. Ajuste os dados para visualizar o potencial de redução de tarefas manuais.</p><div class="roi-disclaimer">Os números não representam promessa de resultado financeiro. Servem apenas para ilustrar capacidade operacional.</div></div>
+        <div class="roi-card reveal delay-1">
+          <label>Atendimentos por dia<input id="roiContacts" type="range" min="10" max="300" value="80"><b id="roiContactsValue">80</b></label>
+          <label>Minutos gastos por atendimento<input id="roiMinutes" type="range" min="1" max="20" value="6"><b id="roiMinutesValue">6 min</b></label>
+          <label>Percentual potencialmente automatizável<input id="roiPercent" type="range" min="10" max="90" value="55"><b id="roiPercentValue">55%</b></label>
+          <div class="roi-results"><article><span>HORAS MANUAIS / MÊS</span><strong id="roiManualHours">176h</strong></article><article><span>HORAS POTENCIALMENTE LIBERADAS</span><strong id="roiSavedHours">97h</strong></article><article><span>EQUIVALENTE EM DIAS DE 8H</span><strong id="roiDays">12,1 dias</strong></article></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="history-section section-space">
+      <div class="container">
+        <div class="section-heading reveal"><div><span class="eyebrow">HISTÓRICO LOCAL</span><h2>Veja o que você já testou.</h2></div><p>O histórico abaixo fica salvo apenas neste navegador usando localStorage. Nenhuma informação é enviada para servidor.</p></div>
+        <div class="history-card reveal"><div class="history-head"><span>ÚLTIMAS EXECUÇÕES</span><b id="historyCount">0 registros</b></div><div id="demoHistory" class="history-list"></div></div>
+      </div>
+    </section>
+
     <section class="cta-section" id="contato">
       <div class="container">
         <div class="cta-card reveal">
-          <div><span class="eyebrow">PROJETO SOB MEDIDA</span><h2>Existe um processo repetitivo no seu negócio?</h2><p>Posso analisar a rotina e transformar parte dela em uma automação demonstrável, integrada e preparada para crescer.</p></div>
+          <div><span class="eyebrow">PROJETO SOB MEDIDA</span><h2 id="contextCtaTitle">Existe um processo repetitivo no seu negócio?</h2><p id="contextCtaText">Posso analisar a rotina e transformar parte dela em uma automação demonstrável, integrada e preparada para crescer.</p></div>
           <a class="button button-primary" href="https://wa.me/5547988927391" target="_blank" rel="noopener">Conversar no WhatsApp ↗</a>
         </div>
       </div>
