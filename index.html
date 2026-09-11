@@ -2,13 +2,14 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#07111c">
   <meta name="description" content="Demonstrações interativas de automações para clínicas, imobiliárias e operação de estoque.">
-  <title>Gabriel Automações | Demonstrações Interativas</title>
+  <title>Zion Automações | Demonstrações Interativas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/zion-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -18,9 +19,9 @@
 
   <header class="site-header" id="top">
     <div class="container nav-shell">
-      <a class="brand" href="#top" aria-label="Gabriel Automações">
-        <span class="brand-mark">G</span>
-        <span>Gabriel <b>Automações</b></span>
+      <a class="brand" href="#top" aria-label="Zion Automações">
+        <span class="brand-mark">Z</span>
+        <span>Zion <b>Automações</b></span>
       </a>
       <button class="menu-button" id="menuButton" type="button" aria-label="Abrir menu" aria-expanded="false">☰</button>
       <nav class="nav-links" id="navLinks">
@@ -38,16 +39,16 @@
       <div class="container hero-grid">
         <div class="hero-copy reveal">
           <span class="eyebrow"><i></i>AUTOMAÇÃO • IA • PROCESSOS</span>
-          <h1>Mostre sua operação trabalhando <span>antes mesmo da contratação.</span></h1>
-          <p>Um portfólio interativo para demonstrar como automações atendem clientes, qualificam oportunidades e tomam decisões operacionais em tempo real.</p>
+          <h1>Automações que você pode <span>testar antes de contratar.</span></h1>
+          <p>A Zion Automações transforma processos repetitivos em experiências inteligentes. Aqui você não precisa imaginar como funciona: pode conversar, testar cenários e acompanhar cada decisão da automação.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="#demos">Testar demonstrações</a>
             <a class="button button-secondary" href="#solucoes">Conhecer soluções</a>
           </div>
           <div class="hero-facts">
-            <div><b>3</b><span>soluções demonstráveis</span></div>
-            <div><b>HTML + CSS + JS</b><span>sem backend nesta versão</span></div>
-            <div><b>GitHub Pages</b><span>hospedagem gratuita</span></div>
+            <div><b>3</b><span>soluções para testar agora</span></div>
+            <div><b>Interativo</b><span>você controla a demonstração</span></div>
+            <div><b>Sem cadastro</b><span>teste direto no navegador</span></div>
           </div>
         </div>
 
@@ -164,7 +165,7 @@
             <section class="demo-panel active" id="demo-clinica">
               <div class="demo-panel-head clinic-demo-head">
                 <div><span class="live-dot"></span><p><b>Iana — Clínica Horizonte Estético</b><small>Simulação conversacional completa • sem backend</small></p></div>
-                <div class="head-actions"><button type="button" class="ghost-button" data-auto="clinica">▶ Jornada automática</button><button type="button" class="ghost-button" data-share="clinica">↗ Compartilhar</button><button type="button" class="ghost-button" data-reset="clinica">↻ Reiniciar</button></div>
+                <div class="head-actions"><button type="button" class="ghost-button focus-button" data-focus="clinica">⛶ Expandir</button><button type="button" class="ghost-button" data-auto="clinica">▶ Jornada automática</button><button type="button" class="ghost-button" data-share="clinica">↗ Compartilhar</button><button type="button" class="ghost-button" data-reset="clinica">↻ Reiniciar</button></div>
               </div>
 
               <div class="clinic-scenarios" aria-label="Cenários de teste">
@@ -229,41 +230,108 @@
             </section>
 
             <section class="demo-panel" id="demo-reposicao">
-              <div class="demo-panel-head"><div><span class="live-dot"></span><p><b>Reposição Inteligente</b><small>Simulação operacional</small></p></div><div class="head-actions"><button type="button" class="ghost-button" data-auto="reposicao">▶ Auto</button><button type="button" class="ghost-button" data-share="reposicao">↗ Compartilhar</button><button type="button" class="ghost-button" data-reset="reposicao">↻ Reiniciar</button></div></div>
-              <div class="stock-grid">
-                <div class="input-card">
-                  <span class="panel-label">DADOS DA VISITA</span>
-                  <label>Produto<select id="productSelect"><option>Pão de Hambúrguer</option><option>Pão de Sanduíche</option><option>Pão de Hot Dog</option><option>Pão Sovado</option><option>Pão Caseiro</option></select></label>
-                  <div class="form-grid"><label>Estoque atual<input id="stockInput" type="number" min="0" value="8"></label><label>Venda média<input id="avgInput" type="number" min="0" value="28"></label></div>
-                  <div class="form-grid"><label>Estoque de segurança<input id="safetyInput" type="number" min="0" value="10"></label><label>Cobertura<select id="coverageSelect"><option value="1">1 período</option><option value="1.5">1,5 períodos</option><option value="2">2 períodos</option></select></label></div>
-                  <button class="button button-primary full" id="analyzeStock" type="button">Analisar reposição</button>
-                  <div class="stock-log" id="stockLog"><div><i class="ok"></i><span>Dados da loja carregados</span><time>agora</time></div><div><i></i><span>Aguardando nova análise</span><time>—</time></div></div>
+              <div class="demo-panel-head">
+                <div><span class="live-dot"></span><p><b>Reposição Inteligente — Visita em Loja</b><small>Simulação operacional completa • dados demonstrativos</small></p></div>
+                <div class="head-actions"><button type="button" class="ghost-button focus-button" data-focus="reposicao">⛶ Expandir</button><button type="button" class="ghost-button" data-auto="reposicao">▶ Jornada automática</button><button type="button" class="ghost-button" data-share="reposicao">↗ Compartilhar</button><button type="button" class="ghost-button" data-reset="reposicao">↻ Reiniciar</button></div>
+              </div>
+
+              <div class="stock-scenario-bar">
+                <div><span>VENDEDOR</span><b id="stockSeller">Lucas Martins</b></div>
+                <div><span>LOJA</span><b id="stockStore">Supermercado Aurora • Costa e Silva</b></div>
+                <div><span>ROTA</span><b>Quinta-feira • Loja 02/04</b></div>
+                <div><span>ÚLTIMA VISITA</span><b>04/09 • 09:18</b></div>
+              </div>
+
+              <div class="stock-grid stock-grid-v7">
+                <div class="stock-visit-card">
+                  <div class="stock-card-head">
+                    <div><span class="panel-label">CONFERÊNCIA DE ESTOQUE</span><h3>Contagem na gôndola</h3><p>Informe o estoque encontrado na loja. A sugestão é recalculada por produto.</p></div>
+                    <span class="visit-status">Visita em andamento</span>
+                  </div>
+                  <div class="stock-products" id="stockProducts"></div>
+                  <div class="stock-visit-actions">
+                    <button class="button button-primary" id="analyzeStock" type="button">Gerar sugestão de pedido</button>
+                    <button class="button button-secondary" id="simulateLowStock" type="button">Simular estoque crítico</button>
+                  </div>
+                  <div class="stock-log stock-log-v7" id="stockLog"></div>
                 </div>
-                <div class="result-card">
-                  <div class="result-head"><div><span class="panel-label">RECOMENDAÇÃO</span><h3 id="stockProduct">Pão de Hambúrguer</h3></div><span class="risk medium" id="riskBadge">Atenção</span></div>
-                  <div class="result-kpis"><div><span>ESTOQUE</span><b id="metricStock">8 un.</b></div><div><span>DEMANDA</span><b id="metricDemand">28 un.</b></div><div><span>SEGURANÇA</span><b id="metricSafety">10 un.</b></div><div><span>COBERTURA</span><b id="metricCoverage">1,0x</b></div></div>
-                  <div class="recommendation"><span>PEDIDO SUGERIDO</span><div><strong id="suggestedQty">30</strong><small>unidades</small></div><p id="stockExplanation">Com base na venda média, estoque atual e margem de segurança, o sistema calcula a necessidade recomendada para o próximo período.</p></div>
+
+                <div class="stock-order-card">
+                  <div class="result-head"><div><span class="panel-label">PEDIDO RECOMENDADO</span><h3>Resumo da visita</h3></div><span class="risk medium" id="riskBadge">Analisando</span></div>
+                  <div class="stock-summary-kpis">
+                    <div><span>ITENS CRÍTICOS</span><b id="stockCritical">0</b></div>
+                    <div><span>UNIDADES</span><b id="stockUnits">0</b></div>
+                    <div><span>COBERTURA MÉDIA</span><b id="stockCoverage">—</b></div>
+                  </div>
+                  <div class="order-lines" id="stockOrderLines"></div>
+                  <div class="order-total">
+                    <span>PEDIDO SUGERIDO</span>
+                    <div><strong id="stockTotalUnits">0</strong><small>unidades no total</small></div>
+                    <p id="stockExplanation">Faça a contagem dos produtos e gere a análise para visualizar a recomendação.</p>
+                  </div>
+                  <button class="button button-primary full" id="confirmOrder" type="button" disabled>Confirmar pedido demonstrativo</button>
+                  <div class="order-confirmation" id="orderConfirmation" hidden></div>
                 </div>
               </div>
+              <div class="stock-capabilities"><span>O QUE A DEMO SIMULA</span><div><i></i>Contagem por loja</div><div><i></i>Histórico de venda</div><div><i></i>Risco de ruptura</div><div><i></i>Estoque de segurança</div><div><i></i>Sugestão por SKU</div><div><i></i>Registro da visita</div></div>
             </section>
 
             <section class="demo-panel" id="demo-imobiliaria">
-              <div class="demo-panel-head"><div><span class="live-dot"></span><p><b>Iana — Imobiliária</b><small>Qualificação de lead</small></p></div><div class="head-actions"><button type="button" class="ghost-button" data-auto="imobiliaria">▶ Auto</button><button type="button" class="ghost-button" data-share="imobiliaria">↗ Compartilhar</button><button type="button" class="ghost-button" data-reset="imobiliaria">↻ Reiniciar</button></div></div>
-              <div class="lead-grid">
-                <div class="lead-chat-card">
-                  <div class="phone-header"><div class="avatar alt">I</div><p><b>Iana</b><small>Horizonte Prime • online</small></p><span>⋮</span></div>
-                  <div class="chat-area" id="leadChat"><div class="msg bot">Olá! 👋 Posso te ajudar a encontrar um imóvel. Você está procurando para comprar ou alugar?<time>09:41</time></div></div>
-                  <div class="lead-options" id="leadOptions"></div>
+              <div class="demo-panel-head">
+                <div><span class="live-dot"></span><p><b>Iana — Horizonte Prime Imóveis</b><small>Qualificação, matching e agendamento de visita</small></p></div>
+                <div class="head-actions"><button type="button" class="ghost-button focus-button" data-focus="imobiliaria">⛶ Expandir</button><button type="button" class="ghost-button" data-auto="imobiliaria">▶ Jornada automática</button><button type="button" class="ghost-button" data-share="imobiliaria">↗ Compartilhar</button><button type="button" class="ghost-button" data-reset="imobiliaria">↻ Reiniciar</button></div>
+              </div>
+
+              <div class="realty-scenario-bar">
+                <div><span>CANAL</span><b>WhatsApp</b></div><div><span>ORIGEM</span><b>Site / Anúncio</b></div><div><span>ATENDIMENTO</span><b>Iana • online</b></div><div><span>CRM</span><b id="realtyCrmState">Novo lead</b></div>
+              </div>
+
+              <div class="lead-grid lead-grid-v7">
+                <div class="lead-chat-card realty-phone">
+                  <div class="phone-header"><div class="avatar alt">I</div><p><b>Iana</b><small><span class="online-dot"></span>Horizonte Prime • online</small></p><span>⋮</span></div>
+                  <div class="chat-area realty-chat" id="leadChat"></div>
+                  <div class="lead-options realty-options" id="leadOptions"></div>
+                  <form class="realty-form" id="leadForm"><input id="leadInput" autocomplete="off" placeholder="Digite uma mensagem"><button type="submit" aria-label="Enviar">➤</button></form>
                 </div>
-                <div class="crm-card">
-                  <div class="crm-top"><div><span class="panel-label">QUALIFICAÇÃO</span><h3>Perfil do lead</h3></div><span class="temperature cold" id="leadTemperature">Frio</span></div>
-                  <div class="score-line"><span>Completude do perfil</span><b id="leadPercent">20%</b></div><div class="progress"><i id="leadProgress" style="width:20%"></i></div>
-                  <div class="crm-fields"><p>Objetivo<b id="crmIntent">—</b></p><p>Tipo de imóvel<b id="crmType">—</b></p><p>Região<b id="crmRegion">—</b></p><p>Orçamento<b id="crmBudget">—</b></p></div>
-                  <div class="handoff" id="handoff"><span>↗</span><div><b>Encaminhamento inteligente</b><p>Quando o perfil estiver completo, o lead será preparado para o corretor.</p></div></div>
+
+                <div class="realty-side">
+                  <div class="crm-card crm-card-v7">
+                    <div class="crm-top"><div><span class="panel-label">CRM EM TEMPO REAL</span><h3>Perfil do lead</h3></div><span class="temperature cold" id="leadTemperature">Frio</span></div>
+                    <div class="score-line"><span>Completude do perfil</span><b id="leadPercent">10%</b></div><div class="progress"><i id="leadProgress" style="width:10%"></i></div>
+                    <div class="crm-fields crm-fields-v7"><p>Objetivo<b id="crmIntent">—</b></p><p>Tipo<b id="crmType">—</b></p><p>Região<b id="crmRegion">—</b></p><p>Orçamento<b id="crmBudget">—</b></p><p>Quartos<b id="crmBedrooms">—</b></p><p>Prazo<b id="crmTimeline">—</b></p></div>
+                    <div class="handoff" id="handoff"><span>↗</span><div><b>Qualificação em andamento</b><p>A Iana ainda está coletando informações para encontrar os imóveis mais aderentes.</p></div></div>
+                  </div>
+
+                  <div class="property-matches" id="propertyMatches" hidden>
+                    <div class="property-head"><div><span class="panel-label">MATCHING DE IMÓVEIS</span><h3>Compatíveis com o perfil</h3></div><span id="matchCount">0 opções</span></div>
+                    <div class="property-list" id="propertyList"></div>
+                  </div>
+
+                  <div class="visit-preview" id="visitPreview" hidden>
+                    <div><span class="panel-label">VISITA AGENDADA</span><i>confirmada</i></div>
+                    <h4 id="visitProperty">—</h4>
+                    <p><span>Data</span><b id="visitDate">—</b></p><p><span>Horário</span><b id="visitTime">—</b></p>
+                    <small id="visitProtocol">Protocolo: —</small>
+                  </div>
                 </div>
               </div>
+              <div class="realty-capabilities"><span>ESTA SIMULAÇÃO EXECUTA</span><div><i></i>Qualificação do perfil</div><div><i></i>Matching de imóveis</div><div><i></i>Classificação do lead</div><div><i></i>Escolha do imóvel</div><div><i></i>Agenda de visita</div><div><i></i>Encaminhamento ao corretor</div></div>
             </section>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="custom-section section-space" id="personalizacao">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div><span class="eyebrow">FEITO PARA A OPERAÇÃO REAL</span><h2>A demonstração é um ponto de partida. A automação é adaptada ao seu negócio.</h2></div>
+          <p>Fluxos, linguagem, regras, horários, equipe, serviços, produtos e integrações podem mudar conforme a rotina da empresa.</p>
+        </div>
+        <div class="custom-grid">
+          <article class="custom-card reveal"><span>01</span><h3>Atendimento</h3><p>Tom de voz, perguntas, serviços, triagem, regras de encaminhamento e jornadas diferentes para cada tipo de cliente.</p></article>
+          <article class="custom-card reveal delay-1"><span>02</span><h3>Regras de negócio</h3><p>Critérios de qualificação, limites, aprovações, cálculos, horários, exceções e decisões específicas da sua operação.</p></article>
+          <article class="custom-card reveal delay-2"><span>03</span><h3>Integrações</h3><p>Quando o projeto evoluir, a mesma experiência pode conversar com n8n, CRM, agenda, banco de dados e APIs.</p></article>
         </div>
       </div>
     </section>
@@ -341,8 +409,14 @@
     </section>
   </main>
 
-  <footer class="footer"><div class="container"><a class="brand" href="#top"><span class="brand-mark">G</span><span>Gabriel <b>Automações</b></span></a><p>Demonstrações interativas de automação.</p><span>HTML • CSS • JavaScript</span></div></footer>
+  <footer class="footer"><div class="container"><a class="brand" href="#top"><span class="brand-mark">Z</span><span>Zion <b>Automações</b></span></a><p>Demonstrações interativas de automação.</p><span>HTML • CSS • JavaScript</span></div></footer>
 
+  <nav class="mobile-dock" aria-label="Navegação rápida">
+    <a href="#top"><span>⌂</span><small>Início</small></a>
+    <a href="#demos"><span>✦</span><small>Testar</small></a>
+    <a href="https://wa.me/5547988927391" target="_blank" rel="noopener"><span>↗</span><small>WhatsApp</small></a>
+  </nav>
+  <button class="focus-close" id="focusClose" type="button" aria-label="Fechar demonstração em tela cheia">×</button>
   <div class="toast" id="toast"></div>
   <script src="script.js"></script>
 </body>
