@@ -1,14 +1,17 @@
-# Zion Automações — V9
+# Zion Automações — Site comercial V10
 
-Site estático em HTML + CSS + JavaScript, pronto para GitHub Pages.
+Site estático em HTML, CSS e JavaScript, pronto para GitHub Pages.
 
-## V9
-- Demos interativas para Clínica, Reposição e Imobiliária.
-- Layout responsivo e modo imersivo para celular.
-- Calculadora de impacto operacional.
-- Funil comercial com estimador de projeto.
-- Faixa dinâmica de implantação, mensalidade e prazo.
-- WhatsApp pré-preenchido com o cenário configurado pelo lead.
-- Continuidade entre a demo testada e a solução pré-selecionada no estimador.
+## O que esta versão acrescenta
+- Demos interativas de clínica, reposição e imobiliária
+- Estimador comercial de implantação, mensalidade e prazo
+- Jornada de implantação em 5 etapas
+- Seção de confiança operacional e critérios de segurança
+- Bloco de aderência: quando automação faz ou não faz sentido
+- FAQ comercial com objeções reais
+- CTAs contextuais e WhatsApp com resumo do cenário
+- Experiência responsiva e modo imersivo no celular
+- Dados demonstrativos, sem backend e sem n8n
 
-Os valores exibidos são estimativas demonstrativas e não constituem proposta comercial vinculante.
+## Publicação
+Envie `index.html`, `styles.css`, `script.js` e a pasta `assets` para a raiz do repositório e ative GitHub Pages.
