@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Demonstrações interativas de automações inteligentes para atendimento, vendas e operações." />
+  <title>Gabriel | Automações Inteligentes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Início">
+      <span class="brand-mark">G</span>
+      <span>Gabriel <strong>Automações</strong></span>
+    </a>
+    <nav class="nav">
+      <a href="#solucoes">Soluções</a>
+      <a href="#demo">Demonstrações</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a class="nav-cta" href="#contato">Falar comigo</a>
+    </nav>
+    <button class="menu-btn" aria-label="Abrir menu">☰</button>
+  </header>
+
+  <main>
+    <section id="inicio" class="hero container">
+      <div class="hero-copy">
+        <span class="eyebrow">AUTOMAÇÃO + IA + PROCESSOS</span>
+        <h1>Transformo tarefas repetitivas em <span>processos inteligentes.</span></h1>
+        <p>Conheça automações criadas para atender clientes, organizar operações, reduzir retrabalho e acelerar decisões. Aqui você pode entender e testar como cada solução funciona.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#demo">Testar automações</a>
+          <a class="btn ghost" href="#como-funciona">Ver como funciona</a>
+        </div>
+        <div class="trust-row">
+          <div><strong>24/7</strong><span>atendimento contínuo</span></div>
+          <div><strong>IA</strong><span>contexto e decisão</span></div>
+          <div><strong>n8n</strong><span>integrações reais</span></div>
+        </div>
+      </div>
+
+      <div class="hero-panel glass-card">
+        <div class="panel-head">
+          <div>
+            <span class="status-dot"></span>
+            <span>Sistema operacional</span>
+          </div>
+          <span class="mini-pill">DEMO</span>
+        </div>
+        <div class="flow-visual">
+          <div class="flow-node active"><span>01</span><div><strong>Entrada</strong><small>WhatsApp, formulário ou sistema</small></div></div>
+          <div class="flow-line"></div>
+          <div class="flow-node"><span>02</span><div><strong>Automação</strong><small>IA, regras, banco de dados</small></div></div>
+          <div class="flow-line"></div>
+          <div class="flow-node"><span>03</span><div><strong>Ação</strong><small>Resposta, cálculo, atualização</small></div></div>
+        </div>
+        <div class="live-event">
+          <span class="pulse"></span>
+          <div><strong>Nova execução</strong><small>Processo concluído com sucesso</small></div>
+          <span>0.8s</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="solucoes" class="section container">
+      <div class="section-heading">
+        <span class="eyebrow">SOLUÇÕES</span>
+        <h2>Automações construídas para resolver problemas reais.</h2>
+        <p>Cada projeto combina atendimento, integração e lógica de negócio em uma experiência simples para o usuário.</p>
+      </div>
+
+      <div class="solution-grid">
+        <article class="solution-card" data-open-demo="clinica">
+          <div class="icon-wrap">✦</div>
+          <span class="tag">Atendimento</span>
+          <h3>Iana para Clínicas</h3>
+          <p>Recepção inteligente pelo WhatsApp para responder dúvidas, orientar pacientes e automatizar etapas da agenda.</p>
+          <div class="chips"><span>WhatsApp</span><span>IA</span><span>Agenda</span></div>
+          <button>Ver demonstração <span>→</span></button>
+        </article>
+
+        <article class="solution-card" data-open-demo="reposicao">
+          <div class="icon-wrap">▦</div>
+          <span class="tag">Operações</span>
+          <h3>Reposição Inteligente</h3>
+          <p>Sistema para acompanhar estoque em loja e gerar sugestões de pedido com base no cenário de cada operação.</p>
+          <div class="chips"><span>Estoque</span><span>Dashboard</span><span>Dados</span></div>
+          <button>Ver demonstração <span>→</span></button>
+        </article>
+
+        <article class="solution-card" data-open-demo="imobiliaria">
+          <div class="icon-wrap">⌂</div>
+          <span class="tag">Comercial</span>
+          <h3>Iana para Imobiliárias</h3>
+          <p>Atendimento para qualificar leads, entender intenção, organizar informações e encaminhar oportunidades ao corretor.</p>
+          <div class="chips"><span>Leads</span><span>CRM</span><span>IA</span></div>
+          <button>Ver demonstração <span>→</span></button>
+        </article>
+      </div>
+    </section>
+
+    <section id="demo" class="section demo-section">
+      <div class="container">
+        <div class="section-heading center">
+          <span class="eyebrow">DEMONSTRAÇÕES</span>
+          <h2>Experimente antes de conversar comigo.</h2>
+          <p>Esta primeira versão simula o uso real. Na próxima etapa, cada interface pode ser conectada às automações reais do n8n.</p>
+        </div>
+
+        <div class="demo-shell">
+          <div class="demo-tabs" role="tablist">
+            <button class="demo-tab active" data-demo="clinica">Clínica</button>
+            <button class="demo-tab" data-demo="reposicao">Reposição</button>
+            <button class="demo-tab" data-demo="imobiliaria">Imobiliária</button>
+          </div>
+
+          <div class="demo-content active" id="demo-clinica">
+            <div class="demo-info">
+              <span class="mini-pill">IA DE ATENDIMENTO</span>
+              <h3>Atendimento de uma clínica, na prática.</h3>
+              <p>Digite uma mensagem como se estivesse falando com a recepção. Nesta versão, a conversa é simulada localmente.</p>
+              <ul>
+                <li>Responde dúvidas frequentes</li>
+                <li>Entende intenção do paciente</li>
+                <li>Simula agendamento e encaminhamento</li>
+              </ul>
+            </div>
+            <div class="phone-demo">
+              <div class="phone-head">
+                <div class="avatar">IA</div>
+                <div><strong>Iana</strong><small>online agora</small></div>
+                <span>•••</span>
+              </div>
+              <div class="chat-body" id="clinicChat">
+                <div class="msg bot">Oi! 😊 Sou a Iana. Como posso ajudar você hoje?</div>
+              </div>
+              <div class="quick-actions">
+                <button data-chat-preset="Quero saber sobre limpeza de pele">Limpeza de pele</button>
+                <button data-chat-preset="Quero agendar um procedimento">Agendamento</button>
+              </div>
+              <form class="chat-input" id="clinicForm">
+                <input id="clinicInput" type="text" placeholder="Digite uma mensagem..." autocomplete="off" />
+                <button type="submit">➜</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="demo-content" id="demo-reposicao">
+            <div class="demo-info">
+              <span class="mini-pill">ESTOQUE + DECISÃO</span>
+              <h3>Descubra quanto pedir em segundos.</h3>
+              <p>Altere os números e veja a sugestão ser recalculada automaticamente.</p>
+              <ul>
+                <li>Entrada simples pelo vendedor</li>
+                <li>Cálculo de necessidade de reposição</li>
+                <li>Resultado pronto para decisão</li>
+              </ul>
+            </div>
+            <div class="stock-demo">
+              <div class="stock-head"><div><small>LOJA DEMONSTRAÇÃO</small><strong>Mercado Central</strong></div><span class="status-badge">Online</span></div>
+              <label>Produto<select id="productSelect"><option>Pão de Hambúrguer</option><option>Pão de Sanduíche</option><option>Pão Hot Dog</option><option>Pão Sovado</option></select></label>
+              <div class="input-grid">
+                <label>Estoque atual<input id="stockInput" type="number" min="0" value="8"></label>
+                <label>Venda prevista<input id="salesInput" type="number" min="0" value="34"></label>
+              </div>
+              <label>Estoque de segurança<input id="safetyInput" type="number" min="0" value="10"></label>
+              <button class="btn primary full" id="calcStock">Calcular sugestão</button>
+              <div class="result-card" id="stockResult">
+                <small>PEDIDO SUGERIDO</small>
+                <strong>36 <span>unidades</span></strong>
+                <p>Venda prevista + segurança − estoque atual</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="demo-content" id="demo-imobiliaria">
+            <div class="demo-info">
+              <span class="mini-pill">QUALIFICAÇÃO DE LEADS</span>
+              <h3>Um atendimento que entende o cliente.</h3>
+              <p>Simule uma conversa e veja como a automação conduz a qualificação sem sobrecarregar o corretor.</p>
+              <ul>
+                <li>Identifica compra ou aluguel</li>
+                <li>Coleta perfil e localização</li>
+                <li>Prepara o lead para atendimento humano</li>
+              </ul>
+            </div>
+            <div class="lead-demo">
+              <div class="lead-top"><span>Lead em qualificação</span><strong id="leadScore">35%</strong></div>
+              <div class="progress"><span id="leadProgress" style="width:35%"></span></div>
+              <div class="question-card" id="leadQuestion">
+                <small>PERGUNTA ATUAL</small>
+                <h4>O que você procura?</h4>
+                <div class="option-grid">
+                  <button data-lead="alugar">Alugar</button>
+                  <button data-lead="comprar">Comprar</button>
+                </div>
+              </div>
+              <div class="lead-summary" id="leadSummary">
+                <div><span>Intenção</span><strong>—</strong></div>
+                <div><span>Imóvel</span><strong>—</strong></div>
+                <div><span>Região</span><strong>—</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="como-funciona" class="section container">
+      <div class="section-heading">
+        <span class="eyebrow">COMO FUNCIONA</span>
+        <h2>Da mensagem até a ação, sem trabalho manual.</h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step"><span>01</span><h3>Recebe</h3><p>O cliente envia uma mensagem ou o usuário informa os dados.</p></div>
+        <div class="step"><span>02</span><h3>Entende</h3><p>A automação interpreta o contexto e aplica as regras do negócio.</p></div>
+        <div class="step"><span>03</span><h3>Executa</h3><p>Consulta sistemas, calcula, registra informações ou atualiza dados.</p></div>
+        <div class="step"><span>04</span><h3>Entrega</h3><p>O resultado chega ao cliente, vendedor ou gestor de forma automática.</p></div>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="cta-box" id="contato">
+        <div>
+          <span class="eyebrow">TEM UM PROCESSO REPETITIVO?</span>
+          <h2>Talvez ele também possa ser automatizado.</h2>
+          <p>Posso analisar sua operação e mostrar onde uma automação pode reduzir trabalho, demora ou perda de oportunidades.</p>
+        </div>
+        <a class="btn primary" href="https://wa.me/5547988927391?text=Oi%20Gabriel%2C%20vi%20seu%20site%20de%20automa%C3%A7%C3%B5es%20e%20quero%20entender%20melhor." target="_blank" rel="noopener">Conversar no WhatsApp</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="brand"><span class="brand-mark">G</span><span>Gabriel <strong>Automações</strong></span></div>
+      <p>Automações inteligentes para atendimento, vendas e operações.</p>
+      <span>© 2026</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
