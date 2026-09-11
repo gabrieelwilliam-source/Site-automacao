@@ -12,31 +12,40 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="site-glow glow-a"></div><div class="site-glow glow-b"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <div class="noise"></div>
+  <div class="site-glow glow-a" data-parallax="0.12"></div>
+  <div class="site-glow glow-b" data-parallax="-0.08"></div>
+
   <header class="header" id="top">
     <a href="#top" class="brand" aria-label="Gabriel Automações">
       <span class="brand-symbol">G</span><span class="brand-copy">Gabriel <b>Automações</b></span>
     </a>
     <nav class="nav" id="nav">
-      <a href="#solucoes">Soluções</a><a href="#demonstracoes">Demonstrações</a><a href="#arquitetura">Como funciona</a>
+      <a href="#solucoes">Soluções</a><a href="#demonstracoes">Demonstrações</a><a href="#processo">Processo</a><a href="#arquitetura">Arquitetura</a>
       <a href="#contato" class="nav-contact">Falar comigo</a>
     </nav>
     <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
   </header>
 
   <main>
-    <section class="hero wrap">
-      <div class="hero-copy">
+    <section class="hero wrap section-pad">
+      <div class="hero-copy reveal">
         <div class="kicker"><span></span>AUTOMAÇÃO • IA • PROCESSOS</div>
         <h1>Sistemas que trabalham <em>enquanto você cuida do negócio.</em></h1>
         <p class="hero-lead">Demonstrações interativas de automações para atendimento, operação e vendas. Explore cada solução como se estivesse usando o sistema de verdade.</p>
         <div class="hero-actions"><a class="btn btn-primary" href="#demonstracoes">Testar agora</a><a class="btn btn-secondary" href="#solucoes">Conhecer soluções</a></div>
-        <div class="hero-trust"><span><b>24/7</b>Disponibilidade</span><span><b>IA</b>Contexto e decisão</span><span><b>Integrações</b>WhatsApp, CRM e dados</span></div>
+        <div class="hero-trust">
+          <span><b data-count="24" data-suffix="/7">0</b>Disponibilidade</span>
+          <span><b>IA</b>Contexto e decisão</span>
+          <span><b>Integrações</b>WhatsApp, CRM e dados</span>
+        </div>
       </div>
-      <div class="hero-console">
+
+      <div class="hero-console reveal reveal-delay-1 tilt-card" data-tilt>
         <div class="console-top"><div class="window-dots"><i></i><i></i><i></i></div><span>automations.live</span><div class="live-pill"><i></i> AO VIVO</div></div>
         <div class="console-body">
-          <div class="console-kpi"><small>EXECUÇÕES HOJE</small><strong>1.284</strong><span>+18,6%</span></div>
+          <div class="console-kpi"><small>EXECUÇÕES HOJE</small><strong data-count="1284">0</strong><span>+18,6%</span></div>
           <div class="mini-chart" aria-hidden="true"><i style="height:32%"></i><i style="height:48%"></i><i style="height:42%"></i><i style="height:68%"></i><i style="height:55%"></i><i style="height:82%"></i><i style="height:74%"></i><i style="height:96%"></i></div>
           <div class="console-stream">
             <div class="stream-row"><span class="stream-icon">01</span><div><b>Mensagem recebida</b><small>WhatsApp • Clínica</small></div><time>agora</time></div>
@@ -49,19 +58,38 @@
       </div>
     </section>
 
-    <section class="section wrap" id="solucoes">
-      <div class="section-head"><div><span class="eyebrow">SOLUÇÕES</span><h2>Projetadas para problemas reais.</h2></div><p>Não são apenas chatbots. Cada solução combina lógica de negócio, dados, experiência e automação.</p></div>
-      <div class="solution-grid">
-        <article class="solution-card featured" data-open="clinica"><div class="card-top"><span class="solution-icon">✦</span><span class="solution-num">01</span></div><span class="category">ATENDIMENTO</span><h3>Iana para Clínicas</h3><p>Recepcionista digital para orientar pacientes, entender intenções, organizar solicitações e conduzir jornadas de atendimento.</p><div class="tags"><span>WhatsApp</span><span>IA</span><span>Agenda</span><span>CRM</span></div><button>Explorar demonstração <span>↗</span></button></article>
-        <article class="solution-card" data-open="reposicao"><div class="card-top"><span class="solution-icon">▦</span><span class="solution-num">02</span></div><span class="category">OPERAÇÕES</span><h3>Reposição Inteligente</h3><p>Transforma estoque informado em sugestão de pedido, histórico operacional e visão gerencial para reduzir excesso e ruptura.</p><div class="tags"><span>Estoque</span><span>Dashboard</span><span>Dados</span><span>Vendas</span></div><button>Explorar demonstração <span>↗</span></button></article>
-        <article class="solution-card" data-open="imobiliaria"><div class="card-top"><span class="solution-icon">⌂</span><span class="solution-num">03</span></div><span class="category">COMERCIAL</span><h3>Iana para Imobiliárias</h3><p>Qualifica leads, identifica intenção e perfil, registra informações essenciais e entrega oportunidades mais prontas ao corretor.</p><div class="tags"><span>Leads</span><span>CRM</span><span>IA</span><span>Vendas</span></div><button>Explorar demonstração <span>↗</span></button></article>
+    <section class="metrics-strip reveal">
+      <div class="wrap metrics-grid">
+        <div><strong data-count="3">0</strong><span>soluções demonstráveis</span></div>
+        <div><strong data-count="100" data-suffix="%">0</strong><span>rodando no navegador</span></div>
+        <div><strong data-count="0" data-prefix="R$ ">0</strong><span>de infraestrutura na demo</span></div>
+        <div><strong>&lt; 1s</strong><span>feedback visual das ações</span></div>
       </div>
+    </section>
+
+    <section class="section wrap" id="solucoes">
+      <div class="section-head reveal"><div><span class="eyebrow">SOLUÇÕES</span><h2>Projetadas para problemas reais.</h2></div><p>Não são apenas chatbots. Cada solução combina lógica de negócio, dados, experiência e automação.</p></div>
+      <div class="solution-grid">
+        <article class="solution-card featured reveal tilt-card" data-open="clinica" data-tilt>
+          <div class="card-top"><span class="solution-icon">✦</span><span class="solution-num">01</span></div><span class="category">ATENDIMENTO</span><h3>Iana para Clínicas</h3><p>Recepcionista digital para orientar pacientes, entender intenções, organizar solicitações e conduzir jornadas de atendimento.</p><div class="tags"><span>WhatsApp</span><span>IA</span><span>Agenda</span><span>CRM</span></div><button>Explorar demonstração <span>↗</span></button>
+        </article>
+        <article class="solution-card reveal reveal-delay-1 tilt-card" data-open="reposicao" data-tilt>
+          <div class="card-top"><span class="solution-icon">▦</span><span class="solution-num">02</span></div><span class="category">OPERAÇÕES</span><h3>Reposição Inteligente</h3><p>Transforma estoque informado em sugestão de pedido, histórico operacional e visão gerencial para reduzir excesso e ruptura.</p><div class="tags"><span>Estoque</span><span>Dashboard</span><span>Dados</span><span>Vendas</span></div><button>Explorar demonstração <span>↗</span></button>
+        </article>
+        <article class="solution-card reveal reveal-delay-2 tilt-card" data-open="imobiliaria" data-tilt>
+          <div class="card-top"><span class="solution-icon">⌂</span><span class="solution-num">03</span></div><span class="category">COMERCIAL</span><h3>Iana para Imobiliárias</h3><p>Qualifica leads, identifica intenção e perfil, registra informações essenciais e entrega oportunidades mais prontas ao corretor.</p><div class="tags"><span>Leads</span><span>CRM</span><span>IA</span><span>Vendas</span></div><button>Explorar demonstração <span>↗</span></button>
+        </article>
+      </div>
+    </section>
+
+    <section class="showcase-band">
+      <div class="marquee" aria-hidden="true"><div class="marquee-track"><span>ATENDIMENTO INTELIGENTE</span><i>✦</i><span>QUALIFICAÇÃO DE LEADS</span><i>✦</i><span>REPOSIÇÃO ORIENTADA POR DADOS</span><i>✦</i><span>PROCESSOS 24/7</span><i>✦</i><span>ATENDIMENTO INTELIGENTE</span><i>✦</i><span>QUALIFICAÇÃO DE LEADS</span><i>✦</i><span>REPOSIÇÃO ORIENTADA POR DADOS</span><i>✦</i><span>PROCESSOS 24/7</span></div></div>
     </section>
 
     <section class="demo-section" id="demonstracoes">
       <div class="wrap">
-        <div class="section-head demo-title"><div><span class="eyebrow">LABORATÓRIO INTERATIVO</span><h2>Veja a automação acontecendo.</h2></div><p>As experiências abaixo são simulações avançadas executadas 100% no navegador, sem acesso a dados reais.</p></div>
-        <div class="demo-app">
+        <div class="section-head demo-title reveal"><div><span class="eyebrow">LABORATÓRIO INTERATIVO</span><h2>Veja a automação acontecendo.</h2></div><p>As experiências abaixo são simulações avançadas executadas 100% no navegador, sem acesso a dados reais.</p></div>
+        <div class="demo-app reveal">
           <aside class="demo-sidebar">
             <div class="demo-sidebar-title">DEMONSTRAÇÕES</div>
             <button class="demo-nav active" data-demo="clinica"><span class="nav-icon">✦</span><div><b>Clínica</b><small>Atendimento inteligente</small></div><i></i></button>
@@ -94,35 +122,32 @@
             <div class="stock-layout">
               <div class="seller-panel">
                 <div class="seller-head"><div><span class="role-badge">VENDEDOR</span><h4>Visita em loja</h4><p>Mercado Central • Joinville</p></div><span class="visit-status"><i></i> visita aberta</span></div>
-                <div class="form-row"><label>Produto<select id="productSelect"><option>Pão de Hambúrguer</option><option>Pão de Sanduíche</option><option>Pão de Hot Dog</option><option>Pão Sovado</option><option>Pão Caseiro</option></select></label><label>Estoque atual<input id="stockInput" type="number" min="0" value="8" /></label></div>
-                <div class="form-row"><label>Venda média / período<input id="avgInput" type="number" min="0" value="28" /></label><label>Estoque de segurança<input id="safetyInput" type="number" min="0" value="10" /></label></div>
-                <label class="full-field">Cobertura desejada<select id="coverageSelect"><option value="1">1 período</option><option value="1.5">1,5 período</option><option value="2">2 períodos</option></select></label>
-                <button class="btn btn-primary full" id="runStock">Analisar e sugerir pedido</button>
-                <div class="stock-log" id="stockLog"><div><i class="ok"></i><span>Dados da loja carregados</span><time>agora</time></div><div><i></i><span>Aguardando nova análise</span><time>—</time></div></div>
+                <div class="form-row"><label>Produto<select id="productSelect"><option>Pão de Hambúrguer</option><option>Pão de Sanduíche</option><option>Pão de Hot Dog</option><option>Pão Sovado</option><option>Pão Caseiro</option></select></label><label>Estoque atual<input type="number" min="0" id="stockInput" value="8"></label></div>
+                <div class="form-row"><label>Venda média<input type="number" min="0" id="avgInput" value="28"></label><label>Estoque de segurança<input type="number" min="0" id="safetyInput" value="10"></label></div>
+                <label>Cobertura desejada<select id="coverageSelect"><option value="0.5">0,5 período</option><option value="1" selected>1 período</option><option value="1.5">1,5 períodos</option><option value="2">2 períodos</option></select></label>
+                <button class="run-button" id="runStock">Analisar e sugerir pedido</button>
               </div>
               <div class="manager-panel">
-                <div class="manager-head"><div><span>RESULTADO DA ANÁLISE</span><h4 id="stockProduct">Pão de Hambúrguer</h4></div><span class="risk low" id="riskBadge">Risco baixo</span></div>
-                <div class="big-result"><span>PEDIDO SUGERIDO</span><strong id="suggestedQty">30</strong><small>unidades</small></div>
-                <div class="result-metrics"><div><span>Estoque atual</span><b id="metricStock">8 un.</b></div><div><span>Demanda prevista</span><b id="metricDemand">28 un.</b></div><div><span>Segurança</span><b id="metricSafety">10 un.</b></div><div><span>Cobertura</span><b id="metricCoverage">1,0x</b></div></div>
-                <div class="explanation"><span>POR QUE ESTE PEDIDO?</span><p id="stockExplanation">A sugestão considera a demanda esperada, o estoque de segurança e desconta o saldo atual da loja.</p></div>
-                <div class="manager-events"><div><span>Estoque atualizado</span><b>há 12 min</b></div><div><span>Última visita</span><b>Hoje, 09:18</b></div><div><span>Histórico simulado</span><b>12 registros</b></div></div>
+                <div class="manager-head"><div><span class="role-badge alt">GESTOR</span><h4>Recomendação automática</h4><p id="stockProduct">Pão de Hambúrguer</p></div><span class="risk high" id="riskBadge">Risco alto</span></div>
+                <div class="metric-grid"><div><span>Estoque</span><strong id="metricStock">8 un.</strong></div><div><span>Demanda</span><strong id="metricDemand">28 un.</strong></div><div><span>Segurança</span><strong id="metricSafety">10 un.</strong></div><div><span>Cobertura</span><strong id="metricCoverage">1.0x</strong></div></div>
+                <div class="suggestion-card"><span>PEDIDO SUGERIDO</span><div><strong id="suggestedQty">30</strong><small>unidades</small></div><p id="stockExplanation">A recomendação considera demanda projetada, estoque atual e margem de segurança.</p></div>
+                <div class="stock-log" id="stockLog"><div><i class="ok"></i><span>Dados da loja carregados</span><time>agora</time></div><div><i></i><span>Aguardando nova análise</span><time>—</time></div></div>
               </div>
             </div>
           </section>
 
           <section class="demo-workspace" id="workspace-imobiliaria">
             <div class="workspace-bar"><div><h3>Iana — Imobiliária</h3><span><i class="online-dot"></i> qualificação comercial</span></div><button class="reset-btn" data-reset="imobiliaria">↻ Reiniciar demo</button></div>
-            <div class="realty-layout">
+            <div class="lead-layout">
               <div class="lead-chat-card">
-                <div class="lead-chat-head"><div class="avatar alt">I</div><div><b>Iana</b><small>Assistente comercial</small></div><span class="channel-chip">WhatsApp</span></div>
-                <div class="lead-chat" id="leadChat"><div class="message bot">Olá! 👋 Posso te ajudar a encontrar um imóvel. Você está procurando para comprar ou alugar?</div></div>
-                <div class="lead-options" id="leadOptions"><button data-answer="Alugar">Alugar</button><button data-answer="Comprar">Comprar</button></div>
+                <div class="lead-chat-head"><div class="avatar house">I</div><div><b>Iana</b><small>Atendimento imobiliário</small></div></div>
+                <div class="chat lead-chat" id="leadChat"><div class="message bot">Olá! 👋 Posso te ajudar a encontrar um imóvel. Você está procurando para comprar ou alugar?<time>09:41</time></div></div>
+                <div class="lead-options" id="leadOptions"></div>
               </div>
               <div class="crm-panel">
-                <div class="crm-head"><div><span>LEAD EM QUALIFICAÇÃO</span><h4 id="crmName">Novo contato</h4></div><strong id="leadPercent">20%</strong></div>
-                <div class="lead-progress"><span id="leadProgress" style="width:20%"></span></div>
-                <div class="lead-score"><span>QUALIDADE DO LEAD</span><div><b id="leadQuality">Inicial</b><span id="temperature" class="temperature cold">Frio</span></div></div>
-                <div class="crm-fields"><div><span>Objetivo</span><b id="crmIntent">—</b></div><div><span>Tipo de imóvel</span><b id="crmType">—</b></div><div><span>Região</span><b id="crmRegion">—</b></div><div><span>Faixa de valor</span><b id="crmBudget">—</b></div></div>
+                <div class="crm-title"><div><span>CRM — PERFIL DO LEAD</span><h4>Qualificação em andamento</h4></div><span class="temperature cold" id="temperature">Frio</span></div>
+                <div class="lead-score"><div><span>QUALIFICAÇÃO</span><b id="leadPercent">20%</b></div><div class="progress"><i id="leadProgress" style="width:20%"></i></div><small id="leadQuality">Inicial</small></div>
+                <div class="crm-fields"><div><span>Objetivo</span><b id="crmIntent">—</b></div><div><span>Tipo</span><b id="crmType">—</b></div><div><span>Região</span><b id="crmRegion">—</b></div><div><span>Orçamento</span><b id="crmBudget">—</b></div></div>
                 <div class="handoff" id="handoff"><div class="handoff-icon">↗</div><div><b>Encaminhamento inteligente</b><p>Quando o perfil estiver completo, o lead será preparado para o corretor.</p></div></div>
               </div>
             </div>
@@ -131,23 +156,39 @@
       </div>
     </section>
 
-    <section class="section wrap" id="arquitetura">
-      <div class="section-head"><div><span class="eyebrow">COMO FUNCIONA</span><h2>Complexidade por trás. Simplicidade na frente.</h2></div><p>A interface pode ser simples para o usuário enquanto a automação coordena decisões, dados e integrações nos bastidores.</p></div>
-      <div class="architecture">
-        <div class="arch-node"><span>01</span><div class="arch-icon">↘</div><h3>Entrada</h3><p>WhatsApp, site, formulário, sistema ou ação humana.</p></div><div class="arch-arrow">→</div>
-        <div class="arch-node highlight"><span>02</span><div class="arch-icon">✦</div><h3>Inteligência</h3><p>IA, regras, contexto, validação e lógica de negócio.</p></div><div class="arch-arrow">→</div>
-        <div class="arch-node"><span>03</span><div class="arch-icon">▤</div><h3>Dados</h3><p>CRM, agenda, planilhas, bancos e sistemas internos.</p></div><div class="arch-arrow">→</div>
-        <div class="arch-node"><span>04</span><div class="arch-icon">✓</div><h3>Ação</h3><p>Responder, registrar, calcular, alertar ou encaminhar.</p></div>
+    <section class="process-section" id="processo">
+      <div class="wrap process-layout">
+        <div class="process-copy reveal"><span class="eyebrow">COMO A AUTOMAÇÃO PENSA</span><h2>Uma jornada contínua, não um conjunto de respostas soltas.</h2><p>As automações são estruturadas em etapas. Cada mensagem altera o contexto e pode gerar uma decisão, consulta, registro ou encaminhamento.</p><div class="process-progress"><span id="processLine"></span></div></div>
+        <div class="process-steps">
+          <article class="process-step reveal" data-step="1"><span>01</span><div><small>ENTRADA</small><h3>Recebe o evento</h3><p>Mensagem, formulário, atualização de estoque ou novo lead entra no fluxo.</p></div></article>
+          <article class="process-step reveal" data-step="2"><span>02</span><div><small>CONTEXTO</small><h3>Entende o cenário</h3><p>O sistema identifica intenção, histórico e dados disponíveis para aquela sessão.</p></div></article>
+          <article class="process-step reveal" data-step="3"><span>03</span><div><small>DECISÃO</small><h3>Aplica regras</h3><p>Condições de negócio determinam a próxima ação, sem depender de respostas aleatórias.</p></div></article>
+          <article class="process-step reveal" data-step="4"><span>04</span><div><small>AÇÃO</small><h3>Executa e registra</h3><p>Responde, calcula, consulta, atualiza sistemas ou prepara o encaminhamento humano.</p></div></article>
+        </div>
       </div>
     </section>
 
-    <section class="section wrap" id="contato">
-      <div class="cta-card"><div><span class="eyebrow">SEU PROCESSO PODE SER O PRÓXIMO</span><h2>Tem uma rotina repetitiva no seu negócio?</h2><p>Posso analisar o processo e mostrar onde automação e IA realmente fazem sentido.</p></div><a class="btn btn-primary cta-btn" href="https://wa.me/5547988927391?text=Oi%20Gabriel!%20Vi%20suas%20automa%C3%A7%C3%B5es%20e%20quero%20entender%20melhor." target="_blank" rel="noopener">Conversar no WhatsApp ↗</a></div>
+    <section class="section wrap architecture" id="arquitetura">
+      <div class="section-head reveal"><div><span class="eyebrow">ARQUITETURA</span><h2>Hoje é simulação. Amanhã é integração real.</h2></div><p>O front-end já nasce separado do motor da automação. Isso permite conectar n8n, bancos, APIs e IA sem reconstruir a experiência.</p></div>
+      <div class="architecture-flow reveal">
+        <div class="arch-node"><span>01</span><b>Usuário</b><small>Site, WhatsApp ou app</small></div><i>→</i><div class="arch-node"><span>02</span><b>Interface</b><small>HTML + CSS + JavaScript</small></div><i>→</i><div class="arch-node accent"><span>03</span><b>Motor</b><small>n8n / regras / IA</small></div><i>→</i><div class="arch-node"><span>04</span><b>Dados</b><small>CRM, agenda, Supabase</small></div><i>→</i><div class="arch-node"><span>05</span><b>Resultado</b><small>Resposta e ação executada</small></div>
+      </div>
+      <div class="compare-grid">
+        <div class="compare-card reveal"><span>AGORA</span><h3>Demo local</h3><ul><li>Sem custo de API</li><li>Sem dados reais</li><li>Experiência instantânea</li><li>Ideal para apresentação</li></ul></div>
+        <div class="compare-card featured reveal reveal-delay-1"><span>PRÓXIMA ETAPA</span><h3>Automação conectada</h3><ul><li>Webhooks reais</li><li>Agenda e CRM integrados</li><li>IA e regras de negócio</li><li>Execução ponta a ponta</li></ul></div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contato">
+      <div class="wrap cta-card reveal">
+        <div><span class="eyebrow">AUTOMAÇÃO SOB MEDIDA</span><h2>Tem um processo repetitivo no seu negócio?</h2><p>Eu posso transformar a rotina em um fluxo automatizado, com experiência simples para quem usa e inteligência por trás.</p></div>
+        <a class="btn btn-primary btn-large" href="https://wa.me/5547988927391" target="_blank" rel="noopener">Conversar no WhatsApp ↗</a>
+      </div>
     </section>
   </main>
 
-  <footer><div class="wrap footer-inner"><a href="#top" class="brand mini"><span class="brand-symbol">G</span><span class="brand-copy">Gabriel <b>Automações</b></span></a><p>Automação aplicada a atendimento, vendas e operações.</p><span>© 2026</span></div></footer>
-  <div class="toast" id="toast"></div>
+  <footer class="footer"><div class="wrap"><a href="#top" class="brand"><span class="brand-symbol">G</span><span class="brand-copy">Gabriel <b>Automações</b></span></a><p>Automação, IA e processos desenhados para negócios reais.</p><span>© 2026</span></div></footer>
+  <div id="toast" class="toast"></div>
   <script src="script.js"></script>
 </body>
 </html>
