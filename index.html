@@ -162,24 +162,69 @@
 
           <div class="demo-content">
             <section class="demo-panel active" id="demo-clinica">
-              <div class="demo-panel-head">
-                <div><span class="live-dot"></span><p><b>Iana — Clínica Estética</b><small>Ambiente demonstrativo</small></p></div>
-                <div class="head-actions"><button type="button" class="ghost-button" data-auto="clinica">▶ Auto</button><button type="button" class="ghost-button" data-share="clinica">↗ Compartilhar</button><button type="button" class="ghost-button" data-reset="clinica">↻ Reiniciar</button></div>
+              <div class="demo-panel-head clinic-demo-head">
+                <div><span class="live-dot"></span><p><b>Iana — Clínica Horizonte Estético</b><small>Simulação conversacional completa • sem backend</small></p></div>
+                <div class="head-actions"><button type="button" class="ghost-button" data-auto="clinica">▶ Jornada automática</button><button type="button" class="ghost-button" data-share="clinica">↗ Compartilhar</button><button type="button" class="ghost-button" data-reset="clinica">↻ Reiniciar</button></div>
               </div>
-              <div class="clinic-grid">
-                <div class="phone-card">
-                  <div class="phone-header"><div class="avatar">I</div><p><b>Iana</b><small>online</small></p><span>⋮</span></div>
-                  <div class="chat-area" id="clinicChat"><div class="date-chip">Hoje</div><div class="msg bot">Oi! 😊 Sou a Iana, assistente da clínica. Como posso te ajudar hoje?<time>09:41</time></div></div>
-                  <div class="quick-actions" id="clinicQuick"><button type="button" data-preset="Quero fazer botox">Quero fazer botox</button><button type="button" data-preset="Quanto custa limpeza de pele?">Ver valores</button><button type="button" data-preset="Quero agendar">Agendar</button></div>
-                  <form class="chat-form" id="clinicForm"><input id="clinicInput" maxlength="180" autocomplete="off" placeholder="Digite uma mensagem"><button type="submit">➤</button></form>
+
+              <div class="clinic-scenarios" aria-label="Cenários de teste">
+                <div class="scenario-copy"><span>CENÁRIOS GUIADOS</span><b>Teste como se fosse um cliente real</b><small>Você também pode escrever livremente no chat.</small></div>
+                <div class="scenario-buttons">
+                  <button type="button" class="scenario-btn active" data-clinic-scenario="free">Conversa livre</button>
+                  <button type="button" class="scenario-btn" data-clinic-scenario="booking">Agendamento</button>
+                  <button type="button" class="scenario-btn" data-clinic-scenario="reschedule">Reagendamento</button>
+                  <button type="button" class="scenario-btn" data-clinic-scenario="cancel">Cancelamento</button>
+                  <button type="button" class="scenario-btn" data-clinic-scenario="sessions">Saldo de sessões</button>
+                </div>
+              </div>
+
+              <div class="clinic-grid clinic-grid-v6">
+                <div class="phone-card clinic-phone">
+                  <div class="phone-header">
+                    <div class="avatar">I</div>
+                    <p><b>Iana</b><small><i class="online-dot"></i> online • responde em instantes</small></p>
+                    <span>⋮</span>
+                  </div>
+                  <div class="chat-area clinic-chat-real" id="clinicChat" aria-live="polite"></div>
+                  <div class="clinic-statusline" id="clinicStatusLine"><span></span><small>Atendimento iniciado</small></div>
+                  <div class="quick-actions clinic-quick-real" id="clinicQuick"></div>
+                  <form class="chat-form" id="clinicForm">
+                    <input id="clinicInput" maxlength="260" autocomplete="off" placeholder="Digite como se estivesse falando no WhatsApp">
+                    <button type="submit" aria-label="Enviar">➤</button>
+                  </form>
                 </div>
 
-                <div class="automation-card">
-                  <div class="automation-head"><div><span>PAINEL DA AUTOMAÇÃO</span><h3>Execução em tempo real</h3></div><span class="health">● Operacional</span></div>
-                  <div class="mini-kpis"><div><span>INTENÇÃO</span><b id="clinicIntent">Aguardando</b></div><div><span>CONFIANÇA</span><b id="clinicConfidence">—</b></div><div><span>ETAPA</span><b id="clinicStage">Recepção</b></div></div>
-                  <div class="context-card"><span>CONTEXTO DA CONVERSA</span><div><p>Interesse<b id="ctxInterest">Não identificado</b></p><p>Status<b id="ctxStatus">Novo contato</b></p><p>Próxima ação<b id="ctxAction">Entender necessidade</b></p><p>Mensagens<b id="ctxMessages">0</b></p></div></div>
-                  <div class="trace-list" id="clinicTrace"><div class="trace-row done"><span>1</span><p><b>Sessão iniciada</b><small>Contexto demonstrativo criado</small></p><time>0 ms</time></div><div class="trace-row"><span>2</span><p><b>Aguardando mensagem</b><small>A automação reage conforme a intenção</small></p><time>—</time></div></div>
+                <div class="automation-card clinic-automation-v6">
+                  <div class="automation-head"><div><span>PAINEL DA AUTOMAÇÃO</span><h3>O que estaria acontecendo por trás</h3></div><span class="health">● Operacional</span></div>
+                  <div class="mini-kpis clinic-kpis-v6"><div><span>INTENÇÃO</span><b id="clinicIntent">Abertura</b></div><div><span>CONFIANÇA</span><b id="clinicConfidence">96%</b></div><div><span>ETAPA</span><b id="clinicStage">Recepção</b></div></div>
+
+                  <div class="context-card clinic-context-v6">
+                    <span>MEMÓRIA DA CONVERSA</span>
+                    <div>
+                      <p>Cliente<b id="ctxCustomer">Gabriel</b></p>
+                      <p>Interesse<b id="ctxInterest">Não identificado</b></p>
+                      <p>Data desejada<b id="ctxDate">—</b></p>
+                      <p>Horário<b id="ctxTime">—</b></p>
+                      <p>Status<b id="ctxStatus">Novo contato</b></p>
+                      <p>Próxima ação<b id="ctxAction">Entender necessidade</b></p>
+                    </div>
+                  </div>
+
+                  <div class="appointment-preview" id="clinicAppointmentCard" hidden>
+                    <div class="appointment-preview-head"><span>AGENDAMENTO DA SESSÃO</span><i id="appointmentState">ativo</i></div>
+                    <h4 id="appointmentService">—</h4>
+                    <div><p><span>Data</span><b id="appointmentDate">—</b></p><p><span>Horário</span><b id="appointmentTime">—</b></p></div>
+                    <small id="appointmentProtocol">Protocolo: —</small>
+                  </div>
+
+                  <div class="trace-title"><span>EXECUÇÃO</span><small id="ctxMessages">0 mensagens</small></div>
+                  <div class="trace-list clinic-trace-real" id="clinicTrace"></div>
                 </div>
+              </div>
+
+              <div class="clinic-capabilities">
+                <span>ESTA SIMULAÇÃO ENTENDE</span>
+                <div><i></i>Procedimentos e objetivos</div><div><i></i>Valores e pagamento</div><div><i></i>Agenda e horários</div><div><i></i>Reagendamento</div><div><i></i>Cancelamento</div><div><i></i>Saldo de sessões</div><div><i></i>Horário e localização</div><div><i></i>Pedido de atendente</div>
               </div>
             </section>
 

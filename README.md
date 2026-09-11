@@ -1,17 +1,17 @@
-# Gabriel Automações — V4
+# Gabriel Automações — Portfólio V6
 
-Site estático separado em:
+Site estático em HTML + CSS + JavaScript, pronto para GitHub Pages.
 
-- `index.html` — estrutura e conteúdo
-- `styles.css` — layout, responsividade e efeitos visuais
-- `script.js` — interações, demos e efeitos de scroll
+## Destaque desta versão
+A demonstração de clínica foi reconstruída com um motor conversacional local, sem n8n e sem API externa. Ela mantém contexto e simula jornadas completas de atendimento: procedimentos, orientação por objetivo, valores, formas de pagamento, agenda, confirmação, protocolo, reagendamento, cancelamento, saldo de sessões e handoff humano.
 
-Não usa framework, API ou backend nesta versão. Pode ser hospedado gratuitamente no GitHub Pages.
+## Estrutura
+- `index.html` — conteúdo e estrutura
+- `styles.css` — identidade visual, responsividade e efeitos
+- `script.js` — interações, demos e motor local de simulação
 
-## Publicar no GitHub Pages
-1. Crie um repositório.
-2. Envie `index.html`, `styles.css` e `script.js` para a raiz.
-3. Em **Settings → Pages**, selecione **Deploy from a branch**.
-4. Escolha `main` e `/root`.
+## Publicação no GitHub Pages
+Envie os três arquivos para a raiz do repositório e habilite GitHub Pages em Settings > Pages, usando a branch principal.
 
-As demonstrações são locais e usam apenas dados fictícios.
+## Importante
+Os dados da clínica, horários, preços, endereço e agendamentos exibidos no ambiente de demonstração são fictícios/demonstrativos. Nenhum dado real é enviado para servidor nesta versão.
