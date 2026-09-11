@@ -1,89 +1,62 @@
-const tabs = document.querySelectorAll('.demo-tab');
-const contents = document.querySelectorAll('.demo-content');
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const now=()=>new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
 
-function openDemo(name){
-  tabs.forEach(t => t.classList.toggle('active', t.dataset.demo === name));
-  contents.forEach(c => c.classList.toggle('active', c.id === `demo-${name}`));
-  document.querySelector('#demo').scrollIntoView({behavior:'smooth'});
-}
+$('#menuToggle').addEventListener('click',()=>$('#nav').classList.toggle('open'));
+$$('#nav a').forEach(a=>a.addEventListener('click',()=>$('#nav').classList.remove('open')));
 
-tabs.forEach(tab => tab.addEventListener('click', () => openDemo(tab.dataset.demo)));
-document.querySelectorAll('[data-open-demo]').forEach(card => card.addEventListener('click', () => openDemo(card.dataset.openDemo)));
+function openDemo(name,scroll=true){$$('.demo-nav').forEach(b=>b.classList.toggle('active',b.dataset.demo===name));$$('.demo-workspace').forEach(w=>w.classList.toggle('active',w.id===`workspace-${name}`));if(scroll)$('#demonstracoes').scrollIntoView({behavior:'smooth',block:'start'})}
+$$('.demo-nav').forEach(b=>b.addEventListener('click',()=>openDemo(b.dataset.demo,false)));
+$$('[data-open]').forEach(c=>c.addEventListener('click',()=>openDemo(c.dataset.open,true)));
 
-const clinicForm = document.querySelector('#clinicForm');
-const clinicInput = document.querySelector('#clinicInput');
-const clinicChat = document.querySelector('#clinicChat');
+// CLÍNICA — motor local de conversa com contexto
+const clinic={step:'start',interest:null,name:'Visitante',messages:0};
+const chat=$('#clinicChat'),input=$('#clinicInput'),form=$('#clinicForm'),trace=$('#clinicTrace');
+function addMsg(box,text,who='bot'){const d=document.createElement('div');d.className=`message ${who}`;d.innerHTML=`${text}<time>${now()}</time>`;box.appendChild(d);box.scrollTop=box.scrollHeight;return d}
+function typing(box){const d=document.createElement('div');d.className='message bot typing';d.innerHTML='<i></i><i></i><i></i>';box.appendChild(d);box.scrollTop=box.scrollHeight;return d}
+function normalize(t){return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
+function setClinicMeta(intent,confidence,stage,interest,status,action){$('#clinicIntent').textContent=intent;$('#clinicConfidence').textContent=confidence;$('#clinicStage').textContent=stage;if(interest)$('#ctxInterest').textContent=interest;if(status)$('#ctxStatus').textContent=status;if(action)$('#ctxAction').textContent=action}
+function traceClinic(intent){trace.innerHTML=`<div class="trace-item done"><span>1</span><div><b>Mensagem recebida</b><small>Canal: WhatsApp simulado</small></div><time>0 ms</time></div><div class="trace-item processing"><span>2</span><div><b>Interpretando contexto</b><small>Intenção provável: ${intent}</small></div><time>120 ms</time></div><div class="trace-item idle"><span>3</span><div><b>Preparando próxima ação</b><small>Aplicando regras da jornada</small></div><time>—</time></div>`}
+function finishTrace(){const items=$$('.trace-item',trace);items.forEach(i=>i.classList.remove('processing','idle'));items.forEach(i=>i.classList.add('done'));items[2].querySelector('time').textContent='480 ms'}
+function clinicReply(raw){const t=normalize(raw);clinic.messages++;
+ let intent='Dúvida geral',conf='86%',reply='Entendi 😊 Posso te ajudar. Me conta um pouco melhor o que você gostaria de fazer ou saber.';
+ if(/oi|ola|bom dia|boa tarde|boa noite/.test(t)){intent='Saudação';conf='98%';reply='Oi! 😊 Tudo bem? Me conta: você quer conhecer algum procedimento, consultar valores ou organizar um atendimento?';setClinicMeta(intent,conf,'Recepção',null,'Em atendimento','Identificar interesse')}
+ else if(/botox|toxina|ruga|testa/.test(t)){intent='Interesse em procedimento';conf='96%';clinic.interest='Toxina botulínica';clinic.step='procedure';reply='Claro 😊 A toxina botulínica é muito procurada para suavizar linhas de expressão. Para orientar melhor, é a primeira vez que você pensa em fazer esse procedimento?';setClinicMeta(intent,conf,'Qualificação','Toxina botulínica','Interesse identificado','Entender histórico')}
+ else if(/limpeza|pele/.test(t)){intent='Interesse em procedimento';conf='94%';clinic.interest='Limpeza de pele';clinic.step='procedure';reply='Claro 😊 A limpeza de pele ajuda a remover impurezas e pode fazer parte de uma rotina de cuidado mais completa. Você já realizou alguma vez ou seria a primeira?';setClinicMeta(intent,conf,'Qualificação','Limpeza de pele','Interesse identificado','Entender histórico')}
+ else if(/preco|valor|quanto custa|custa/.test(t)){intent='Consulta de valor';conf='97%';reply=`Os valores podem variar conforme o procedimento e o que for mais adequado para você 😊 Posso registrar seu interesse${clinic.interest?` em ${clinic.interest}`:''} e simular o encaminhamento para a equipe continuar o atendimento.`;setClinicMeta(intent,conf,'Encaminhamento',clinic.interest||null,'Solicitação comercial','Encaminhar responsável')}
+ else if(/agendar|agenda|horario|marcar|consulta/.test(t)){intent='Agendamento';conf='98%';clinic.step='schedule';reply=`Perfeito 😊${clinic.interest?` Já considerei seu interesse em ${clinic.interest}.`:''} Para continuar a simulação, você prefere atendimento no período da manhã ou da tarde?`;setClinicMeta(intent,conf,'Agendamento',clinic.interest||null,'Pronto para agenda','Coletar preferência')}
+ else if(/manha/.test(t)&&clinic.step==='schedule'){intent='Preferência de horário';conf='92%';reply='Ótimo. Registrei preferência pela manhã. Em uma automação conectada à agenda, eu consultaria os horários disponíveis agora e apresentaria as melhores opções para você.';setClinicMeta(intent,conf,'Consulta de agenda',clinic.interest||null,'Preferência registrada','Consultar disponibilidade')}
+ else if(/tarde/.test(t)&&clinic.step==='schedule'){intent='Preferência de horário';conf='92%';reply='Perfeito. Registrei preferência pela tarde. No ambiente real, a próxima etapa seria consultar a agenda e retornar apenas horários realmente disponíveis.';setClinicMeta(intent,conf,'Consulta de agenda',clinic.interest||null,'Preferência registrada','Consultar disponibilidade')}
+ else if(/primeira|nunca|nao fiz/.test(t)&&clinic.step==='procedure'){intent='Histórico do paciente';conf='91%';reply='Sem problema 😊 Nesse caso, o ideal é a equipe avaliar seu objetivo antes de definir a melhor abordagem. Posso seguir simulando o atendimento e preparar seu encaminhamento.';setClinicMeta(intent,conf,'Triagem',clinic.interest,'Necessita orientação','Preparar encaminhamento')}
+ else if(/ja fiz|fiz sim/.test(t)&&clinic.step==='procedure'){intent='Histórico do paciente';conf='89%';reply='Entendi 😊 Isso ajuda bastante. Na automação real, essa informação ficaria registrada para a profissional já receber o contexto antes de assumir a conversa.';setClinicMeta(intent,conf,'Triagem',clinic.interest,'Contexto enriquecido','Registrar histórico')}
+ else setClinicMeta(intent,conf,'Atendimento',clinic.interest||null,'Em atendimento','Entender necessidade');
+ return {intent,reply};}
+async function sendClinic(text){if(!text.trim())return;addMsg(chat,text,'user');input.value='';const preview=clinicReply(text);traceClinic(preview.intent);const ty=typing(chat);await sleep(650+Math.random()*450);ty.remove();addMsg(chat,preview.reply,'bot');finishTrace()}
+form.addEventListener('submit',e=>{e.preventDefault();sendClinic(input.value)});
+$$('[data-preset]').forEach(b=>b.addEventListener('click',()=>sendClinic(b.dataset.preset)));
 
-const responses = [
-  {terms:['limpeza','pele'], text:'Claro 😊 A limpeza de pele ajuda a remover impurezas e deixar a pele mais equilibrada. Se quiser, posso seguir com você e entender melhor o que está buscando.'},
-  {terms:['agendar','agendamento','horário','horario'], text:'Perfeito 😊 Posso te ajudar com isso. Para começar, qual procedimento você gostaria de realizar?'},
-  {terms:['valor','preço','preco'], text:'Os valores podem variar conforme o procedimento e a avaliação. Posso registrar seu interesse e encaminhar para a equipe responsável continuar com você.'},
-  {terms:['oi','olá','ola','bom dia','boa tarde','boa noite'], text:'Oi! 😊 Tudo bem? Me conta como posso ajudar você hoje.'}
+function resetClinic(){clinic.step='start';clinic.interest=null;clinic.messages=0;chat.innerHTML='<div class="day-chip">Hoje</div><div class="message bot">Oi! 😊 Eu sou a Iana, assistente da clínica. Como posso te ajudar hoje?<time>'+now()+'</time></div>';$('#clinicIntent').textContent='Aguardando';$('#clinicConfidence').textContent='—';$('#clinicStage').textContent='Recepção';$('#ctxInterest').textContent='Não identificado';$('#ctxStatus').textContent='Novo contato';$('#ctxAction').textContent='Entender necessidade';trace.innerHTML='<div class="trace-item done"><span>1</span><div><b>Sessão iniciada</b><small>Contexto de demonstração criado</small></div><time>0 ms</time></div><div class="trace-item idle"><span>2</span><div><b>Aguardando mensagem</b><small>A automação reage conforme a intenção</small></div><time>—</time></div>';toast('Demonstração da clínica reiniciada')}
+
+// REPOSIÇÃO
+const stockDefaults={stock:8,avg:28,safety:10,coverage:1};
+function calculateStock(animate=false){const stock=Math.max(0,+$('#stockInput').value||0),avg=Math.max(0,+$('#avgInput').value||0),safety=Math.max(0,+$('#safetyInput').value||0),coverage=+$('#coverageSelect').value||1,demand=Math.round(avg*coverage),suggested=Math.max(0,demand+safety-stock);$('#stockProduct').textContent=$('#productSelect').value;$('#metricStock').textContent=`${stock} un.`;$('#metricDemand').textContent=`${demand} un.`;$('#metricSafety').textContent=`${safety} un.`;$('#metricCoverage').textContent=`${coverage.toFixed(1)}x`;$('#suggestedQty').textContent=suggested;const ratio=demand?stock/demand:1;const badge=$('#riskBadge');badge.className='risk '+(ratio<.35?'high':ratio<.7?'medium':'low');badge.textContent=ratio<.35?'Risco alto':ratio<.7?'Atenção':'Risco baixo';$('#stockExplanation').textContent=suggested===0?'O estoque atual já cobre a demanda estimada e o nível de segurança definido. Nenhum pedido adicional é sugerido agora.':`Para ${coverage.toFixed(1).replace('.',',')} período(s), a demanda projetada é de ${demand} unidades. Somando ${safety} de segurança e descontando ${stock} em estoque, a necessidade calculada é de ${suggested} unidades.`;if(animate){$('#stockLog').innerHTML='<div><i class="ok"></i><span>Estoque recebido</span><time>0,1s</time></div><div><i class="ok"></i><span>Histórico analisado</span><time>0,4s</time></div><div><i class="ok"></i><span>Demanda projetada</span><time>0,7s</time></div><div><i class="ok"></i><span>Pedido sugerido e registrado</span><time>1,0s</time></div>';toast('Análise concluída com sucesso')}}
+$('#runStock').addEventListener('click',async()=>{const btn=$('#runStock');btn.disabled=true;btn.textContent='Analisando dados…';await sleep(800);calculateStock(true);btn.disabled=false;btn.textContent='Analisar e sugerir pedido'});
+function resetStock(){$('#stockInput').value=8;$('#avgInput').value=28;$('#safetyInput').value=10;$('#coverageSelect').value='1';$('#productSelect').selectedIndex=0;calculateStock(false);$('#stockLog').innerHTML='<div><i class="ok"></i><span>Dados da loja carregados</span><time>agora</time></div><div><i></i><span>Aguardando nova análise</span><time>—</time></div>';toast('Demonstração de reposição reiniciada')}
+calculateStock(false);
+
+// IMOBILIÁRIA — jornada guiada dinâmica
+const leadState={step:0,intent:null,type:null,region:null,budget:null};
+const leadChat=$('#leadChat'),leadOptions=$('#leadOptions');
+const leadSteps=[
+ {q:'Você prefere casa ou apartamento?',opts:['Casa','Apartamento'],field:'type'},
+ {q:'Qual região de Joinville você prefere?',opts:['Costa e Silva','Centro','América','Sem preferência'],field:'region'},
+ {q:'Qual faixa de valor você considera?',opts:['Até R$ 2 mil','R$ 2–3 mil','R$ 3–5 mil','Acima de R$ 5 mil'],field:'budget'}
 ];
+function updateCRM(){const filled=[leadState.intent,leadState.type,leadState.region,leadState.budget].filter(Boolean).length,pct=20+filled*20;$('#leadPercent').textContent=pct+'%';$('#leadProgress').style.width=pct+'%';$('#crmIntent').textContent=leadState.intent||'—';$('#crmType').textContent=leadState.type||'—';$('#crmRegion').textContent=leadState.region||'—';$('#crmBudget').textContent=leadState.budget||'—';const temp=$('#temperature');if(filled<=1){$('#leadQuality').textContent='Inicial';temp.className='temperature cold';temp.textContent='Frio'}else if(filled<4){$('#leadQuality').textContent='Qualificado';temp.className='temperature warm';temp.textContent='Morno'}else{$('#leadQuality').textContent='Pronto para contato';temp.className='temperature hot';temp.textContent='Quente';$('#handoff').classList.add('ready');$('#handoff').innerHTML='<div class="handoff-icon">✓</div><div><b>Lead pronto para o corretor</b><p>Perfil organizado e contexto preparado para continuidade humana.</p></div>'}}
+function renderOptions(opts){leadOptions.innerHTML=opts.map(o=>`<button data-lead-answer="${o}">${o}</button>`).join('');$$('[data-lead-answer]',leadOptions).forEach(b=>b.addEventListener('click',()=>answerLead(b.dataset.leadAnswer)))}
+async function answerLead(answer){addMsg(leadChat,answer,'user');if(leadState.step===0){leadState.intent=answer==='Alugar'?'Aluguel':'Compra';leadState.step=1}else{const cfg=leadSteps[leadState.step-1];leadState[cfg.field]=answer;leadState.step++}updateCRM();leadOptions.innerHTML='';const ty=typing(leadChat);await sleep(650);ty.remove();if(leadState.step<=leadSteps.length){const next=leadSteps[leadState.step-1];addMsg(leadChat,next.q,'bot');renderOptions(next.opts)}else{addMsg(leadChat,'Perfeito 😊 Já organizei seu perfil. Em uma operação real, agora eu registraria este lead no CRM e encaminharia ao corretor responsável com todo o contexto da conversa.','bot');leadOptions.innerHTML='<button disabled>Qualificação concluída ✓</button>'}}
+renderOptions(['Alugar','Comprar']);
+function resetLead(){Object.assign(leadState,{step:0,intent:null,type:null,region:null,budget:null});leadChat.innerHTML='<div class="message bot">Olá! 👋 Posso te ajudar a encontrar um imóvel. Você está procurando para comprar ou alugar?<time>'+now()+'</time></div>';renderOptions(['Alugar','Comprar']);$('#handoff').classList.remove('ready');$('#handoff').innerHTML='<div class="handoff-icon">↗</div><div><b>Encaminhamento inteligente</b><p>Quando o perfil estiver completo, o lead será preparado para o corretor.</p></div>';updateCRM();toast('Demonstração imobiliária reiniciada')}
 
-function addMessage(text, who){
-  const el = document.createElement('div');
-  el.className = `msg ${who}`;
-  el.textContent = text;
-  clinicChat.appendChild(el);
-  clinicChat.scrollTop = clinicChat.scrollHeight;
-}
-
-function respond(text){
-  const lower = text.toLowerCase();
-  const match = responses.find(r => r.terms.some(term => lower.includes(term)));
-  setTimeout(() => addMessage(match ? match.text : 'Entendi 😊 Posso te ajudar com isso. Nesta demonstração, eu simulo a conversa; depois podemos conectar este chat diretamente à automação real.', 'bot'), 450);
-}
-
-clinicForm.addEventListener('submit', e => {
-  e.preventDefault();
-  const text = clinicInput.value.trim();
-  if(!text) return;
-  addMessage(text, 'user');
-  clinicInput.value = '';
-  respond(text);
-});
-
-document.querySelectorAll('[data-chat-preset]').forEach(btn => btn.addEventListener('click', () => {
-  const text = btn.dataset.chatPreset;
-  addMessage(text,'user');
-  respond(text);
-}));
-
-const stockInput = document.querySelector('#stockInput');
-const salesInput = document.querySelector('#salesInput');
-const safetyInput = document.querySelector('#safetyInput');
-const stockResult = document.querySelector('#stockResult strong');
-
-document.querySelector('#calcStock').addEventListener('click', () => {
-  const stock = Number(stockInput.value) || 0;
-  const sales = Number(salesInput.value) || 0;
-  const safety = Number(safetyInput.value) || 0;
-  const suggested = Math.max(0, sales + safety - stock);
-  stockResult.innerHTML = `${suggested} <span>unidades</span>`;
-});
-
-const leadQuestion = document.querySelector('#leadQuestion');
-const leadScore = document.querySelector('#leadScore');
-const leadProgress = document.querySelector('#leadProgress');
-const summary = document.querySelectorAll('#leadSummary strong');
-let leadState = {intent:null,type:null,region:null};
-
-function renderLeadStep(step){
-  if(step === 2){
-    leadScore.textContent = '60%'; leadProgress.style.width='60%'; summary[0].textContent = leadState.intent;
-    leadQuestion.innerHTML = `<small>PERGUNTA ATUAL</small><h4>Qual tipo de imóvel?</h4><div class="option-grid"><button data-step2="Casa">Casa</button><button data-step2="Apartamento">Apartamento</button></div>`;
-    leadQuestion.querySelectorAll('[data-step2]').forEach(b=>b.addEventListener('click',()=>{leadState.type=b.dataset.step2; renderLeadStep(3)}));
-  }
-  if(step === 3){
-    leadScore.textContent = '82%'; leadProgress.style.width='82%'; summary[1].textContent = leadState.type;
-    leadQuestion.innerHTML = `<small>PERGUNTA ATUAL</small><h4>Qual região você prefere?</h4><div class="option-grid"><button data-step3="Costa e Silva">Costa e Silva</button><button data-step3="Centro">Centro</button></div>`;
-    leadQuestion.querySelectorAll('[data-step3]').forEach(b=>b.addEventListener('click',()=>{leadState.region=b.dataset.step3; renderLeadStep(4)}));
-  }
-  if(step === 4){
-    leadScore.textContent = '100%'; leadProgress.style.width='100%'; summary[2].textContent = leadState.region;
-    leadQuestion.innerHTML = `<small>QUALIFICAÇÃO CONCLUÍDA</small><h4>Lead pronto para o corretor.</h4><p style="color:#8fa3b5;font-size:13px;margin:0">Intenção, tipo de imóvel e região já estão organizados para o próximo atendimento.</p>`;
-  }
-}
-
-document.querySelectorAll('[data-lead]').forEach(b=>b.addEventListener('click',()=>{leadState.intent=b.dataset.lead==='alugar'?'Aluguel':'Compra'; renderLeadStep(2)}));
+$$('[data-reset]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.reset==='clinica')resetClinic();if(b.dataset.reset==='reposicao')resetStock();if(b.dataset.reset==='imobiliaria')resetLead()}));
