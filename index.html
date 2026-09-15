@@ -8,8 +8,11 @@
   <meta property="og:title" content="Zion Automações | Teste antes de contratar">
   <meta property="og:description" content="Demonstrações interativas de automação para atendimento, vendas e operação. Teste cenários reais e estime seu projeto.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/og-zion.png">
+  <meta property="og:image:alt" content="Zion Automações — demonstrações interativas de automação">
   <meta property="og:locale" content="pt_BR">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="assets/og-zion.png">
   <title>Zion Automações | Demonstrações Interativas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,11 +51,12 @@
       <div class="container hero-grid">
         <div class="hero-copy reveal">
           <span class="eyebrow"><i></i>AUTOMAÇÃO • IA • PROCESSOS</span>
-          <h1>Automações que você pode <span>testar antes de contratar.</span></h1>
-          <p>A Zion Automações transforma processos repetitivos em experiências inteligentes. Aqui você não precisa imaginar como funciona: pode conversar, testar cenários e acompanhar cada decisão da automação.</p>
+          <h1 id="heroTitle">Automações que você pode <span>testar antes de contratar.</span></h1>
+          <p id="heroSubtitle">A Zion Automações transforma processos repetitivos em experiências inteligentes. Aqui você não precisa imaginar como funciona: pode conversar, testar cenários e acompanhar cada decisão da automação.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="#demos">Testar demonstrações</a>
             <a class="button button-secondary" href="#solucoes">Conhecer soluções</a>
+             <button class="button button-ghost" id="presentationModeBtn" type="button">▶ Apresentação em 2 min</button>
           </div>
           <div class="hero-facts">
             <div><b>3</b><span>soluções para testar agora</span></div>
@@ -89,6 +93,25 @@
         <div><span>02</span><b>Operação</b><small>Estoque e reposição</small></div>
         <div><span>03</span><b>Comercial</b><small>Leads e CRM</small></div>
         <div><span>04</span><b>Integrações</b><small>n8n, APIs e dados</small></div>
+      </div>
+    </section>
+
+    <section class="segment-section section-space-sm" id="segmento">
+      <div class="container">
+        <div class="segment-shell reveal">
+          <div class="segment-copy">
+            <span class="eyebrow">PERSONALIZE A EXPERIÊNCIA</span>
+            <h2>Qual cenário se parece mais com o seu negócio?</h2>
+            <p>Escolha uma opção. O site prioriza a demonstração, os exemplos e a estimativa mais relevantes para você.</p>
+          </div>
+          <div class="segment-options" id="segmentOptions">
+            <button type="button" data-segment="clinica"><span>✦</span><b>Clínica / Estética</b><small>Atendimento, agenda e relacionamento</small></button>
+            <button type="button" data-segment="imobiliaria"><span>⌂</span><b>Imobiliária</b><small>Leads, CRM e visitas</small></button>
+            <button type="button" data-segment="reposicao"><span>▦</span><b>Distribuição / Operação</b><small>Estoque, pedidos e vendedores</small></button>
+            <button type="button" data-segment="personalizada"><span>+</span><b>Outro negócio</b><small>Automação sob medida</small></button>
+          </div>
+          <div class="segment-note">Você pode mudar de segmento a qualquer momento.</div>
+        </div>
       </div>
     </section>
 
@@ -331,6 +354,32 @@
       </div>
     </section>
 
+    <section class="demo-report-section section-space-sm" id="relatorio-demo">
+      <div class="container">
+        <div class="demo-report-shell reveal" id="demoReportShell">
+          <div class="demo-report-copy">
+            <span class="eyebrow">RELATÓRIO DO TESTE</span>
+            <h2 id="demoReportTitle">Teste uma automação e veja o resumo da jornada aqui.</h2>
+            <p id="demoReportText">O relatório conecta o que você acabou de testar ao que poderia ser implementado na operação real.</p>
+            <div class="demo-report-tags" id="demoReportTags"><span>Aguardando demonstração</span></div>
+          </div>
+          <div class="demo-report-card">
+            <div class="report-status"><span id="demoReportStatus">NENHUM TESTE CONCLUÍDO</span><i></i></div>
+            <div class="report-metrics" id="demoReportMetrics">
+              <article><span>ETAPAS</span><strong>—</strong><small>executadas</small></article>
+              <article><span>AÇÕES</span><strong>—</strong><small>automatizadas</small></article>
+              <article><span>PRÓXIMO PASSO</span><strong>Teste</strong><small>uma das demos acima</small></article>
+            </div>
+            <div class="report-flow" id="demoReportFlow"></div>
+            <div class="report-actions">
+              <button class="button button-secondary" id="copyDemoReport" type="button" disabled>Copiar resumo</button>
+              <button class="button button-primary" id="reportEstimateBtn" type="button" disabled>Ver investimento para este cenário →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="custom-section section-space" id="personalizacao">
       <div class="container">
         <div class="section-heading reveal">
@@ -468,6 +517,15 @@
               </select>
             </fieldset>
 
+            <fieldset class="estimate-group diagnosis-group">
+              <legend>Contexto adicional <small>(opcional, mas melhora a recomendação)</small></legend>
+              <div class="diagnosis-grid">
+                <label><span>Quantas pessoas atuam hoje nesse processo?</span><select id="estimateTeam"><option value="">Não sei / prefiro não informar</option><option value="1">1 pessoa</option><option value="2-3">2–3 pessoas</option><option value="4-10">4–10 pessoas</option><option value="11+">Mais de 10 pessoas</option></select></label>
+                <label><span>Principal problema hoje</span><select id="estimatePain"><option value="tempo">Muito trabalho repetitivo</option><option value="demora">Demora no atendimento / retorno</option><option value="perda">Perda de leads ou oportunidades</option><option value="erros">Erros e retrabalho</option><option value="controle">Falta de controle e histórico</option><option value="outro">Outro</option></select></label>
+              </div>
+              <label class="diagnosis-text"><span>Quer explicar em uma frase?</span><textarea id="estimatePainDetail" maxlength="220" placeholder="Ex.: hoje dois funcionários passam boa parte do dia respondendo as mesmas perguntas no WhatsApp."></textarea></label>
+            </fieldset>
+
             <button class="button button-primary estimate-button" id="calculateProjectBtn" type="button">Calcular projeto recomendado →</button>
             <p class="estimate-note">Estimativa comercial preliminar. O escopo final é definido após uma conversa curta sobre sua operação.</p>
           </div>
@@ -489,8 +547,10 @@
                 <article><span>OPERAÇÃO E SUPORTE</span><strong id="estimateMonthly">R$ 497 – R$ 697/mês</strong><small>faixa mensal estimada</small></article>
               </div>
               <div class="result-meta"><div><span>PRAZO</span><b id="estimateTimeline">10–20 dias</b></div><div><span>PERFIL</span><b id="estimateProfile">Projeto profissional</b></div></div>
+              <div class="recommendation-box" id="estimateRecommendation"><span>O QUE AUTOMATIZAR PRIMEIRO</span><b>Comece pelo processo mais repetitivo e mensurável.</b><p>A recomendação será personalizada com base no cenário informado.</p></div>
               <div class="result-warning">Esta faixa não é uma proposta vinculante. Serve para você saber a ordem de investimento antes de conversar com a Zion.</div>
               <a class="button button-primary result-whatsapp" id="estimateWhatsapp" href="#" target="_blank" rel="noopener">Quero uma proposta para este cenário ↗</a>
+              <div class="result-share-actions"><button type="button" id="copyEstimateBtn">Copiar resumo</button><button type="button" id="shareEstimateBtn">Compartilhar estimativa</button></div>
               <button class="result-recalculate" id="recalculateProjectBtn" type="button">Alterar cenário</button>
             </div>
           </aside>
@@ -611,6 +671,18 @@
   </main>
 
   <footer class="footer"><div class="container"><a class="brand" href="#top"><span class="brand-mark">Z</span><span>Zion <b>Automações</b></span></a><p>Automação sob medida para atendimento, comercial e operação.</p><span>Zion Automações • Joinville/SC</span></div></footer>
+
+  <a class="smart-float-cta" id="smartFloatCta" href="#investimento"><span>✦</span><div><small id="smartFloatKicker">PROJETO ZION</small><b id="smartFloatText">Quero avaliar minha automação</b></div><i>→</i></a>
+
+  <div class="presentation-overlay" id="presentationOverlay" hidden>
+    <div class="presentation-card">
+      <div class="presentation-top"><span>APRESENTAÇÃO ZION</span><button type="button" id="presentationClose">×</button></div>
+      <div class="presentation-progress"><i id="presentationProgress"></i></div>
+      <h3 id="presentationTitle">Preparando demonstração…</h3>
+      <p id="presentationText">Vou mostrar o problema, a automação funcionando e a estimativa de projeto.</p>
+      <small id="presentationStep">Etapa 1 de 4</small>
+    </div>
+  </div>
 
   <nav class="mobile-dock" aria-label="Navegação rápida">
     <a href="#top"><span>⌂</span><small>Início</small></a>
