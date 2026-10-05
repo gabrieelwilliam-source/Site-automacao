@@ -235,7 +235,7 @@ $$('[data-auto]').forEach(b=>b.addEventListener('click',()=>({clinica:autoClinic
 $('#autoDemoBtn')?.addEventListener('click',async()=>{if(autoBusy)return;$('#demos').scrollIntoView({behavior:'smooth',block:'start'});await sleep(500);await autoClinic()});
 
 function setContextCTA(name){const t=$('#contextCtaTitle'),p=$('#contextCtaText');if(!t||!p)return;const copy={clinica:['Quer um atendimento assim na sua clínica?','Posso adaptar a jornada, regras, agenda, procedimentos e encaminhamentos para a rotina real da sua equipe.'],reposicao:['Quer transformar estoque em decisão de pedido?','A solução pode ser adaptada às suas lojas, vendedores, produtos, regras de segurança e dados reais de venda.'],imobiliaria:['Quer qualificar seus leads antes do corretor assumir?','Posso adaptar perguntas, imóveis, regiões, CRM e critérios de lead quente à operação da sua imobiliária.']};const c=copy[name]||['Existe um processo repetitivo no seu negócio?','Posso analisar a rotina e transformar parte dela em uma automação demonstrável, integrada e preparada para crescer.'];t.textContent=c[0];p.textContent=c[1]}
-$$$('.demo-tab').forEach(b=>b.addEventListener('click',()=>setContextCTA(b.dataset.demo)));
+$('.demo-tab').forEach(b=>b.addEventListener('click',()=>setContextCTA(b.dataset.demo)));
 
 $$('[data-share]').forEach(b=>b.addEventListener('click',async()=>{const name=b.dataset.share;const url=`${location.origin}${location.pathname}#demo-${name}`;try{await navigator.clipboard.writeText(url);toast('Link desta demonstração copiado')}catch{location.hash=`demo-${name}`;toast('Link da demonstração pronto para compartilhar')}}));
 function openFromHash(){const m=location.hash.match(/^#demo-(clinica|reposicao|imobiliaria)$/);if(m){openDemo(m[1]);setContextCTA(m[1]);setTimeout(()=>$('#demos')?.scrollIntoView({behavior:'smooth',block:'start'}),120)}}
@@ -342,3 +342,43 @@ const calcBtn=document.querySelector('#calculateProjectBtn');if(calcBtn){const c
 let presentationToken=0;async function runPresentation(){if(zionV11.presentationRunning)return;zionV11.presentationRunning=true;const token=++presentationToken,overlay=document.querySelector('#presentationOverlay'),title=document.querySelector('#presentationTitle'),text=document.querySelector('#presentationText'),step=document.querySelector('#presentationStep'),bar=document.querySelector('#presentationProgress');overlay.hidden=false;const set=(i,t,p)=>{if(token!==presentationToken)return;title.textContent=t;text.textContent=p;step.textContent=`Etapa ${i} de 4`;bar.style.width=(i*25)+'%'};set(1,'Primeiro, o problema.','Processos repetitivos consomem tempo, espalham informação e tornam o atendimento dependente de disponibilidade humana.');await sleep(1500);if(token!==presentationToken)return;overlay.hidden=true;document.querySelector('#demos')?.scrollIntoView({behavior:'smooth',block:'start'});await sleep(700);const chosen=['clinica','imobiliaria','reposicao'].includes(zionV11.segment)?zionV11.segment:'clinica';await ({clinica:autoClinic,imobiliaria:autoLead,reposicao:autoStock}[chosen])();if(token!==presentationToken)return;showDemoReport(chosen,'Apresentação automática concluída');await sleep(450);overlay.hidden=false;set(3,'O que aconteceu por trás.','A demonstração organizou contexto, aplicou regras e executou ações como uma operação real faria quando conectada aos seus sistemas.');await sleep(1500);if(token!==presentationToken)return;overlay.hidden=true;document.querySelector('#investimento')?.scrollIntoView({behavior:'smooth',block:'start'});setEstimatorSolution(chosen);await sleep(700);overlay.hidden=false;set(4,'Agora, transforme a demo em projeto.','Configure volume, integrações e nível de personalização para receber uma faixa inicial de investimento e prazo.');await sleep(1700);overlay.hidden=true;zionV11.presentationRunning=false;trackLocal('presentation_completed',{segment:chosen})}function stopPresentation(){presentationToken++;zionV11.presentationRunning=false;document.querySelector('#presentationOverlay').hidden=true;trackLocal('presentation_stopped')}
 const floatCta=document.querySelector('#smartFloatCta');if(floatCta){const io=new IntersectionObserver(es=>es.forEach(e=>{floatCta.style.opacity=e.isIntersecting?'0':'1';floatCta.style.pointerEvents=e.isIntersecting?'none':'auto'}),{threshold:.1});const contact=document.querySelector('#contato');if(contact)io.observe(contact)}
 applyUrlPersonalization();trackLocal('page_view',{segment:zionV11.segment,company:zionV11.company||null});
+
+
+// V20 — status visual das automações
+function updateDemoLiveStatus(){
+  const paint=(name,states)=>{
+    const steps=document.querySelectorAll(`[data-live-status="${name}"] [data-status-step]`);
+    steps.forEach((el,i)=>{
+      const done=!!states[i];
+      el.classList.toggle('done',done);
+      el.classList.toggle('active',!done && (i===0 || !!states[i-1]));
+    });
+  };
+
+  const clinicTraceCount=document.querySelectorAll('#clinicTrace > *').length;
+  paint('clinica',[clinicTraceCount>=1,clinicTraceCount>=2,clinicTraceCount>=3,clinicTraceCount>=4]);
+
+  const stockLogs=document.querySelectorAll('#stockLog > *').length;
+  const stockReady=!!(document.querySelector('#confirmOrder') && !document.querySelector('#confirmOrder').disabled);
+  const stockConfirmed=!!(document.querySelector('#orderConfirmation') && !document.querySelector('#orderConfirmation').hidden);
+  paint('reposicao',[stockLogs>=1,stockLogs>=2,stockReady,stockConfirmed]);
+
+  const leadMessages=document.querySelectorAll('#leadChat .msg').length;
+  const leadPct=parseInt(document.querySelector('#leadPercent')?.textContent||'0',10);
+  const matched=!!(document.querySelector('#propertyMatches') && !document.querySelector('#propertyMatches').hidden);
+  const visit=!!(document.querySelector('#visitPreview') && !document.querySelector('#visitPreview').hidden);
+  paint('imobiliaria',[leadMessages>=1,leadPct>=70,matched,visit]);
+}
+
+['clinicTrace','stockLog','leadChat','leadPercent','propertyMatches','visitPreview','orderConfirmation','confirmOrder'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el)new MutationObserver(updateDemoLiveStatus).observe(el,{childList:true,subtree:true,attributes:true,characterData:true});
+});
+updateDemoLiveStatus();
+
+document.querySelectorAll('[data-demo-cta]').forEach(link=>link.addEventListener('click',()=>{
+  const name=link.dataset.demoCta;
+  localStorage.setItem('zion_last_interest',name);
+  setContextCTA(name);
+  trackLocal('demo_context_cta_clicked',{demo:name});
+}));
