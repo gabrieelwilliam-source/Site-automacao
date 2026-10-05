@@ -1874,3 +1874,141 @@ select{cursor:pointer}
 .success-border{
   border-color:rgba(200,164,93,.26)!important;
 }
+
+
+/* ===== V25 — correção implantação + sliders ROI ===== */
+
+/* implantação: classes reais */
+.implementation-grid:before{
+  background:linear-gradient(90deg,transparent,rgba(200,164,93,.42),transparent)!important;
+}
+.implementation-grid article{
+  border-color:rgba(12,27,51,.10)!important;
+  background:#fff!important;
+  box-shadow:0 16px 42px rgba(12,27,51,.06)!important;
+}
+.implementation-grid article>span{
+  background:#0c1b33!important;
+  border-color:rgba(200,164,93,.42)!important;
+  color:var(--gold-2)!important;
+  box-shadow:0 10px 24px rgba(12,27,51,.10)!important;
+}
+.implementation-grid article b{
+  color:#142033!important;
+}
+.implementation-grid article p{
+  color:#718094!important;
+}
+
+/* cards complementares da implantação */
+.delivery-card{
+  background:#fff!important;
+  border-color:rgba(12,27,51,.10)!important;
+  box-shadow:0 16px 40px rgba(12,27,51,.05)!important;
+}
+.delivery-card:after{
+  background:radial-gradient(circle,rgba(200,164,93,.09),transparent 70%)!important;
+}
+.delivery-icon{
+  background:rgba(200,164,93,.08)!important;
+  border-color:rgba(200,164,93,.26)!important;
+  color:#9a7434!important;
+}
+.delivery-card h3{
+  color:#142033!important;
+}
+.delivery-card p{
+  color:#6d7a89!important;
+}
+.mini-checks span{
+  color:#7e622d!important;
+  border-color:rgba(200,164,93,.22)!important;
+  background:rgba(200,164,93,.06)!important;
+}
+
+/* segurança: remove últimos verdes */
+.security-shell:before{
+  background:radial-gradient(circle,rgba(200,164,93,.10),transparent 68%)!important;
+}
+.security-points article>span{
+  color:var(--gold-2)!important;
+}
+.faq-list details[open]{
+  border-color:rgba(200,164,93,.24)!important;
+}
+.faq-list summary span{
+  color:#9a7434!important;
+}
+
+/* ROI — remove trilho quebrado com preenchimento fixo */
+.roi-card input[type="range"]{
+  -webkit-appearance:none!important;
+  appearance:none!important;
+  width:100%!important;
+  height:24px!important;
+  background:transparent!important;
+  accent-color:var(--gold)!important;
+  cursor:pointer;
+}
+.roi-card input[type="range"]::-webkit-slider-runnable-track{
+  height:6px!important;
+  border-radius:999px!important;
+  background:#d9d5cd!important;
+  border:0!important;
+}
+.roi-card input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none!important;
+  appearance:none!important;
+  width:18px!important;
+  height:18px!important;
+  margin-top:-6px!important;
+  border:3px solid #fff!important;
+  border-radius:50%!important;
+  background:var(--gold)!important;
+  box-shadow:0 2px 8px rgba(12,27,51,.18)!important;
+}
+.roi-card input[type="range"]::-moz-range-track{
+  height:6px!important;
+  border-radius:999px!important;
+  background:#d9d5cd!important;
+  border:0!important;
+}
+.roi-card input[type="range"]::-moz-range-progress{
+  height:6px!important;
+  border-radius:999px!important;
+  background:var(--gold)!important;
+}
+.roi-card input[type="range"]::-moz-range-thumb{
+  width:14px!important;
+  height:14px!important;
+  border:3px solid #fff!important;
+  border-radius:50%!important;
+  background:var(--gold)!important;
+  box-shadow:0 2px 8px rgba(12,27,51,.18)!important;
+}
+.roi-card label{
+  color:#26364a!important;
+  border-bottom-color:rgba(12,27,51,.10)!important;
+}
+.roi-card label b{
+  color:#142033!important;
+}
+.roi-results article{
+  background:#f8f5ef!important;
+  border-color:rgba(12,27,51,.10)!important;
+}
+.roi-results span{
+  color:#758292!important;
+}
+.roi-results strong{
+  color:#9a7434!important;
+}
+
+/* remove resquícios visuais do verde antigo nessas áreas */
+#implantacao [style*="69e4bd"],
+#implantacao [style*="75efd0"],
+#implantacao [style*="77efd1"],
+#implantacao [style*="62e8c4"],
+#roi [style*="69e4bd"]{
+  color:#9a7434!important;
+}
