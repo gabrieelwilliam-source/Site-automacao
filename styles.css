@@ -1688,3 +1688,189 @@ select{cursor:pointer}
   .property-info h4,.lead-inline-property h4{font-size:10px!important}
   .property-info p,.lead-inline-property p{font-size:8px!important}
 }
+
+
+/* ===== V24 — remoção final dos verdes antigos ===== */
+
+/* COMO FUNCIONA */
+.process-section .eyebrow,
+.process-step>span,
+.process-step .step-number,
+.process-step small,
+.process-copy .eyebrow{
+  color:#9a7434!important;
+}
+.process-copy:after,
+.process-copy .accent-line{
+  background:linear-gradient(90deg,var(--gold-2),var(--gold))!important;
+}
+.process-step{
+  border-color:rgba(200,164,93,.18)!important;
+}
+.process-step:last-child,
+.process-step.active{
+  border-color:rgba(200,164,93,.34)!important;
+  background:linear-gradient(135deg,rgba(200,164,93,.055),rgba(255,255,255,.55))!important;
+}
+
+/* ARQUITETURA / FLUXO */
+.architecture-flow>i,
+.architecture-flow .arrow,
+.architecture-card>span,
+.architecture-card small,
+.architecture-card .flow-number{
+  color:#9a7434!important;
+}
+.architecture-flow>i{
+  background:none!important;
+}
+.architecture-card{
+  border-color:rgba(12,27,51,.10)!important;
+}
+.architecture-card.highlight,
+.architecture-flow .highlight{
+  border-color:rgba(200,164,93,.44)!important;
+  background:#fffaf1!important;
+}
+.architecture-compare .current small,
+.architecture-compare .next small,
+.architecture-compare .check,
+.architecture-compare li::marker{
+  color:#9a7434!important;
+}
+.architecture-compare .next{
+  border-color:rgba(200,164,93,.25)!important;
+}
+
+/* ANTES X DEPOIS */
+.before-after .eyebrow,
+.ba-card .check,
+.ba-card li::marker,
+.ba-card.auto h3,
+.ba-card.auto .ba-label{
+  color:#9a7434!important;
+}
+.ba-card.auto{
+  border-color:rgba(200,164,93,.34)!important;
+  background:#fffaf3!important;
+}
+.ba-card.auto li::before{
+  color:#9a7434!important;
+}
+.ba-note{
+  border-color:rgba(200,164,93,.22)!important;
+}
+.ba-note strong{color:#142033!important}
+
+/* ROI */
+.roi-copy .eyebrow{color:#9a7434!important}
+.roi-disclaimer{
+  border-left-color:var(--gold)!important;
+  background:rgba(200,164,93,.055)!important;
+}
+.roi-card input[type=range]{
+  accent-color:var(--gold)!important;
+}
+.roi-card input[type=range]::-webkit-slider-thumb{
+  background:var(--gold)!important;
+}
+.roi-card input[type=range]::-moz-range-thumb{
+  background:var(--gold)!important;
+}
+.roi-card input[type=range]::-webkit-slider-runnable-track{
+  background:linear-gradient(90deg,var(--gold) 0,var(--gold) 35%,#464646 35%,#464646 100%)!important;
+}
+.roi-results strong{
+  color:#9a7434!important;
+}
+
+/* IMPLANTAÇÃO */
+.implementation-section .eyebrow,
+.implementation-card>span,
+.implementation-card .step-number,
+.implementation-card .implant-number{
+  color:#9a7434!important;
+}
+.implementation-card{
+  border-color:rgba(12,27,51,.10)!important;
+}
+.implementation-card>span,
+.implementation-card .step-number,
+.implementation-card .implant-number{
+  background:#0c1b33!important;
+  border-color:rgba(200,164,93,.34)!important;
+  color:var(--gold-2)!important;
+}
+.implementation-card::before,
+.implementation-grid::before{
+  background:linear-gradient(90deg,rgba(200,164,93,.18),rgba(200,164,93,.42),rgba(200,164,93,.18))!important;
+}
+
+/* FAZ SENTIDO PARA VOCÊ */
+.fit-section .eyebrow,
+.fit-card .icon,
+.fit-card .check,
+.fit-card.good h3,
+.fit-card.good .fit-icon{
+  color:#9a7434!important;
+}
+.fit-card.good{
+  border-color:rgba(200,164,93,.24)!important;
+}
+.fit-card.good .icon,
+.fit-card.good .fit-icon{
+  background:rgba(200,164,93,.08)!important;
+  border-color:rgba(200,164,93,.22)!important;
+}
+.fit-card.warning .icon,
+.fit-card.warning .fit-icon{
+  color:#9a7434!important;
+  border-color:rgba(200,164,93,.24)!important;
+  background:rgba(200,164,93,.05)!important;
+}
+
+/* HISTÓRICO */
+.history-card,
+.history-list,
+.history-row{
+  border-color:rgba(12,27,51,.10)!important;
+}
+.history-head span,
+.history-head b{
+  color:#667383!important;
+}
+.history-row>span{
+  color:#9a7434!important;
+}
+.history-row p{
+  color:#536171!important;
+}
+.history-row time{
+  color:#7c8996!important;
+}
+
+/* qualquer resto visual de verde herdado em áreas claras */
+.process-section [style*="#69e4bd"],
+.process-section [style*="#4fe0b8"],
+.architecture-section [style*="#69e4bd"],
+.experience-section [style*="#69e4bd"],
+.roi-section [style*="#69e4bd"],
+.implementation-section [style*="#69e4bd"]{
+  color:#9a7434!important;
+}
+
+/* utilitários antigos */
+.text-green,
+.accent-green,
+.green,
+.success-text{
+  color:#9a7434!important;
+}
+.bg-green,
+.success-bg{
+  background:rgba(200,164,93,.08)!important;
+}
+.border-green,
+.success-border{
+  border-color:rgba(200,164,93,.26)!important;
+}
