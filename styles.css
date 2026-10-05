@@ -953,3 +953,84 @@ input[type="range"]{accent-color:var(--gold)}
   font-weight:800;
   cursor:pointer;
 }
+
+
+/* ===== V19 — imagens nos imóveis ===== */
+.property-photo{
+  height:128px;
+  padding:9px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  position:relative;
+  overflow:hidden;
+  background:#0d2332;
+}
+.property-photo img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:saturate(.88) contrast(1.03) brightness(.82);
+}
+.property-photo:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:linear-gradient(180deg,rgba(5,15,25,.08),rgba(5,15,25,.58));
+}
+.property-photo:after{
+  display:none;
+}
+.property-photo>span,
+.property-photo small{
+  position:relative;
+  z-index:2;
+}
+.property-photo>span{
+  font-size:17px;
+  color:var(--gold-2);
+  text-shadow:0 2px 8px rgba(0,0,0,.45);
+}
+.property-photo small{
+  background:rgba(5,15,25,.72);
+  border-color:rgba(255,255,255,.18);
+  backdrop-filter:blur(5px);
+}
+.lead-inline-property{
+  display:grid;
+  grid-template-columns:92px 1fr;
+  padding:0;
+  overflow:hidden;
+}
+.lead-inline-property-image{
+  width:92px;
+  height:100%;
+  min-height:112px;
+  object-fit:cover;
+  filter:saturate(.9) contrast(1.02) brightness(.86);
+}
+.lead-inline-property-body{
+  padding:10px;
+  min-width:0;
+}
+.lead-inline-property-action{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+@media(max-width:520px){
+  .lead-inline-property{
+    grid-template-columns:78px 1fr;
+  }
+  .lead-inline-property-image{
+    width:78px;
+    min-height:108px;
+  }
+  .property-photo{
+    height:112px;
+  }
+}
