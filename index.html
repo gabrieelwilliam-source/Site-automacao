@@ -62,7 +62,7 @@
           <div class="hero-actions">
             <a class="button button-primary" href="#demos">Testar demonstrações</a>
             <a class="button button-secondary" href="#solucoes">Conhecer soluções</a>
-             <button class="button button-ghost" id="presentationModeBtn" type="button">▶ Apresentação guiada</button>
+             <button class="button button-ghost" id="presentationModeBtn" type="button" onclick="startZionPresentation()">▶ Apresentação guiada</button>
           </div>
           <div class="hero-facts">
             <div><b>3</b><span>soluções para testar agora</span></div>
@@ -682,7 +682,7 @@
 
   <div class="presentation-overlay" id="presentationOverlay" role="dialog" aria-modal="true" aria-labelledby="presentationTitle" hidden>
     <div class="presentation-card">
-      <div class="presentation-top"><span>APRESENTAÇÃO ZION</span><button type="button" id="presentationClose" aria-label="Fechar apresentação">×</button></div>
+      <div class="presentation-top"><span>APRESENTAÇÃO ZION</span><button type="button" id="presentationClose" aria-label="Fechar apresentação" onclick="stopZionPresentation()">×</button></div>
       <div class="presentation-progress"><i id="presentationProgress"></i></div>
       <h3 id="presentationTitle">Preparando demonstração…</h3>
       <p id="presentationText">Vou mostrar o problema, a automação funcionando e a estimativa de projeto.</p>
@@ -697,6 +697,79 @@
   </nav>
   <button class="focus-close" id="focusClose" type="button" aria-label="Fechar demonstração em tela cheia">×</button>
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <script>
+    let zionPresentationToken = 0;
+
+    function stopZionPresentation() {
+      zionPresentationToken++;
+      const overlay = document.getElementById('presentationOverlay');
+      if (overlay) overlay.hidden = true;
+      document.body.style.overflow = '';
+    }
+
+    async function startZionPresentation() {
+      const overlay = document.getElementById('presentationOverlay');
+      const title = document.getElementById('presentationTitle');
+      const text = document.getElementById('presentationText');
+      const step = document.getElementById('presentationStep');
+      const progress = document.getElementById('presentationProgress');
+
+      if (!overlay || !title || !text || !step || !progress) return;
+
+      const token = ++zionPresentationToken;
+      const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+      const show = (number, heading, copy) => {
+        if (token !== zionPresentationToken) return false;
+        title.textContent = heading;
+        text.textContent = copy;
+        step.textContent = 'Etapa ' + number + ' de 4';
+        progress.style.width = (number * 25) + '%';
+        overlay.hidden = false;
+        document.body.style.overflow = 'hidden';
+        return true;
+      };
+      const moveTo = selector => {
+        overlay.hidden = true;
+        document.body.style.overflow = '';
+        document.querySelector(selector)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+
+      show(1, 'Primeiro, o problema.', 'Processos repetitivos consomem tempo, espalham informações e fazem a operação depender de disponibilidade humana.');
+      await wait(2600);
+      if (token !== zionPresentationToken) return;
+
+      moveTo('#demos');
+      await wait(900);
+      if (token !== zionPresentationToken) return;
+
+      show(2, 'Agora, veja a automação funcionando.', 'As demonstrações mostram atendimento, operação e qualificação comercial acontecendo de forma visual e controlada.');
+      await wait(3000);
+      if (token !== zionPresentationToken) return;
+
+      moveTo('#processo');
+      await wait(900);
+      if (token !== zionPresentationToken) return;
+
+      show(3, 'Por trás da interface.', 'Cada entrada passa por contexto, regras e decisões até gerar uma ação que pode ser conectada aos sistemas reais da empresa.');
+      await wait(3200);
+      if (token !== zionPresentationToken) return;
+
+      moveTo('#investimento');
+      await wait(900);
+      if (token !== zionPresentationToken) return;
+
+      show(4, 'Transforme a ideia em projeto.', 'Configure o cenário e veja uma faixa inicial de investimento, prazo e nível de personalização.');
+      await wait(3200);
+      if (token !== zionPresentationToken) return;
+
+      stopZionPresentation();
+    }
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') stopZionPresentation();
+    });
+  </script>
   <script src="script.js" defer></script>
 </body>
 </html>
