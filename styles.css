@@ -1056,3 +1056,199 @@ input[type="range"]{accent-color:var(--gold)}
 .demo-context-cta>a:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(200,164,93,.14)}
 .hero-copy .button-secondary[href="#contato"]{border-color:rgba(200,164,93,.35)}
 @media(max-width:680px){.demo-live-status{margin:10px 10px 0;padding:12px}.demo-live-steps{grid-template-columns:1fr 1fr}.demo-context-cta{margin:10px;align-items:flex-start;flex-direction:column;padding:14px}.demo-context-cta>a{width:100%}}
+
+
+/* ===== V21 — refinamento premium da demo clínica ===== */
+#demo-clinica{
+  background:
+    radial-gradient(circle at 88% 8%,rgba(200,164,93,.055),transparent 24%),
+    linear-gradient(180deg,#0b1a2e,#081524);
+}
+#demo-clinica .demo-panel-head,
+#demo-clinica .clinic-scenarios{
+  background:rgba(10,27,47,.74);
+  border-color:rgba(200,164,93,.12);
+}
+#demo-clinica .demo-panel-head{
+  border-bottom-color:rgba(200,164,93,.14);
+}
+#demo-clinica .live-dot,
+#demo-clinica .online-dot,
+#demo-clinica .clinic-statusline>span,
+#demo-clinica .health{
+  color:var(--gold-2)!important;
+}
+#demo-clinica .live-dot,
+#demo-clinica .online-dot,
+#demo-clinica .clinic-statusline>span{
+  background:var(--gold)!important;
+  box-shadow:0 0 0 4px rgba(200,164,93,.08)!important;
+}
+#demo-clinica .ghost-button{
+  border-color:rgba(200,164,93,.18);
+  background:rgba(255,255,255,.025);
+  color:#c7d0da;
+}
+#demo-clinica .ghost-button:hover{
+  border-color:rgba(200,164,93,.38);
+  color:var(--gold-2);
+  background:rgba(200,164,93,.05);
+}
+#demo-clinica .scenario-copy span,
+#demo-clinica .automation-head>div>span,
+#demo-clinica .context-card>span,
+#demo-clinica .appointment-preview-head>span,
+#demo-clinica .trace-title>span{
+  color:var(--gold-2)!important;
+}
+#demo-clinica .scenario-btn{
+  border-color:rgba(200,164,93,.16);
+  background:#0b1d31;
+  color:#aebac6;
+}
+#demo-clinica .scenario-btn:hover,
+#demo-clinica .scenario-btn.active{
+  border-color:rgba(200,164,93,.42);
+  background:linear-gradient(135deg,rgba(200,164,93,.13),rgba(200,164,93,.035));
+  color:#f1dfb4;
+}
+#demo-clinica .phone-card,
+#demo-clinica .automation-card{
+  border-color:rgba(200,164,93,.14);
+  background:linear-gradient(180deg,#0b1c2f,#081522);
+  box-shadow:0 18px 50px rgba(3,10,19,.16);
+}
+#demo-clinica .phone-header{
+  background:linear-gradient(180deg,#0d2238,#0a1a2b);
+  border-bottom-color:rgba(200,164,93,.12);
+}
+#demo-clinica .avatar{
+  background:linear-gradient(135deg,#d8b66e,#b98e40);
+  color:#0b1727;
+  box-shadow:0 8px 20px rgba(200,164,93,.16);
+}
+#demo-clinica .clinic-chat-real{
+  background:
+    radial-gradient(circle at 15% 0%,rgba(200,164,93,.04),transparent 32%),
+    linear-gradient(180deg,#091827,#0a1725);
+}
+#demo-clinica .clinic-chat-real .msg.bot{
+  background:linear-gradient(135deg,#112c43,#0f2639);
+  border:1px solid rgba(255,255,255,.035);
+}
+#demo-clinica .clinic-chat-real .msg.user{
+  background:linear-gradient(135deg,#8f6f35,#b98e40);
+  color:#0b1727;
+}
+#demo-clinica .clinic-statusline,
+#demo-clinica .clinic-quick-real,
+#demo-clinica .chat-form{
+  background:#081521;
+  border-color:rgba(200,164,93,.10);
+}
+#demo-clinica .clinic-quick-real button{
+  border-color:rgba(200,164,93,.18);
+  background:#0d2134;
+  color:#b9c4cf;
+}
+#demo-clinica .clinic-quick-real button:hover{
+  border-color:rgba(200,164,93,.38);
+  color:var(--gold-2);
+}
+#demo-clinica .chat-form input{
+  background:#0b1c2c;
+  border-color:rgba(200,164,93,.16);
+}
+#demo-clinica .chat-form input:focus{
+  border-color:rgba(200,164,93,.46);
+  box-shadow:0 0 0 3px rgba(200,164,93,.07);
+}
+#demo-clinica .chat-form button{
+  background:linear-gradient(135deg,#d8b66e,#b98e40)!important;
+  color:#091426!important;
+  box-shadow:0 10px 24px rgba(200,164,93,.14);
+}
+#demo-clinica .automation-head{
+  border-bottom:1px solid rgba(200,164,93,.09);
+  padding-bottom:14px;
+}
+#demo-clinica .automation-head h3{
+  color:#f6f3ec;
+  letter-spacing:-.02em;
+}
+#demo-clinica .health{
+  border:1px solid rgba(200,164,93,.24);
+  background:rgba(200,164,93,.055);
+  padding:5px 8px;
+  border-radius:999px;
+}
+#demo-clinica .mini-kpis>div,
+#demo-clinica .context-card{
+  border-color:rgba(200,164,93,.13);
+  background:linear-gradient(180deg,#0b1c2d,#091725);
+}
+#demo-clinica .mini-kpis span,
+#demo-clinica .context-card p{
+  color:#8190a0;
+}
+#demo-clinica .mini-kpis b,
+#demo-clinica .context-card b{
+  color:#f3f5f6;
+}
+#demo-clinica .appointment-preview{
+  border-color:rgba(200,164,93,.28);
+  background:
+    linear-gradient(135deg,rgba(200,164,93,.10),rgba(200,164,93,.025)),
+    #0b1c2b;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.02);
+}
+#demo-clinica .appointment-preview i{
+  color:var(--gold-2);
+  border-color:rgba(200,164,93,.28);
+  background:rgba(200,164,93,.055);
+}
+#demo-clinica .appointment-preview h4{
+  color:#f4f1e9;
+}
+#demo-clinica .appointment-preview p{
+  border-color:rgba(200,164,93,.12);
+  background:#091827;
+}
+#demo-clinica .clinic-trace-real>div{
+  border-color:rgba(200,164,93,.10);
+  background:#091827;
+}
+#demo-clinica .clinic-trace-real i{
+  background:var(--gold)!important;
+  color:#091426!important;
+}
+#demo-clinica .clinic-capabilities{
+  border-color:rgba(200,164,93,.13);
+  background:#091827;
+}
+#demo-clinica .clinic-capabilities>span{
+  color:#8d9baa;
+}
+#demo-clinica .clinic-capabilities>div{
+  color:#aeb8c2;
+}
+#demo-clinica .clinic-capabilities i{
+  background:var(--gold)!important;
+}
+#demo-clinica .demo-live-status{
+  border-color:rgba(200,164,93,.20);
+  background:
+    linear-gradient(135deg,rgba(200,164,93,.055),rgba(255,255,255,.008)),
+    #0a1928;
+}
+#demo-clinica .demo-context-cta{
+  background:
+    radial-gradient(circle at 85% 20%,rgba(200,164,93,.08),transparent 30%),
+    linear-gradient(135deg,#102641,#0b192a);
+}
+@media(max-width:680px){
+  #demo-clinica .automation-card,
+  #demo-clinica .phone-card{
+    border-radius:14px;
+  }
+}
