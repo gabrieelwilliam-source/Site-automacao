@@ -1252,3 +1252,120 @@ input[type="range"]{accent-color:var(--gold)}
     border-radius:14px;
   }
 }
+
+
+/* ===== V22 — contraste e acabamento do estimador ===== */
+#projectEstimator label,
+#projectEstimator .choice-card,
+#projectEstimator .segmented-choice,
+#projectEstimator .integration-grid,
+#projectEstimator .level-grid{
+  color:#142033;
+}
+
+#projectEstimator .choice-card>span,
+#projectEstimator .segmented-choice label>span,
+#projectEstimator .integration-grid label>span,
+#projectEstimator .level-grid label>span,
+#projectEstimator .estimate-option,
+#projectEstimator .estimate-level{
+  background:#fbfaf7!important;
+  border:1px solid rgba(12,27,51,.12)!important;
+  color:#142033!important;
+  box-shadow:none;
+}
+
+#projectEstimator .choice-card strong,
+#projectEstimator .segmented-choice strong,
+#projectEstimator .integration-grid strong,
+#projectEstimator .level-grid strong,
+#projectEstimator .estimate-option strong,
+#projectEstimator .estimate-level strong{
+  display:block;
+  margin-bottom:4px;
+  color:#142033!important;
+  font-weight:700;
+}
+
+#projectEstimator .choice-card small,
+#projectEstimator .segmented-choice small,
+#projectEstimator .integration-grid small,
+#projectEstimator .level-grid small,
+#projectEstimator .estimate-option small,
+#projectEstimator .estimate-level small{
+  display:block;
+  color:#6b7785!important;
+  line-height:1.35;
+}
+
+#projectEstimator input:checked + span,
+#projectEstimator input:checked + .estimate-option,
+#projectEstimator input:checked + .estimate-level,
+#projectEstimator .selected{
+  background:#f8f1e3!important;
+  border-color:rgba(200,164,93,.68)!important;
+  color:#0c1b33!important;
+  box-shadow:0 8px 20px rgba(12,27,51,.045)!important;
+}
+
+#projectEstimator input:checked + span strong,
+#projectEstimator input:checked + .estimate-option strong,
+#projectEstimator input:checked + .estimate-level strong,
+#projectEstimator .selected strong{
+  color:#0c1b33!important;
+}
+
+#projectEstimator input:checked + span small,
+#projectEstimator input:checked + .estimate-option small,
+#projectEstimator input:checked + .estimate-level small,
+#projectEstimator .selected small{
+  color:#5f6d7b!important;
+}
+
+#projectEstimator label:hover>span,
+#projectEstimator .estimate-option:hover,
+#projectEstimator .estimate-level:hover{
+  border-color:rgba(200,164,93,.42)!important;
+  background:#fcf7ee!important;
+}
+
+#projectEstimator input:focus-visible + span,
+#projectEstimator input:focus-visible + .estimate-option,
+#projectEstimator input:focus-visible + .estimate-level{
+  outline:3px solid rgba(200,164,93,.18)!important;
+  outline-offset:2px;
+}
+
+#projectEstimator select,
+#projectEstimator textarea,
+#projectEstimator input[type="text"],
+#projectEstimator input[type="number"]{
+  background:#fffdfa!important;
+  color:#142033!important;
+  border:1px solid rgba(12,27,51,.14)!important;
+}
+
+#projectEstimator select:focus,
+#projectEstimator textarea:focus,
+#projectEstimator input[type="text"]:focus,
+#projectEstimator input[type="number"]:focus{
+  border-color:rgba(200,164,93,.58)!important;
+  box-shadow:0 0 0 3px rgba(200,164,93,.08)!important;
+  outline:none;
+}
+
+#projectEstimator select option{
+  color:#142033;
+  background:#fffdfa;
+}
+
+#projectEstimator .estimator-step>h3,
+#projectEstimator .estimator-step>h4,
+#projectEstimator .estimate-question{
+  color:#142033!important;
+}
+
+#projectEstimator .estimator-step>p,
+#projectEstimator .estimate-helper{
+  color:#66707f!important;
+}
