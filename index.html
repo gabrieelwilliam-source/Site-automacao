@@ -705,80 +705,114 @@
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
   <script>
-    const zionPresentationSteps = [
+    const zionJourney = [
       {
-        target: '#top',
-        title: 'Comece pelo problema.',
-        text: 'A Zion automatiza tarefas repetitivas para reduzir esforço manual e organizar melhor a operação.'
+        kind: 'message',
+        title: 'Antes de começar',
+        text: 'A Zion transforma processos repetitivos em automações que você pode testar antes de contratar.',
+        button: 'Continuar'
       },
       {
+        kind: 'section',
         target: '#demos',
-        title: 'Veja a automação funcionando.',
-        text: 'Aqui você pode testar cenários reais de atendimento, operação e qualificação comercial. Explore a seção e avance quando estiver pronto.'
+        title: 'Agora explore uma demonstração',
+        text: 'Escolha Clínica, Reposição ou Imobiliária. Você pode clicar, testar e entender como a automação funciona. Quando terminar de explorar, clique em Continuar.',
+        button: 'Continuar'
       },
       {
+        kind: 'message',
+        title: 'O que você acabou de ver',
+        text: 'A automação não é apenas uma tela: ela interpreta contexto, aplica regras e executa a próxima ação.',
+        button: 'Ver como funciona'
+      },
+      {
+        kind: 'section',
         target: '#processo',
-        title: 'Entenda o que acontece por trás.',
-        text: 'A automação recebe uma entrada, interpreta contexto, aplica regras e executa a próxima ação.'
+        title: 'Veja o processo por trás',
+        text: 'Observe as etapas de entrada, contexto, regra e execução. Explore com calma e avance quando quiser.',
+        button: 'Continuar'
       },
       {
+        kind: 'message',
+        title: 'Agora pense no seu negócio',
+        text: 'A mesma lógica pode ser adaptada à sua operação, aos seus sistemas e às regras específicas da sua empresa.',
+        button: 'Ver investimento'
+      },
+      {
+        kind: 'section',
         target: '#investimento',
-        title: 'Transforme a ideia em projeto.',
-        text: 'No estimador você configura volume, integrações e personalização para entender uma faixa inicial de investimento e prazo.'
+        title: 'Monte seu cenário',
+        text: 'Use o estimador para escolher solução, volume, integrações e nível de personalização. Quando terminar, você pode finalizar a apresentação.',
+        button: 'Finalizar'
       }
     ];
 
-    let zionPresentationIndex = 0;
+    let zionJourneyIndex = 0;
 
-    function renderZionPresentation() {
-      const overlay = document.getElementById('presentationOverlay');
-      const title = document.getElementById('presentationTitle');
-      const text = document.getElementById('presentationText');
-      const step = document.getElementById('presentationStep');
-      const progress = document.getElementById('presentationProgress');
-      const prev = document.getElementById('presentationPrev');
-      const next = document.getElementById('presentationNext');
-      const item = zionPresentationSteps[zionPresentationIndex];
+    function getZionJourneyElements() {
+      return {
+        overlay: document.getElementById('presentationOverlay'),
+        title: document.getElementById('presentationTitle'),
+        text: document.getElementById('presentationText'),
+        step: document.getElementById('presentationStep'),
+        progress: document.getElementById('presentationProgress'),
+        prev: document.getElementById('presentationPrev'),
+        next: document.getElementById('presentationNext')
+      };
+    }
 
-      if (!overlay || !title || !text || !step || !progress || !item) return;
+    function renderZionJourney() {
+      const item = zionJourney[zionJourneyIndex];
+      const { overlay, title, text, step, progress, prev, next } = getZionJourneyElements();
+      if (!item || !overlay || !title || !text || !step || !progress || !prev || !next) return;
 
       document.querySelectorAll('.presentation-target').forEach(el => el.classList.remove('presentation-target'));
 
-      const target = document.querySelector(item.target);
-      target?.classList.add('presentation-target');
-      target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
       title.textContent = item.title;
       text.textContent = item.text;
-      step.textContent = 'Etapa ' + (zionPresentationIndex + 1) + ' de ' + zionPresentationSteps.length;
-      progress.style.width = ((zionPresentationIndex + 1) / zionPresentationSteps.length * 100) + '%';
-      prev.disabled = zionPresentationIndex === 0;
-      next.textContent = zionPresentationIndex === zionPresentationSteps.length - 1 ? 'Finalizar ✓' : 'Próximo →';
+      step.textContent = 'Etapa ' + (zionJourneyIndex + 1) + ' de ' + zionJourney.length;
+      progress.style.width = ((zionJourneyIndex + 1) / zionJourney.length * 100) + '%';
+      prev.disabled = zionJourneyIndex === 0;
+      next.textContent = item.button || 'Continuar';
+
+      if (item.kind === 'section' && item.target) {
+        const target = document.querySelector(item.target);
+        target?.classList.add('presentation-target');
+        overlay.classList.add('presentation-overlay-docked');
+        target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        overlay.classList.remove('presentation-overlay-docked');
+      }
+
       overlay.hidden = false;
     }
 
     function startZionPresentation() {
-      zionPresentationIndex = 0;
-      renderZionPresentation();
+      zionJourneyIndex = 0;
+      renderZionJourney();
     }
 
     function nextZionPresentation() {
-      if (zionPresentationIndex >= zionPresentationSteps.length - 1) {
+      if (zionJourneyIndex >= zionJourney.length - 1) {
         stopZionPresentation();
         return;
       }
-      zionPresentationIndex++;
-      renderZionPresentation();
+      zionJourneyIndex++;
+      renderZionJourney();
     }
 
     function previousZionPresentation() {
-      if (zionPresentationIndex === 0) return;
-      zionPresentationIndex--;
-      renderZionPresentation();
+      if (zionJourneyIndex === 0) return;
+      zionJourneyIndex--;
+      renderZionJourney();
     }
 
     function stopZionPresentation() {
-      document.getElementById('presentationOverlay')?.setAttribute('hidden', '');
+      const overlay = document.getElementById('presentationOverlay');
+      if (overlay) {
+        overlay.hidden = true;
+        overlay.classList.remove('presentation-overlay-docked');
+      }
       document.querySelectorAll('.presentation-target').forEach(el => el.classList.remove('presentation-target'));
     }
 
@@ -786,8 +820,6 @@
       const overlay = document.getElementById('presentationOverlay');
       if (!overlay || overlay.hidden) return;
       if (event.key === 'Escape') stopZionPresentation();
-      if (event.key === 'ArrowRight') nextZionPresentation();
-      if (event.key === 'ArrowLeft') previousZionPresentation();
     });
   </script>
   <script src="script.js" defer></script>
