@@ -872,3 +872,84 @@ input[type="range"]{accent-color:var(--gold)}
   .presentation-card #presentationTitle{font-size:1.05rem!important}
   .presentation-card #presentationText{font-size:.82rem!important}
 }
+
+
+/* ===== V18 — imóveis visíveis dentro da conversa ===== */
+.lead-inline-properties{
+  margin:2px 12px 12px;
+  padding:10px;
+  border:1px solid rgba(200,164,93,.22);
+  border-radius:13px;
+  background:rgba(200,164,93,.045);
+}
+.lead-inline-label{
+  margin-bottom:8px;
+  color:var(--gold-2);
+  font-size:7px;
+  font-weight:800;
+  letter-spacing:.12em;
+}
+.lead-inline-property-list{
+  display:grid;
+  gap:8px;
+}
+.lead-inline-property{
+  padding:10px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:11px;
+  background:#0b2030;
+}
+.lead-inline-property.best{
+  border-color:rgba(200,164,93,.34);
+}
+.lead-inline-property-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+  margin-bottom:6px;
+}
+.lead-inline-property-top span{
+  color:var(--gold-2);
+  font-size:6px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.lead-inline-property-top b{
+  color:#8fa3b5;
+  font-size:6px;
+  font-weight:700;
+}
+.lead-inline-property h4{
+  margin:0 0 5px;
+  color:#fff;
+  font:700 10px/1.35 Manrope,sans-serif;
+}
+.lead-inline-property p{
+  margin:0 0 8px;
+  color:#9fb0bf;
+  font-size:7px;
+  line-height:1.4;
+}
+.lead-inline-property>div:last-child{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.lead-inline-property strong{
+  color:#fff;
+  font-size:9px;
+}
+.lead-inline-property button{
+  min-height:28px;
+  padding:0 9px;
+  border:1px solid rgba(200,164,93,.32);
+  border-radius:8px;
+  background:linear-gradient(135deg,#d8b66e,#b98e40);
+  color:#091426;
+  font-size:7px;
+  font-weight:800;
+  cursor:pointer;
+}
