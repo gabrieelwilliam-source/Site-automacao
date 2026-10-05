@@ -5,6 +5,88 @@ function toast(text){const t=$('#toast');t.textContent=text;t.classList.add('sho
 // navegação
 const menuButton=$('#menuButton'),navLinks=$('#navLinks');menuButton.addEventListener('click',()=>{const open=navLinks.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(open));menuButton.setAttribute('aria-label',open?'Fechar menu':'Abrir menu')});document.querySelectorAll('#navLinks a').forEach(a=>a.addEventListener('click',()=>{navLinks.classList.remove('open');menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-label','Abrir menu')}));
 
+// apresentação guiada — inicialização independente das demos
+(function initPresentationGuide(){
+  const button=document.querySelector('#presentationModeBtn');
+  const overlay=document.querySelector('#presentationOverlay');
+  const close=document.querySelector('#presentationClose');
+  const title=document.querySelector('#presentationTitle');
+  const copy=document.querySelector('#presentationText');
+  const step=document.querySelector('#presentationStep');
+  const progress=document.querySelector('#presentationProgress');
+  if(!button||!overlay||!title||!copy||!step||!progress)return;
+
+  let token=0;
+  let running=false;
+  const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+  const setStep=(n,t,p)=>{
+    title.textContent=t;
+    copy.textContent=p;
+    step.textContent=`Etapa ${n} de 4`;
+    progress.style.width=(n*25)+'%';
+  };
+  const stop=()=>{
+    token++;
+    running=false;
+    overlay.hidden=true;
+    document.body.style.overflow='';
+  };
+
+  close?.addEventListener('click',stop);
+  overlay.addEventListener('click',e=>{if(e.target===overlay)stop()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!overlay.hidden)stop()});
+
+  button.addEventListener('click',async()=>{
+    if(running)return;
+    running=true;
+    const current=++token;
+    document.body.style.overflow='hidden';
+
+    overlay.hidden=false;
+    setStep(1,'Primeiro, o problema.','Processos repetitivos consomem tempo, espalham informações e fazem a operação depender de disponibilidade humana.');
+    await wait(2600);
+    if(current!==token)return;
+
+    overlay.hidden=true;
+    document.body.style.overflow='';
+    document.querySelector('#demos')?.scrollIntoView({behavior:'smooth',block:'start'});
+    await wait(1100);
+    if(current!==token)return;
+
+    overlay.hidden=false;
+    document.body.style.overflow='hidden';
+    setStep(2,'Agora, veja a automação funcionando.','As demonstrações mostram atendimento, operação e qualificação comercial acontecendo de forma visual e controlada.');
+    await wait(3000);
+    if(current!==token)return;
+
+    overlay.hidden=true;
+    document.body.style.overflow='';
+    document.querySelector('#processo')?.scrollIntoView({behavior:'smooth',block:'start'});
+    await wait(1100);
+    if(current!==token)return;
+
+    overlay.hidden=false;
+    document.body.style.overflow='hidden';
+    setStep(3,'Por trás da interface.','Cada entrada passa por contexto, regras e decisões até gerar uma ação. É essa lógica que depois pode ser conectada aos sistemas reais da empresa.');
+    await wait(3200);
+    if(current!==token)return;
+
+    overlay.hidden=true;
+    document.body.style.overflow='';
+    document.querySelector('#investimento')?.scrollIntoView({behavior:'smooth',block:'start'});
+    await wait(1100);
+    if(current!==token)return;
+
+    overlay.hidden=false;
+    document.body.style.overflow='hidden';
+    setStep(4,'Transforme a ideia em projeto.','No estimador, você configura o cenário e entende uma faixa inicial de investimento, prazo e nível de personalização.');
+    await wait(3200);
+    if(current!==token)return;
+
+    stop();
+  });
+})();
+
 // scroll progress + reveal
 function updateProgress(){const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;$('#scrollProgress').style.width=(max?scrollY/max*100:0)+'%'}window.addEventListener('scroll',updateProgress,{passive:true});updateProgress();
 const revealObserver=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view');revealObserver.unobserve(e.target)}}),{threshold:.12});$$('.reveal').forEach(el=>revealObserver.observe(el));
@@ -337,6 +419,6 @@ const originalRecordDemo=recordDemo;recordDemo=function(type,detail){originalRec
 function recommendationFor(solution,pain,team,detail){const base={clinica:'Começaria pelo atendimento repetitivo e pela agenda, deixando avaliação personalizada e exceções para a equipe.',imobiliaria:'Começaria pela qualificação e organização do lead antes do corretor assumir, reduzindo tempo gasto em perguntas repetidas.',reposicao:'Começaria pela conferência de estoque e sugestão de pedido, mantendo aprovação humana antes do envio ao sistema.',personalizada:'Começaria pelo processo com maior repetição, regra clara e volume suficiente para medir ganho.'}[solution];const painText={tempo:' Prioridade: remover tarefas repetitivas.',demora:' Prioridade: reduzir tempo de resposta.',perda:' Prioridade: evitar perda de oportunidades.',erros:' Prioridade: reduzir retrabalho e inconsistências.',controle:' Prioridade: criar histórico e visibilidade.',outro:' Prioridade: entender o gargalo principal.'}[pain]||'';const teamText=team?` Você indicou ${team} pessoa(s) envolvida(s) hoje.`:'';return `${base}${painText}${teamText}${detail?' Contexto informado: '+detail:''}`}
 const originalProjectEstimate=projectEstimate;projectEstimate=function(){originalProjectEstimate();const solution=selectedValue('estimateSolution')||'personalizada',pain=document.querySelector('#estimatePain')?.value||'tempo',team=document.querySelector('#estimateTeam')?.value||'',detail=document.querySelector('#estimatePainDetail')?.value.trim()||'';const rec=recommendationFor(solution,pain,team,detail),box=document.querySelector('#estimateRecommendation');if(box)box.innerHTML=`<span>O QUE AUTOMATIZAR PRIMEIRO</span><b>${solutionCatalog[solution].name}</b><p>${rec}</p>`;const integrations=selectedIntegrations(),volume=selectedValue('estimateVolume'),level=selectedValue('estimateLevel'),setup=document.querySelector('#estimateSetup')?.textContent||'',monthly=document.querySelector('#estimateMonthly')?.textContent||'',timeline=document.querySelector('#estimateTimeline')?.textContent||'';zionV11.lastEstimateText=[`Zion Automações — projeto recomendado`,``,`Solução: ${solutionCatalog[solution].name}`,`Volume: ${{small:'Até 500/mês',medium:'500–2.000/mês',large:'Mais de 2.000/mês'}[volume]||volume}`,`Personalização: ${levelLabels[level]||level}`,`Integrações: ${integrations.join(', ')||'A definir'}`,team?`Equipe atual: ${team}`:'',`Problema principal: ${document.querySelector('#estimatePain option:checked')?.textContent||''}`,detail?`Contexto: ${detail}`:'',``,`Implantação estimada: ${setup}`,`Operação/suporte: ${monthly}`,`Prazo: ${timeline}`,``,`Recomendação inicial: ${rec}`].filter(Boolean).join('\n');const wa=document.querySelector('#estimateWhatsapp');if(wa){wa.href='https://wa.me/5547988927391?text='+encodeURIComponent(zionV11.lastEstimateText+'\n\nQuero entender como adaptar isso à minha empresa.')}trackLocal('estimate_generated',{solution,volume,level,team,pain})};
 const calcBtn=document.querySelector('#calculateProjectBtn');if(calcBtn){const clone=calcBtn.cloneNode(true);calcBtn.replaceWith(clone);clone.addEventListener('click',projectEstimate)}document.querySelector('#copyEstimateBtn')?.addEventListener('click',async()=>{if(!zionV11.lastEstimateText)return toast('Calcule uma estimativa primeiro');try{await navigator.clipboard.writeText(zionV11.lastEstimateText);toast('Estimativa copiada')}catch{toast('Não foi possível copiar automaticamente')}});document.querySelector('#shareEstimateBtn')?.addEventListener('click',async()=>{if(!zionV11.lastEstimateText)return toast('Calcule uma estimativa primeiro');if(navigator.share){try{await navigator.share({title:'Projeto recomendado — Zion Automações',text:zionV11.lastEstimateText,url:location.href});trackLocal('estimate_shared',{method:'native'});return}catch(e){}}try{await navigator.clipboard.writeText(zionV11.lastEstimateText);toast('Resumo copiado para compartilhar');trackLocal('estimate_shared',{method:'clipboard'})}catch{}});
-let presentationToken=0;async function runPresentation(){if(zionV11.presentationRunning)return;zionV11.presentationRunning=true;const token=++presentationToken,overlay=document.querySelector('#presentationOverlay'),title=document.querySelector('#presentationTitle'),text=document.querySelector('#presentationText'),step=document.querySelector('#presentationStep'),bar=document.querySelector('#presentationProgress');overlay.hidden=false;const set=(i,t,p)=>{if(token!==presentationToken)return;title.textContent=t;text.textContent=p;step.textContent=`Etapa ${i} de 4`;bar.style.width=(i*25)+'%'};set(1,'Primeiro, o problema.','Processos repetitivos consomem tempo, espalham informação e tornam o atendimento dependente de disponibilidade humana.');await sleep(1500);if(token!==presentationToken)return;overlay.hidden=true;document.querySelector('#demos')?.scrollIntoView({behavior:'smooth',block:'start'});await sleep(700);const chosen=['clinica','imobiliaria','reposicao'].includes(zionV11.segment)?zionV11.segment:'clinica';await ({clinica:autoClinic,imobiliaria:autoLead,reposicao:autoStock}[chosen])();if(token!==presentationToken)return;showDemoReport(chosen,'Apresentação automática concluída');await sleep(450);overlay.hidden=false;set(3,'O que aconteceu por trás.','A demonstração organizou contexto, aplicou regras e executou ações como uma operação real faria quando conectada aos seus sistemas.');await sleep(1500);if(token!==presentationToken)return;overlay.hidden=true;document.querySelector('#investimento')?.scrollIntoView({behavior:'smooth',block:'start'});setEstimatorSolution(chosen);await sleep(700);overlay.hidden=false;set(4,'Agora, transforme a demo em projeto.','Configure volume, integrações e nível de personalização para receber uma faixa inicial de investimento e prazo.');await sleep(1700);overlay.hidden=true;zionV11.presentationRunning=false;trackLocal('presentation_completed',{segment:chosen})}function stopPresentation(){presentationToken++;zionV11.presentationRunning=false;document.querySelector('#presentationOverlay').hidden=true;trackLocal('presentation_stopped')}document.querySelector('#presentationModeBtn')?.addEventListener('click',runPresentation);document.querySelector('#presentationClose')?.addEventListener('click',stopPresentation);
+let presentationToken=0;async function runPresentation(){if(zionV11.presentationRunning)return;zionV11.presentationRunning=true;const token=++presentationToken,overlay=document.querySelector('#presentationOverlay'),title=document.querySelector('#presentationTitle'),text=document.querySelector('#presentationText'),step=document.querySelector('#presentationStep'),bar=document.querySelector('#presentationProgress');overlay.hidden=false;const set=(i,t,p)=>{if(token!==presentationToken)return;title.textContent=t;text.textContent=p;step.textContent=`Etapa ${i} de 4`;bar.style.width=(i*25)+'%'};set(1,'Primeiro, o problema.','Processos repetitivos consomem tempo, espalham informação e tornam o atendimento dependente de disponibilidade humana.');await sleep(1500);if(token!==presentationToken)return;overlay.hidden=true;document.querySelector('#demos')?.scrollIntoView({behavior:'smooth',block:'start'});await sleep(700);const chosen=['clinica','imobiliaria','reposicao'].includes(zionV11.segment)?zionV11.segment:'clinica';await ({clinica:autoClinic,imobiliaria:autoLead,reposicao:autoStock}[chosen])();if(token!==presentationToken)return;showDemoReport(chosen,'Apresentação automática concluída');await sleep(450);overlay.hidden=false;set(3,'O que aconteceu por trás.','A demonstração organizou contexto, aplicou regras e executou ações como uma operação real faria quando conectada aos seus sistemas.');await sleep(1500);if(token!==presentationToken)return;overlay.hidden=true;document.querySelector('#investimento')?.scrollIntoView({behavior:'smooth',block:'start'});setEstimatorSolution(chosen);await sleep(700);overlay.hidden=false;set(4,'Agora, transforme a demo em projeto.','Configure volume, integrações e nível de personalização para receber uma faixa inicial de investimento e prazo.');await sleep(1700);overlay.hidden=true;zionV11.presentationRunning=false;trackLocal('presentation_completed',{segment:chosen})}function stopPresentation(){presentationToken++;zionV11.presentationRunning=false;document.querySelector('#presentationOverlay').hidden=true;trackLocal('presentation_stopped')}
 const floatCta=document.querySelector('#smartFloatCta');if(floatCta){const io=new IntersectionObserver(es=>es.forEach(e=>{floatCta.style.opacity=e.isIntersecting?'0':'1';floatCta.style.pointerEvents=e.isIntersecting?'none':'auto'}),{threshold:.1});const contact=document.querySelector('#contato');if(contact)io.observe(contact)}
 applyUrlPersonalization();trackLocal('page_view',{segment:zionV11.segment,company:zionV11.company||null});
