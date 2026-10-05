@@ -728,3 +728,49 @@ input[type="range"]{accent-color:var(--gold)}
   .presentation-footer{align-items:flex-end}
   .presentation-actions button{padding:0 10px}
 }
+
+
+/* ===== V16 — jornada interativa controlada pelo visitante ===== */
+.presentation-overlay{
+  position:fixed;
+  inset:0;
+  width:auto;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  background:rgba(5,13,25,.58);
+  backdrop-filter:blur(8px);
+  pointer-events:auto;
+}
+.presentation-overlay.presentation-overlay-docked{
+  inset:auto 24px 24px auto;
+  width:min(430px,calc(100% - 32px));
+  display:block;
+  padding:0;
+  background:transparent;
+  backdrop-filter:none;
+  pointer-events:none;
+}
+.presentation-overlay.presentation-overlay-docked .presentation-card{
+  pointer-events:auto;
+}
+.presentation-card{
+  max-width:520px;
+}
+.presentation-actions button:last-child{
+  min-width:112px;
+}
+.presentation-target{
+  scroll-margin-top:96px;
+}
+.presentation-target:after{
+  border-color:rgba(200,164,93,.52);
+  box-shadow:0 0 0 7px rgba(200,164,93,.055);
+}
+@media(max-width:620px){
+  .presentation-overlay.presentation-overlay-docked{
+    right:12px;
+    bottom:74px;
+    width:calc(100% - 24px);
+  }
+}
