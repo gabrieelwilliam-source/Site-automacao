@@ -707,66 +707,62 @@
   <script>
     const zionJourney = [
       {
-        kind: 'message',
-        title: 'Antes de começar',
-        text: 'A Zion transforma processos repetitivos em automações que você pode testar antes de contratar.',
+        target: '.hero',
+        title: 'Comece pela proposta.',
+        text: 'A Zion transforma processos repetitivos em automações que podem ser demonstradas antes da contratação.',
         button: 'Continuar'
       },
       {
-        kind: 'section',
         target: '#demos',
-        title: 'Agora explore uma demonstração',
-        text: 'Escolha Clínica, Reposição ou Imobiliária. Você pode clicar, testar e entender como a automação funciona. Quando terminar de explorar, clique em Continuar.',
+        title: 'Explore uma demonstração.',
+        text: 'Escolha Clínica, Reposição ou Imobiliária. Teste as opções com calma e, quando terminar, clique em Continuar.',
         button: 'Continuar'
       },
       {
-        kind: 'message',
-        title: 'O que você acabou de ver',
-        text: 'A automação não é apenas uma tela: ela interpreta contexto, aplica regras e executa a próxima ação.',
-        button: 'Ver como funciona'
+        target: '#relatorio-demo',
+        title: 'Veja o que a automação fez.',
+        text: 'Depois de testar uma demo, esta área resume a jornada e mostra quais etapas e ações foram automatizadas.',
+        button: 'Continuar'
       },
       {
-        kind: 'section',
         target: '#processo',
-        title: 'Veja o processo por trás',
-        text: 'Observe as etapas de entrada, contexto, regra e execução. Explore com calma e avance quando quiser.',
+        title: 'Entenda o que acontece por trás.',
+        text: 'A automação recebe uma entrada, interpreta contexto, aplica regras e executa a próxima ação. Observe as quatro etapas desta seção.',
         button: 'Continuar'
       },
       {
-        kind: 'message',
-        title: 'Agora pense no seu negócio',
-        text: 'A mesma lógica pode ser adaptada à sua operação, aos seus sistemas e às regras específicas da sua empresa.',
-        button: 'Ver investimento'
+        target: '#experiencia',
+        title: 'Compare antes e depois.',
+        text: 'Aqui fica mais fácil enxergar a diferença entre uma rotina manual e uma operação apoiada por automação.',
+        button: 'Continuar'
       },
       {
-        kind: 'section',
         target: '#investimento',
-        title: 'Monte seu cenário',
-        text: 'Use o estimador para escolher solução, volume, integrações e nível de personalização. Quando terminar, você pode finalizar a apresentação.',
+        title: 'Monte o seu cenário.',
+        text: 'Use o estimador no seu ritmo. Escolha solução, volume, integrações e personalização; depois finalize a apresentação.',
         button: 'Finalizar'
       }
     ];
 
     let zionJourneyIndex = 0;
 
-    function getZionJourneyElements() {
-      return {
-        overlay: document.getElementById('presentationOverlay'),
-        title: document.getElementById('presentationTitle'),
-        text: document.getElementById('presentationText'),
-        step: document.getElementById('presentationStep'),
-        progress: document.getElementById('presentationProgress'),
-        prev: document.getElementById('presentationPrev'),
-        next: document.getElementById('presentationNext')
-      };
-    }
-
     function renderZionJourney() {
       const item = zionJourney[zionJourneyIndex];
-      const { overlay, title, text, step, progress, prev, next } = getZionJourneyElements();
+      const overlay = document.getElementById('presentationOverlay');
+      const title = document.getElementById('presentationTitle');
+      const text = document.getElementById('presentationText');
+      const step = document.getElementById('presentationStep');
+      const progress = document.getElementById('presentationProgress');
+      const prev = document.getElementById('presentationPrev');
+      const next = document.getElementById('presentationNext');
+
       if (!item || !overlay || !title || !text || !step || !progress || !prev || !next) return;
 
       document.querySelectorAll('.presentation-target').forEach(el => el.classList.remove('presentation-target'));
+
+      const target = document.querySelector(item.target);
+      target?.classList.add('presentation-target');
+      target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
       title.textContent = item.title;
       text.textContent = item.text;
@@ -775,15 +771,7 @@
       prev.disabled = zionJourneyIndex === 0;
       next.textContent = item.button || 'Continuar';
 
-      if (item.kind === 'section' && item.target) {
-        const target = document.querySelector(item.target);
-        target?.classList.add('presentation-target');
-        overlay.classList.add('presentation-overlay-docked');
-        target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        overlay.classList.remove('presentation-overlay-docked');
-      }
-
+      overlay.classList.add('presentation-overlay-docked');
       overlay.hidden = false;
     }
 
