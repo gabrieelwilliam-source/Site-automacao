@@ -315,10 +315,10 @@ document.querySelectorAll('[data-jump]').forEach(el=>el.addEventListener('click'
 // ===== V11 — personalização, relatório pós-demo e funil comercial =====
 const zionV11={segment:localStorage.getItem('zion_segment')||'personalizada',company:'',lastReport:null,lastEstimateText:'',presentationRunning:false};
 const segmentCopy={
-  clinica:{title:'Automação para clínicas que o paciente pode testar antes de você contratar.',subtitle:'Veja atendimento, contexto, agenda, reagendamento e transferência humana funcionando em uma experiência próxima do uso real.',float:'Quero isso na minha clínica',kicker:'CLÍNICA / ESTÉTICA'},
-  imobiliaria:{title:'Qualifique leads antes que o corretor precise começar do zero.',subtitle:'Teste uma jornada que coleta perfil, organiza CRM, encontra imóveis compatíveis e prepara a visita com contexto completo.',float:'Quero isso na minha imobiliária',kicker:'IMOBILIÁRIA'},
+  clinica:{title:'Automação para clínicas que o paciente pode testar antes de você contratar.',subtitle:'Evite buracos na agenda e responda pacientes em segundos. Veja uma recepcionista digital trabalhando 24h por dia para transformar conversas em agendamentos.',float:'Quero isso na minha clínica',kicker:'CLÍNICA / ESTÉTICA'},
+  imobiliaria:{title:'Qualifique leads antes que o corretor precise começar do zero.',subtitle:'Não deixe leads esfriarem à noite ou no fim de semana. Veja a Iana qualificar interessados e entregar ao corretor oportunidades prontas para avançar.',float:'Quero isso na minha imobiliária',kicker:'IMOBILIÁRIA'},
   reposicao:{title:'Transforme estoque e giro em uma decisão de reposição mais objetiva.',subtitle:'Simule a visita do vendedor, a conferência por produto e a sugestão de pedido orientada por regras e dados.',float:'Quero avaliar minha operação',kicker:'DISTRIBUIÇÃO / OPERAÇÃO'},
-  personalizada:{title:'Automações que você pode testar antes de contratar.',subtitle:'A Zion transforma processos repetitivos em experiências inteligentes. Teste cenários e veja como uma automação pode se adaptar ao seu negócio.',float:'Quero avaliar minha automação',kicker:'PROJETO ZION'}
+  personalizada:{title:'Automações que você pode testar antes de contratar.',subtitle:'Acabe com as faltas na sua clínica ou atenda leads imobiliários em 3 segundos. Teste agora na prática como uma IA inteligente trabalha pela sua empresa 24h por dia, sem precisar de cadastro.',float:'Quero avaliar minha automação',kicker:'PROJETO ZION'}
 };
 function setSegment(seg,{scroll=false}={}){
   if(!segmentCopy[seg])seg='personalizada';zionV11.segment=seg;localStorage.setItem('zion_segment',seg);
