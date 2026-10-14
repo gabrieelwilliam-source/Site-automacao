@@ -1,1 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc"><title id="title">Zion Automações</title><desc id="desc">Automações que você pode testar antes de contratar.</desc><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0c1b33"/><stop offset="1" stop-color="#081426"/></linearGradient><radialGradient id="gold"><stop stop-color="#c8a45d" stop-opacity=".32"/><stop offset="1" stop-color="#c8a45d" stop-opacity="0"/></radialGradient></defs><rect width="1200" height="630" fill="url(#bg)"/><circle cx="100" cy="165" r="360" fill="url(#gold)"/><circle cx="1080" cy="95" r="300" fill="url(#gold)" opacity=".55"/><rect x="76" y="70" width="1048" height="490" rx="34" fill="#0c1b33" fill-opacity=".78" stroke="#c8a45d" stroke-opacity=".42" stroke-width="2"/><rect x="118" y="116" width="74" height="74" rx="19" fill="#132744" stroke="#c8a45d" stroke-width="2"/><text x="155" y="169" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="48" font-weight="800" fill="#e1c27f">Z</text><text x="218" y="147" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" fill="#e1c27f">ZION AUTOMAÇÕES</text><text x="118" y="286" font-family="Arial,Helvetica,sans-serif" font-size="58" font-weight="800" fill="#f7f5f0">Automações que você pode</text><text x="118" y="357" font-family="Arial,Helvetica,sans-serif" font-size="58" font-weight="800" fill="#d5bf91">testar antes de contratar.</text><text x="118" y="454" font-family="Arial,Helvetica,sans-serif" font-size="29" fill="#c7ced8">Atendimento • Comercial • Operação</text><rect x="118" y="493" width="335" height="3" rx="2" fill="#c8a45d"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+<title id="title">Zion Automações</title><desc id="desc">IA, automação e processos que geram resultado.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07162f"/><stop offset="1" stop-color="#0b234b"/></linearGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b87916"/><stop offset=".5" stop-color="#efc95f"/><stop offset="1" stop-color="#c68a20"/></linearGradient>
+</defs>
+<rect width="1200" height="630" fill="url(#bg)"/>
+<circle cx="167" cy="164" r="79" fill="#fff" stroke="url(#gold)" stroke-width="5"/>
+<path d="M121 166c-12-25-5-57 20-72 17-10 41-11 61-3-20 2-34 9-43 20 18-9 39-11 59-3-20 5-34 15-41 29 15-10 31-13 46-8-18 10-29 23-32 40-5 30-20 49-44 57 6-13 7-25 3-37-6 16-16 27-29 34 6-16 6-32 0-57z" fill="#0b3474"/>
+<path d="M122 134h71l-45 47h49v14h-76v-13l45-48h-44z" fill="url(#gold)"/>
+<path d="M171 118c26-4 48 11 55 34 3 11 1 24-4 34-8 13-21 22-36 25-16 2-27-4-34-16 10-1 18-7 22-16-10 2-19-1-25-8 11-9 18-20 22-33z" fill="url(#gold)"/>
+<text x="305" y="175" fill="#efc95f" font-family="Georgia,serif" font-size="58" font-weight="700" letter-spacing="5">ZION</text>
+<text x="309" y="219" fill="#ffffff" font-family="Arial,sans-serif" font-size="21" letter-spacing="9">AUTOMAÇÕES</text>
+<text x="305" y="337" fill="#ffffff" font-family="Arial,sans-serif" font-size="53" font-weight="700">Automação que trabalha</text>
+<text x="305" y="401" fill="#efc95f" font-family="Arial,sans-serif" font-size="53" font-weight="700">enquanto sua equipe vende.</text>
+<text x="305" y="486" fill="#b9c6d7" font-family="Arial,sans-serif" font-size="28">IA • Atendimento • Leads • Processos</text>
+<rect x="305" y="527" width="300" height="4" rx="2" fill="url(#gold)"/>
+</svg>
