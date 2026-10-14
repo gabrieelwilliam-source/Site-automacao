@@ -1,1 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title"><title id="title">Zion Automações</title><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#132744"/><stop offset="1" stop-color="#081426"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="url(#g)"/><rect x="5" y="5" width="54" height="54" rx="13" fill="none" stroke="#c8a45d" stroke-width="2"/><path d="M19 20h27v6L28 43h18v7H18v-6l18-17H19z" fill="#e1c27f"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">Zion Automações</title>
+<desc id="desc">Leão azul e dourado da Zion Automações</desc>
+<defs>
+  <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07162f"/><stop offset="1" stop-color="#123f86"/></linearGradient>
+  <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0d47a1"/><stop offset="1" stop-color="#18a4f3"/></linearGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b87916"/><stop offset=".52" stop-color="#efc95f"/><stop offset="1" stop-color="#c68a20"/></linearGradient>
+</defs>
+<circle cx="64" cy="64" r="58" fill="#fff" stroke="url(#gold)" stroke-width="4"/>
+<!-- mane -->
+<path d="M30 73c-9-18-4-41 14-51 12-7 29-8 43-2-14 1-24 6-30 14 12-7 28-8 42-2-14 3-24 10-29 20 10-7 21-9 32-6-13 7-21 16-23 28-4 22-15 35-32 41 4-9 5-17 2-26-4 11-11 19-20 24 4-11 4-22 1-32z" fill="url(#navy)"/>
+<path d="M23 61c5-20 20-34 42-39-10 8-16 17-18 28 9-10 20-16 34-18-10 9-16 19-18 31-11-3-25-4-40-2z" fill="url(#blue)"/>
+<path d="M30 88c8-5 15-13 20-25 1 15-2 28-9 39 9-5 16-13 21-25 1 14-3 26-11 36-9-5-16-13-21-25z" fill="url(#blue)"/>
+<!-- integrated Z -->
+<path d="M31 46h49L49 79h35v10H30V80l31-34H31z" fill="url(#gold)" opacity=".96"/>
+<!-- face -->
+<path d="M69 35c18-2 34 9 39 25 2 8 1 18-3 25-5 9-14 16-25 18-11 2-19-3-24-11 7-1 12-5 15-11-7 1-13-1-17-6 8-6 13-14 15-23z" fill="url(#gold)"/>
+<path d="M79 47c10-4 19-1 26 7-6-2-12-1-16 3-4 4-6 9-6 15-5-4-7-9-7-15 0-4 1-7 3-10z" fill="#f7db83"/>
+<path d="M91 58c5-2 10 0 13 4-5-1-9 0-12 3-2 2-4 5-4 8-3-5-2-11 3-15z" fill="#07162f"/>
+<circle cx="94" cy="61" r="2.7" fill="#17a9ff"/>
+<path d="M103 72c6 0 10 2 13 6-4 3-8 4-13 3z" fill="#07162f"/>
+<path d="M80 88c8 5 17 5 25 0-4 8-10 12-18 12-5 0-10-4-12-9z" fill="#07162f"/>
+<path d="M82 102c7 2 12 1 17-2-2 7-7 12-14 14z" fill="url(#gold)"/>
+<!-- ear -->
+<path d="M65 35c2-10 9-15 17-12 5 2 7 7 5 13-6-4-13-4-22-1z" fill="url(#gold)"/>
+<path d="M72 32c3-5 7-6 11-4-4 1-7 4-8 8z" fill="#07162f"/>
+</svg>
