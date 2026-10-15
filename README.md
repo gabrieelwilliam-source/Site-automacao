@@ -133,3 +133,16 @@ Executar com Node e dependências jsdom e css-tree: `node tests/site.test.cjs` e
 ## Simulações reunidas
 
 A abertura apresenta automação para empresas em geral. Clínica, reposição, imobiliária e salão dividem os mesmos cards e abas em `#demos`. O salão não ocupa mais uma seção exclusiva antes das outras soluções. Validação: 27 testes de interação e 36 de CSS; sem inspeção visual renderizada.
+
+
+## Atendimento com IA real
+
+`atendimento-real.js` conecta clínica, imobiliária e salão ao webhook isolado de demonstração do n8n. A Groq responde de verdade; catálogo, empresas, CRM e agendas são fictícios. Reposição continua sendo uma simulação operacional com cálculo e aprovação. Nenhum cliente real, WhatsApp, tabela de negócio ou Google Calendar é acessado por essa integração.
+
+As credenciais Groq e PostgreSQL ficam protegidas no n8n. O navegador envia apenas identificador aleatório da sessão, segmento, mensagem e eventuais ações do painel demonstrativo. Não há chaves no repositório. Não informe dados pessoais ou sensíveis: as mensagens são processadas pela Groq. A memória da demonstração tem validade de 30 minutos de inatividade e é mantida no schema separado `zion_webdemo_v1`, com RLS e sem concessão pública. As tabelas de negócio existentes são preservadas.
+
+Limites: 24 consultas de IA por sessão; 240 por dia no total; intervalo entre pedidos; trava de concorrência por sessão. SQL usa parâmetros e bloqueios transacionais. CORS permite somente a origem do GitHub Pages. Essas cotas limitam o custo; a demonstração pública não substitui um gateway de proteção contra abuso para operação de grande volume.
+
+Erros de IA/rede são mostrados explicitamente. Não há resposta roteirizada disfarçada de resposta da IA. Handoff pausa a assistente. Botões de confirmação financeira e agenda atuam somente nos dados de teste. O servidor impede que a IA registre recebimento por conta própria e exige ação da equipe de teste para confirmar horários do salão.
+
+Fontes de servidor em `server-demo/`: preparação do contexto, validação do retorno e estrutura SQL. Instalar esses scripts nos nós correspondentes do fluxo isolado; nunca colocar credenciais nesses arquivos. Executar testes `site.test.cjs`, `design.test.cjs`, `live-demo.test.cjs` e `server-demo.test.cjs`. Testes DOM/CSS não equivalem à inspeção visual em navegador.

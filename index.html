@@ -25,9 +25,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="assets/zion-original.png" type="image/png">
-  <link rel="stylesheet" href="styles.css?v=33-20261015">
+  <link rel="stylesheet" href="styles.css?v=34-20261015">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Zion Automações","description":"Automação sob medida para atendimento, comercial e operação.","areaServed":"BR","sameAs":[]}</script>
-  <link rel="stylesheet" href="design.css?v=33-20261015">
+  <link rel="stylesheet" href="design.css?v=34-20261015">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
@@ -183,11 +183,12 @@
           <p>Escolha entre clínica, reposição, imobiliária e salão. Todas as simulações estão reunidas aqui. São exemplos para conhecer outras jornadas, com dados fictícios e sem conexão com clientes reais.</p>
         </div>
 
+        <div class="live-demo-banner"><div><strong>Converse com IA real</strong><p>Clínica, imobiliária e salão respondem pelo n8n com IA. Empresas, catálogo, CRM, pagamentos e agendas são de demonstração. Nenhum WhatsApp é enviado e nenhuma reserva real é criada. Não informe dados pessoais ou sensíveis. As mensagens são processadas pela Groq; o contexto da sessão expira após 30 minutos de inatividade.</p><span id="liveDemoStatus" role="status" aria-live="polite">Conectando a experiência de atendimento…</span></div><button id="liveResume" class="button button-secondary" type="button">Equipe de teste: retomar IA</button></div>
         <div class="demo-onboarding reveal">
           <div>
             <span class="eyebrow">MODO DEMONSTRAÇÃO</span>
-            <h3>Você pode assistir ou assumir o controle.</h3>
-            <p>Comece com uma jornada automática para entender o fluxo e depois teste livremente. As execuções ficam registradas apenas neste navegador.</p>
+            <h3>Escreva como você falaria no WhatsApp.</h3>
+            <p>Pergunte valores, explique sua necessidade, mude de ideia e peça uma pessoa. Os botões são sugestões de mensagem; você também pode escrever livremente. Em reposição, teste a contagem e a aprovação do pedido.</p>
           </div>
           <div class="onboarding-actions">
             <button type="button" class="button button-primary" id="autoDemoBtn">▶ Ver demo automática</button>
@@ -199,7 +200,8 @@
           <article><span>EXECUÇÕES NESTE NAVEGADOR</span><strong id="dashRuns">0</strong><small>interações registradas</small></article>
           <article><span>CLÍNICA</span><strong id="dashClinic">0</strong><small>mensagens processadas</small></article>
           <article><span>REPOSIÇÃO</span><strong id="dashStock">0</strong><small>análises concluídas</small></article>
-          <article><span>IMOBILIÁRIA</span><strong id="dashLead">0</strong><small>leads qualificados</small></article>
+          <article><span>IMOBILIÁRIA</span><strong id="dashLead">0</strong><small>interações de demonstração</small></article>
+          <article><span>SALÃO</span><strong id="dashSalon">0</strong><small>interações de demonstração</small></article>
         </div>
 
         <div class="demo-shell reveal">
@@ -213,7 +215,7 @@
           <div class="demo-content">
             <section class="demo-panel active" id="demo-clinica" role="tabpanel" aria-labelledby="tab-clinica">
               <div class="demo-panel-head clinic-demo-head">
-                <div><span class="live-dot"></span><p><b>Iana — Clínica Horizonte Estético</b><small>Simulação conversacional completa • sem backend</small></p></div>
+                <div><span class="live-dot"></span><p><b>Iana — Clínica Horizonte Estético</b><small>Conversa com IA real · agenda de demonstração</small></p></div>
                 <div class="head-actions"><button type="button" class="ghost-button focus-button" data-focus="clinica">⛶ Expandir</button><button type="button" class="ghost-button" data-auto="clinica">▶ Jornada automática</button><button type="button" class="ghost-button" data-share="clinica">↗ Compartilhar</button><button type="button" class="ghost-button" data-reset="clinica">↻ Reiniciar</button></div>
               </div>
 
@@ -361,7 +363,7 @@
 
                 <div class="realty-side">
                   <div class="crm-card crm-card-v7">
-                    <div class="crm-top"><div><span class="panel-label">CRM EM TEMPO REAL</span><h3>Perfil do lead</h3></div><span class="temperature cold" id="leadTemperature">Frio</span></div>
+                    <div class="crm-top"><div><span class="panel-label">CRM DEMONSTRATIVO</span><h3>Perfil do lead</h3></div><span class="temperature cold" id="leadTemperature">Frio</span></div>
                     <div class="score-line"><span>Completude do perfil</span><b id="leadPercent">10%</b></div><div class="progress"><i id="leadProgress" style="width:10%"></i></div>
                     <div class="crm-fields crm-fields-v7"><p>Objetivo<b id="crmIntent">—</b></p><p>Tipo<b id="crmType">—</b></p><p>Região<b id="crmRegion">—</b></p><p>Orçamento<b id="crmBudget">—</b></p><p>Quartos<b id="crmBedrooms">—</b></p><p>Prazo<b id="crmTimeline">—</b></p></div>
                     <div class="handoff" id="handoff"><span>↗</span><div><b>Qualificação em andamento</b><p>A Iana ainda está coletando informações para encontrar os imóveis mais aderentes.</p></div></div>
@@ -392,13 +394,13 @@
             </section>
 <section class="zion-salon demo-panel" role="tabpanel" id="demo-salao" aria-labelledby="tab-salao">
  <div class="salon-panel-content">
-  <div class="section-heading"><div><span class="eyebrow">SIMULAÇÃO DE SALÃO / SERVIÇOS</span><h2 id="salonDemoTitle">Salão: atendimento e gestão.</h2></div><p>Escolha uma situação e veja a decisão mudar. Aqui os dados são fictícios: a demonstração não envia WhatsApp, não acessa o salão e não faz agendamentos reais.</p></div>
-  <div class="salon-demo-toolbar"><span class="salon-demo-mode">Simulação guiada · sem cadastro</span><span id="salonTestCount">0 situações testadas</span><button id="salonReset" class="button button-ghost" type="button">Recomeçar</button></div>
+  <div class="section-heading"><div><span class="eyebrow">SIMULAÇÃO DE SALÃO / SERVIÇOS</span><h2 id="salonDemoTitle">Salão: atendimento e gestão.</h2></div><p>Converse livremente ou use uma sugestão de mensagem e acompanhe a gestão. Aqui os dados são fictícios: a demonstração não envia WhatsApp, não acessa o salão e não faz agendamentos reais.</p></div>
+  <div class="salon-demo-toolbar"><span class="salon-demo-mode">Conversa livre com IA · sem cadastro</span><span id="salonTestCount">0 situações testadas</span><button id="salonReset" class="button button-ghost" type="button">Recomeçar</button></div>
   <div class="salon-scenarios" aria-label="Situações para testar">
    <button data-salon-case="price" type="button">1. Perguntar preço</button><button data-salon-case="other" type="button">2. Citar outro gasto</button><button data-salon-case="schedule" type="button">3. Pedir horário</button><button data-salon-case="claim" type="button">4. Informar um Pix</button><button data-salon-case="decline" type="button">5. Desistir do serviço</button><button data-salon-case="human" type="button">6. Chamar uma pessoa</button>
   </div>
   <div class="salon-demo-grid">
-   <article class="salon-chat"><header><span class="salon-avatar">I</span><div><h3>Iana · salão demonstrativo</h3><p>Visão da cliente · conversa simulada</p></div></header><div id="salonMessages" class="salon-messages" role="log" aria-live="polite" aria-label="Histórico da demonstração"></div><form id="salonForm"><label class="sr-only" for="salonInput">Mensagem de teste</label><input id="salonInput" placeholder="Ex.: vou pensar no corte" maxlength="500" autocomplete="off"><button type="submit" aria-label="Enviar mensagem de teste">Enviar</button></form></article>
+   <article class="salon-chat"><header><span class="salon-avatar">I</span><div><h3>Iana · Studio Aurora</h3><p>Visão da cliente · IA real, dados fictícios</p></div></header><div id="salonMessages" class="salon-messages" role="log" aria-live="polite" aria-label="Histórico da demonstração"></div><form id="salonForm"><label class="sr-only" for="salonInput">Mensagem de teste</label><input id="salonInput" placeholder="Escreva como se estivesse no WhatsApp" maxlength="500" autocomplete="off"><button type="submit" aria-label="Enviar mensagem de teste">Enviar</button></form></article>
    <article class="salon-console"><header><span class="eyebrow">VISÃO DA GESTORA</span><h3>O que entra na sua gestão</h3><p id="salonControl">Iana atendendo</p></header><dl><div><dt>Intenção da cliente</dt><dd id="salonIntent"></dd></div><div><dt>Serviço em conversa</dt><dd id="salonService"></dd></div><div><dt>Valor previsto · não recebido</dt><dd id="salonExpected"></dd></div><div><dt>Agenda</dt><dd id="salonAppointment"></dd></div><div><dt>Pagamento</dt><dd id="salonPayment"></dd></div></dl><div class="salon-decision"><strong>Por que essa decisão?</strong><p id="salonReason"></p></div><details class="salon-owner"><summary>Experimentar uma ação da gestora</summary><p>Na operação real, estas ações exigem acesso ao painel.</p><label class="salon-duration" for="salonDuration">Duração em minutos<input id="salonDuration" type="number" min="1" max="720" placeholder="Informe a duração"></label><small>Cenário fictício: pedido às 14h; outro atendimento das 15h às 16h.</small><button type="button" id="salonOwnerAppointment" disabled>Simular confirmação do horário</button><button type="button" id="salonOwnerReceipt" disabled>Simular conferência do Pix</button><button type="button" id="salonOwnerResume" disabled>Devolver à Iana</button></details><details class="salon-audit"><summary>Ver as últimas decisões</summary><ul id="salonHistory"></ul></details></article>
   </div>
   <div class="salon-demo-close"><div><h3>É esse controle que falta no seu atendimento?</h3><p>Leve seus serviços, suas regras e seu jeito de atender para uma implantação própria.</p></div><a class="button button-primary" href="#solicitar-proposta">Quero a Iana na minha empresa →</a></div>
@@ -850,8 +852,9 @@
       if (event.key === 'Escape') stopZionPresentation();
     });
   </script>
-  <script src="script.js?v=33-20261015" defer></script>
-  <script src="salao-demo.js?v=33-20261015" defer></script>
+  <script src="script.js?v=34-20261015" defer></script>
+  <script src="salao-demo.js?v=34-20261015" defer></script>
+  <script src="atendimento-real.js?v=34-20261015" defer></script>
 </body>
 </html>
 
