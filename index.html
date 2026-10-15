@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#0c1b33">
-  <meta name="color-scheme" content="light dark">
+  <meta name="color-scheme" content="light">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="description" content="Atendimento com IA, CRM e gestão para sua empresa. Teste a demonstração da Iana e solicite uma proposta de automação para WhatsApp, agenda e atendimento humano.">
@@ -14,19 +14,20 @@
   <meta property="og:url" content="https://gabrieelwilliam-source.github.io/Site-automacao/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Zion Automações">
-  <meta property="og:image" content="https://gabrieelwilliam-source.github.io/Site-automacao/assets/og-zion.png">
+  <meta property="og:image" content="https://gabrieelwilliam-source.github.io/Site-automacao/assets/zion-original.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:alt" content="Zion Automações — demonstrações interativas de automação">
   <meta property="og:locale" content="pt_BR">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://gabrieelwilliam-source.github.io/Site-automacao/assets/og-zion.png">
+  <meta name="twitter:image" content="https://gabrieelwilliam-source.github.io/Site-automacao/assets/zion-original.png">
   <title>Zion Automações | Atendimento com IA e gestão no WhatsApp</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" href="assets/zion-mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=31-20261015">
+  <link rel="icon" href="assets/zion-original.png" type="image/png">
+  <link rel="stylesheet" href="styles.css?v=32-20261015">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Zion Automações","description":"Automação sob medida para atendimento, comercial e operação.","areaServed":"BR","sameAs":[]}</script>
+  <link rel="stylesheet" href="design.css?v=32-20261015">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
@@ -37,7 +38,7 @@
   <header class="site-header" id="top">
     <div class="container nav-shell">
       <a class="brand brand-v30" href="#top" aria-label="Zion Automações">
-        <img class="brand-lion" src="assets/zion-mark.svg" alt="" width="46" height="46">
+        <img class="brand-lion" src="assets/zion-original.png" alt="" width="46" height="46">
         <span class="brand-wordmark"><strong>ZION</strong><small>AUTOMAÇÕES</small></span>
       </a>
       <button class="menu-button" id="menuButton" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">☰</button>
@@ -65,26 +66,15 @@
         </div>
 
         <div class="hero-visual reveal delay-1">
-          <div class="hero-brand-seal" aria-hidden="true">
-            <img src="assets/zion-mark.svg" alt="">
-            <div><strong>ZION</strong><span>AUTOMAÇÕES</span></div>
-          </div>
-          <div class="dashboard-card glass-card">
-            <div class="window-bar"><span class="dots"><i></i><i></i><i></i></span><small>automacoes.demo</small><span class="status"><i></i> demonstração</span></div>
-            <div class="dashboard-body">
-              <div class="dashboard-top">
-                <div><small>EXECUÇÕES SIMULADAS</small><strong id="heroCounter">0</strong></div>
-                <span>Cenário ilustrativo</span>
-              </div>
-              <div class="chart" aria-hidden="true">
-                <i style="height:32%"></i><i style="height:45%"></i><i style="height:40%"></i><i style="height:61%"></i><i style="height:52%"></i><i style="height:76%"></i><i style="height:68%"></i><i style="height:91%"></i>
-              </div>
-              <div class="flow-list">
-                <div><span>01</span><p><b>Mensagem recebida</b><small>Canal identificado e contexto iniciado</small></p><time>0,1s</time></div>
-                <div><span>02</span><p><b>Intenção interpretada</b><small>Regra e jornada selecionadas</small></p><time>0,4s</time></div>
-                <div><span>03</span><p><b>Ação executada</b><small>Resposta, cálculo ou encaminhamento</small></p><time>0,8s</time></div>
-              </div>
+          <div class="zion-showcase">
+            <img class="showcase-logo" src="assets/zion-original.png" alt="Logo Zion: leão azul e dourado com a letra Z" width="180" height="180">
+            <span class="showcase-caption">ATENDIMENTO INTELIGENTE. GESTÃO PRESENTE.</span>
+            <div class="showcase-conversation">
+              <p class="showcase-client">Quero saber o valor de um corte.</p>
+              <p class="showcase-iana"><b>Iana</b>O corte custa R$ 80. Quer consultar um horário ou prefere tirar alguma dúvida?</p>
             </div>
+            <div class="showcase-decision"><span>NO SEU PAINEL</span><strong>Interesse identificado</strong><p>Uma pergunta sobre preço ainda não é um agendamento.</p></div>
+            <small class="showcase-disclaimer">Exemplo ilustrativo · Teste os cenários abaixo</small>
           </div>
         </div>
       </div>
@@ -715,7 +705,7 @@
     </section>
   </main>
 
-  <footer class="footer"><div class="container"><a class="brand brand-v30" href="#top"><img class="brand-lion" src="assets/zion-mark.svg" alt="" width="46" height="46"><span class="brand-wordmark"><strong>ZION</strong><small>AUTOMAÇÕES</small></span></a><p>Automação sob medida para atendimento, comercial e operação.</p><span>Zion Automações • Joinville/SC</span></div></footer>
+  <footer class="footer"><div class="container"><a class="brand brand-v30" href="#top"><img class="brand-lion" src="assets/zion-original.png" alt="" width="46" height="46"><span class="brand-wordmark"><strong>ZION</strong><small>AUTOMAÇÕES</small></span></a><p>Automação sob medida para atendimento, comercial e operação.</p><span>Zion Automações • Joinville/SC</span></div></footer>
 
   <a class="smart-float-cta" id="smartFloatCta" href="#solicitar-proposta"><span>✦</span><div><small id="smartFloatKicker">PROJETO ZION</small><b id="smartFloatText">Quero avaliar minha automação</b></div><i>→</i></a>
 
@@ -849,7 +839,7 @@
       if (event.key === 'Escape') stopZionPresentation();
     });
   </script>
-  <script src="script.js?v=31-20261015" defer></script>
+  <script src="script.js?v=32-20261015" defer></script>
   <script src="salao-demo.js?v=31-20261015" defer></script>
 </body>
 </html>

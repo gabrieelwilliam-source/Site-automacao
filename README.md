@@ -119,3 +119,12 @@ Depois, acesse `http://localhost:8080`.
 - Demonstrações antigas e estimador preservados; nenhuma promessa de tempo de resposta ou resultado garantido.
 - `salao-demo.js` é um simulador local, não usa um modelo de IA nem chama o n8n. A implantação da IA e das integrações pertence ao projeto de cada empresa. Não inserir chaves, URLs privadas ou dados reais no código público.
 - Verificação: `NODE_PATH=/caminho/para/node_modules node tests/site.test.cjs` (JSDOM). Sem dependência de produção.
+
+
+## Correção visual — 15/10/2026
+
+O logo em `assets/zion-original.png` é o arquivo original aprovado, sem redesenho. `design.css` define a apresentação clara com azul-marinho e dourado e a área de demonstração escura. É carregado depois do CSS legado das demonstrações. O layout da abertura usa uma coluna até 820 px.
+
+Validação: 25 testes de interações e 36 verificações de cascata CSS em 360, 390, 768, 1024 e 1440 px. A ferramenta de navegador ficou indisponível; estes testes não equivalem a inspeção visual renderizada.
+
+Executar com Node e dependências jsdom e css-tree: `node tests/site.test.cjs` e `node tests/design.test.cjs`.

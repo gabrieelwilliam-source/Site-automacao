@@ -10,7 +10,6 @@ function updateProgress(){const h=document.documentElement;const max=h.scrollHei
 const revealObserver=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view');revealObserver.unobserve(e.target)}}),{threshold:.12});$$('.reveal').forEach(el=>revealObserver.observe(el));
 
 // counter hero
-const counter=$('#heroCounter');let counted=false;const countObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting&&!counted){counted=true;let start=0,target=1284,duration=900,t0=performance.now();function tick(t){const p=Math.min(1,(t-t0)/duration);counter.textContent=Math.round(target*(1-Math.pow(1-p,3))).toLocaleString('pt-BR');if(p<1)requestAnimationFrame(tick)}requestAnimationFrame(tick)}})},{threshold:.4});countObserver.observe(counter);
 
 // demo tabs
 function openDemo(name){$$('.demo-tab').forEach(b=>{const active=b.dataset.demo===name;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1});$$('.demo-panel').forEach(p=>p.classList.toggle('active',p.id===`demo-${name}`));}
