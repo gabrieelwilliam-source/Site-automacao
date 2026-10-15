@@ -2,7 +2,10 @@
 function guardRealty(ctx,out){
  const s=out.state,prior=ctx.previous||{},normalize=v=>String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''),text=normalize(ctx.message),money=v=>Number(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
  const inventory=[{id:1,type:'Casa',region:'Costa e Silva',bedrooms:3,rent:2850,title:'Casa contemporânea'},{id:2,type:'Casa',region:'América',bedrooms:3,rent:3200,title:'Sobrado geminado'},{id:3,type:'Apartamento',region:'Costa e Silva',bedrooms:2,rent:2650,title:'Apartamento Garden'},{id:4,type:'Apartamento',region:'Centro',bedrooms:2,rent:2300,title:'Apartamento'}];
- const profile={...(prior.matchRulesVersion===2?prior.lead||{}:{})};let changed=false;
+ const lastQuestion=normalize([...(ctx.session?.history||[])].reverse().find(m=>m.role==='assistant')?.content);
+ const pending=prior.awaiting||(/quantos quartos/.test(lastQuestion)?'bedrooms':/valor maximo|orcamento mensal/.test(lastQuestion)?'budget':null);
+ const wordNumbers={um:1,uma:1,dois:2,duas:2,tres:3,quatro:4,cinco:5,seis:6,sete:7,oito:8,nove:9};
+ const profile={...(prior.matchRulesVersion===2?prior.lead||{}:{})};let changed=false,budgetNeedsUnit=false;
  const set=(key,value)=>{if(value!==undefined&&value!==null&&profile[key]!==value){profile[key]=value;changed=true;}};
  const inputs=prior.matchRulesVersion===2?[ctx.message]:[...(ctx.session?.history||[]).filter(m=>m.role==='user').map(m=>m.content),ctx.message];
  for(const input of inputs){const text=normalize(input);
@@ -12,10 +15,14 @@ function guardRealty(ctx,out){
  const region=/costa e silva/.test(text)?'Costa e Silva':/\bamerica\b/.test(text)?'América':/\bcentro\b/.test(text)?'Centro':null;if(region)set('region',region);
  else {const r=text.match(/(?:no bairro|na regiao de|no bairro de|bairro)\s+([a-z ]{3,40}?)(?:[,.;!?]|$)/);if(r)set('region',r[1].trim());}
  if(/qualquer bairro|sem preferencia de bairro/.test(text))set('region','Sem preferência');
- const bed=text.match(/\b([1-9])\s*(?:quartos?|dormitorios?)/);if(bed&&!/nao (?:quero|aceito)\s*\d\s*(?:quartos|dormitorios)/.test(text))set('bedrooms',+bed[1]);
+ const numericText=text.replace(/\b(um|uma|dois|duas|tres|quatro|cinco|seis|sete|oito|nove)\b/g,w=>wordNumbers[w]);
+ const shortBed=pending==='bedrooms'&&/^\s*[1-9][.! ]*$/.test(numericText)?Number(numericText.match(/[1-9]/)[0]):null;if(shortBed)set('bedrooms',shortBed);
+ const bed=numericText.match(/\b([1-9])\s*(?:quartos?|dormitorios?)/);if(bed&&!/nao (?:quero|aceito)\s*\d\s*(?:quartos|dormitorios)/.test(text))set('bedrooms',+bed[1]);
  // Budget requires a monetary cue. Never use bedrooms or visit hours as money.
- const budget=text.match(/(?:ate|orcamento(?: de| e|:)?|teto(?: de| e|:)?|r\$)\s*(?:r\$\s*)?(\d+(?:[.,]\d+)*)(?:\s*(mil|milhao|milhoes))?/);
- if(budget){let value=budget[1].replace(/\.(?=\d{3}(?:\D|$))/g,'').replace(',','.');value=+value*(budget[2]==='mil'?1000:/milhao|milhoes/.test(budget[2]||'')?1000000:1);if(Number.isFinite(value)&&value>0){set('budgetMax',value);set('budget',money(value));}}
+ const budgetInput=text.replace(/\b(um|uma|dois|duas|tres|quatro|cinco|seis|sete|oito|nove)\b/g,w=>wordNumbers[w]);
+ const budgetText=pending==='budget'&&/^\s*\d+(?:[.,]\d+)*(?:\s*mil)?[.! ]*$/.test(budgetInput)?'ate '+budgetInput:budgetInput;
+ const budget=budgetText.match(/(?:ate|orcamento(?: de| e|:)?|teto(?: de| e|:)?|r\$)\s*(?:r\$\s*)?(\d+(?:[.,]\d+)*)(?:\s*(mil|milhao|milhoes))?/);
+ if(budget){let value=budget[1].replace(/\.(?=\d{3}(?:\D|$))/g,'').replace(',','.');value=+value*(budget[2]==='mil'?1000:/milhao|milhoes/.test(budget[2]||'')?1000000:1);if(Number.isFinite(value)&&value>0){if(pending==='budget'&&value<100&&!/r\$|reais|mil/.test(text)){budgetNeedsUnit=true;}else{set('budgetMax',value);set('budget',money(value));}}}
  if(/dias|meses|quanto antes|pesquisando/.test(text)&&s.lead?.timeline)set('timeline',String(s.lead.timeline).slice(0,80));
  }
  s.matchRulesVersion=2;
@@ -30,26 +37,41 @@ function guardRealty(ctx,out){
  if(s.human)return answer('Vou passar a conversa para a equipe, com suas preferências registradas para você não precisar repetir.','Atendimento humano solicitado');
  const greeting=/^(bom dia|boa tarde|boa noite|oi|ola)[!., ]*$/.test(text);
  if(greeting&&!Object.keys(profile).length)return out;
- if(!profile.purpose)return answer('Você procura esse imóvel para comprar ou para alugar?','Objetivo da busca ainda não informado');
- if(profile.purpose==='Compra'){s.selectedProperty=null;s.visit=null;s.propertyMatches=[];return answer('Nesta carteira de demonstração há apenas imóveis para aluguel. Posso encaminhar seu perfil de compra para um corretor, sem apresentar aluguéis como opções de compra. Você quer seguir assim?','Sem imóveis de compra no catálogo demonstrativo');}
- if(!profile.type)return answer('Você prefere apartamento, casa ou terreno?','Tipo de imóvel ainda não informado');
- if(!profile.region)return answer('Em qual bairro você quer procurar?','Bairro ainda não informado');
- if(!profile.bedrooms)return answer('Quantos quartos você precisa?','Quantidade de quartos ainda não informada');
- if(!profile.budgetMax)return answer('Qual é o valor máximo de aluguel por mês que você procura?','Orçamento mensal ainda não informado');
+ if(/condominio|financiamento|documentos|iptu|taxas|pet|animais|endereco/.test(text)){s.awaiting=pending==='visit_confirmation'?'visit_confirmation_interrupted':pending;return answer('Essa informação não está cadastrada nesta carteira de demonstração. Um corretor precisa conferir antes de você decidir.','Informação não cadastrada; contexto da pergunta anterior preservado');}
+ if(!profile.purpose){s.awaiting='purpose';return answer('Você procura esse imóvel para comprar ou para alugar?','Objetivo da busca ainda não informado');}
+ if(profile.purpose==='Compra'){s.awaiting='handoff_offer';s.selectedProperty=null;s.visit=null;s.propertyMatches=[];return answer('Nesta carteira de demonstração há apenas imóveis para aluguel. Posso encaminhar seu perfil de compra para um corretor, sem apresentar aluguéis como opções de compra. Você quer seguir assim?','Sem imóveis de compra no catálogo demonstrativo');}
+ if(!profile.type){s.awaiting='type';return answer('Você prefere apartamento, casa ou terreno?','Tipo de imóvel ainda não informado');}
+ if(!profile.region){s.awaiting='region';return answer('Em qual bairro você quer procurar?','Bairro ainda não informado');}
+ if(!profile.bedrooms){s.awaiting='bedrooms';return answer('Quantos quartos você precisa?','Quantidade de quartos ainda não informada');}
+ if(budgetNeedsUnit){s.awaiting='budget';return answer('Para não confundir o valor: você pode informar o orçamento com a unidade? Por exemplo, 3 mil ou R$ 3.000.','Orçamento curto sem unidade; valor não presumido');}
+ if(!profile.budgetMax){s.awaiting='budget';return answer('Qual é o valor máximo de aluguel por mês que você procura?','Orçamento mensal ainda não informado');}
  if(!matches.length){s.selectedProperty=null;s.visit=null;s.awaiting='criteria';return answer(`Não encontrei ${profile.type.toLowerCase()} com pelo menos ${profile.bedrooms} quartos em ${profile.region} até ${money(profile.budgetMax)}/mês nesta carteira. Vou manter seus critérios. Você prefere procurar outro bairro ou rever o tipo de imóvel?`,'Nenhum imóvel atende a todos os critérios; nenhuma visita criada');}
  const yes=/^(sim|pode ser|quero sim|confirmo|pode confirmar|confirmar)(?:[!., ]|$)/.test(text)&&!/nao|talvez|pensar|cancel/.test(text);
- const requestedId=text.match(/(?:imovel|opcao|id)\s*(\d+)\b/);let chosen=requestedId?matches.find(p=>p.id===+requestedId[1]):null;
+ const requestedId=text.match(/(?:imovel|id)\s*(\d+)\b/);let chosen=requestedId?matches.find(p=>p.id===+requestedId[1]):null;
+ const option=text.match(/opcao\s*(\d+)|^(\d+)[.! ]*$/);const ordinal=/primeir/.test(text)?1:/segund/.test(text)?2:/terceir/.test(text)?3:null;
+ if(!chosen&&pending==='property_choice'&&(option||ordinal))chosen=matches[(ordinal||Number(option[1]||option[2]))-1];
  if(!chosen&&/garden/.test(text))chosen=matches.find(p=>p.id===3);
  if(!chosen&&yes&&prior.awaiting==='property_choice'&&matches.length===1)chosen=matches[0];
  if(chosen)s.selectedProperty=chosen.id;
  if(requestedId&&!chosen)return answer('Esse imóvel não atende aos critérios atuais. Para continuar com ele, precisamos primeiro rever suas preferências. Quer manter os critérios ou ajustar algum deles?','Imóvel escolhido incompatível com os critérios');
  const selected=inventory.find(p=>p.id===s.selectedProperty),wantsVisit=/visita|visitar|ver horarios|conhecer (?:esse|este|o) imovel/.test(text);
+ if(prior.awaiting==='visit_cancel_confirmation'){
+  if(yes){s.visit=null;s.awaiting=null;return answer('A visita de demonstração foi cancelada. Quer continuar procurando imóveis?','Cancelamento confirmado pela pessoa');}
+  if(/^(nao|deixa como esta|manter)[.! ]*$/.test(text)){s.visit=prior.visit;s.awaiting=null;return answer('Tudo bem, mantive a visita como estava.','Cancelamento recusado; visita preservada');}
+ }
+ if(/cancelar|desmarcar|nao quero visitar/.test(text)&&!/nao quero cancelar|nao cancele/.test(text)){
+  if(s.visit){s.awaiting='visit_cancel_confirmation';return answer('Você quer cancelar a visita que estava marcada?','Cancelamento precisa de confirmação');}
+  s.awaiting=null;return answer('Tudo bem. Nenhuma visita foi marcada. Quer manter a busca pelos imóveis?','Recusa de visita respeitada');
+ }
+
  const tomorrow=()=>{const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());const v=Object.fromEntries(parts.map(x=>[x.type,x.value]));return new Date(Date.UTC(+v.year,+v.month-1,+v.day,12));};
  const dateKey=offset=>{const d=tomorrow();d.setUTCDate(d.getUTCDate()+offset);return d.toISOString().slice(0,10);},pretty=d=>String(d).replace(/^(\d{4})-(\d{2})-(\d{2})$/,'$3/$2/$1');
  const slots=[{date:dateKey(1),time:'10:00'},{date:dateKey(1),time:'15:30'},{date:dateKey(2),time:'09:00'}];
  let date=/depois de amanha/.test(text)?dateKey(2):/amanha/.test(text)?dateKey(1):null;
  const explicitDate=text.match(/\b(\d{1,2})\/(\d{1,2})(?:\/(\d{4}))?\b/);if(explicitDate)date=`${explicitDate[3]||tomorrow().getUTCFullYear()}-${explicitDate[2].padStart(2,'0')}-${explicitDate[1].padStart(2,'0')}`;
  const tm=text.match(/\b([01]?\d|2[0-3])(?:h([0-5]\d)?|:([0-5]\d))\b|\bas\s+([01]?\d|2[0-3])\b/);let time=tm?String(tm[1]||tm[4]).padStart(2,'0')+':'+(tm[2]||tm[3]||'00'):null;
+ if(!time&&pending==='visit_time'){const simple=text.match(/^([01]?\d|2[0-3])[.! ]*$/);const order=/primeir/.test(text)?1:/segund/.test(text)?2:null;if(order||(simple&&+simple[1]<=3)){const pick=slots.filter(x=>x.date===prior.visit?.date)[(order||+simple[1])-1];if(pick)time=pick.time;}else if(simple)time=simple[1].padStart(2,'0')+':00';}
+ if(yes&&prior.awaiting==='visit_confirmation_interrupted'&&selected&&s.visit?.date&&s.visit?.time){s.awaiting='visit_confirmation';return answer(`Antes de confirmar: visita a ${selected.title}, em ${pretty(s.visit.date)} às ${s.visit.time}. Você confirma esse horário?`,'Confirmação retomada após dúvida; ainda sem confirmar visita');}
  if(yes&&prior.awaiting==='visit_confirmation'&&s.visit?.status==='requested'&&!changed&&!date&&!time){s.visit={...s.visit,status:'confirmed'};s.awaiting=null;return answer(`Visita confirmada na demonstração: ${selected.title}, ${selected.region}, ${pretty(s.visit.date)} às ${s.visit.time}. Nenhuma reserva real foi criada.`,'Visita demonstrativa confirmada após escolha e aceite explícitos');}
  if(selected&&(wantsVisit||date||time||prior.awaiting==='visit_date'||prior.awaiting==='visit_time'||prior.awaiting==='visit_confirmation')){
   const day=date||(!changed?prior.visit?.date:null);

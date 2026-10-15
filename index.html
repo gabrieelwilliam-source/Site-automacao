@@ -25,9 +25,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="assets/zion-original.png" type="image/png">
-  <link rel="stylesheet" href="styles.css?v=35-20261015">
+  <link rel="stylesheet" href="styles.css?v=36-20261015">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Zion Automações","description":"Automação sob medida para atendimento, comercial e operação.","areaServed":"BR","sameAs":[]}</script>
-  <link rel="stylesheet" href="design.css?v=35-20261015">
+  <link rel="stylesheet" href="design.css?v=36-20261015">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
@@ -183,7 +183,7 @@
           <p>Escolha entre clínica, reposição, imobiliária e salão. Todas as simulações estão reunidas aqui. São exemplos para conhecer outras jornadas, com dados fictícios e sem conexão com clientes reais.</p>
         </div>
 
-        <div class="live-demo-banner"><div><strong>Converse com IA real</strong><p>Clínica, imobiliária e salão respondem pelo n8n com IA. Empresas, catálogo, CRM, pagamentos e agendas são de demonstração. Nenhum WhatsApp é enviado e nenhuma reserva real é criada. Não informe dados pessoais ou sensíveis. As mensagens são processadas pela Groq; o contexto da sessão expira após 30 minutos de inatividade.</p><span id="liveDemoStatus" role="status" aria-live="polite">Conectando a experiência de atendimento…</span></div><button id="liveResume" class="button button-secondary" type="button">Equipe de teste: retomar IA</button></div>
+        <div class="live-demo-banner"><div><strong>Converse com a assistente</strong><p>Clínica, imobiliária e salão combinam IA real com validação de valores, escolhas e confirmações. Empresas, catálogo, CRM, pagamentos e agendas são de demonstração. Nenhum WhatsApp é enviado e nenhuma reserva real é criada. Não informe dados pessoais ou sensíveis. As mensagens que precisam de IA são processadas pela Groq; o contexto da sessão expira após 30 minutos de inatividade.</p><span id="liveDemoStatus" role="status" aria-live="polite">Conectando a experiência de atendimento…</span></div><button id="liveResume" class="button button-secondary" type="button">Equipe de teste: retomar IA</button></div>
         <div class="demo-onboarding reveal">
           <div>
             <span class="eyebrow">MODO DEMONSTRAÇÃO</span>
@@ -401,7 +401,7 @@
   </div>
   <div class="salon-demo-grid">
    <article class="salon-chat"><header><span class="salon-avatar">I</span><div><h3>Iana · Studio Aurora</h3><p>Visão da cliente · IA real, dados fictícios</p></div></header><div id="salonMessages" class="salon-messages" role="log" aria-live="polite" aria-label="Histórico da demonstração"></div><form id="salonForm"><label class="sr-only" for="salonInput">Mensagem de teste</label><input id="salonInput" placeholder="Escreva como se estivesse no WhatsApp" maxlength="500" autocomplete="off"><button type="submit" aria-label="Enviar mensagem de teste">Enviar</button></form></article>
-   <article class="salon-console"><header><span class="eyebrow">VISÃO DA GESTORA</span><h3>O que entra na sua gestão</h3><p id="salonControl">Iana atendendo</p></header><dl><div><dt>Intenção da cliente</dt><dd id="salonIntent"></dd></div><div><dt>Serviço em conversa</dt><dd id="salonService"></dd></div><div><dt>Valor previsto · não recebido</dt><dd id="salonExpected"></dd></div><div><dt>Agenda</dt><dd id="salonAppointment"></dd></div><div><dt>Pagamento</dt><dd id="salonPayment"></dd></div></dl><div class="salon-decision"><strong>Por que essa decisão?</strong><p id="salonReason"></p></div><details class="salon-owner"><summary>Experimentar uma ação da gestora</summary><p>Na operação real, estas ações exigem acesso ao painel.</p><label class="salon-duration" for="salonDuration">Duração em minutos<input id="salonDuration" type="number" min="1" max="720" placeholder="Informe a duração"></label><small>Cenário fictício: pedido às 14h; outro atendimento das 15h às 16h.</small><button type="button" id="salonOwnerAppointment" disabled>Simular confirmação do horário</button><button type="button" id="salonOwnerReceipt" disabled>Simular conferência do Pix</button><button type="button" id="salonOwnerResume" disabled>Devolver à Iana</button></details><details class="salon-audit"><summary>Ver as últimas decisões</summary><ul id="salonHistory"></ul></details></article>
+   <article class="salon-console"><header><span class="eyebrow">VISÃO DA GESTORA</span><h3>O que entra na sua gestão</h3><p id="salonControl">Iana atendendo</p></header><dl><div><dt>Intenção da cliente</dt><dd id="salonIntent"></dd></div><div><dt>Serviço em conversa</dt><dd id="salonService"></dd></div><div><dt>Valor previsto · não recebido</dt><dd id="salonExpected"></dd></div><div><dt>Agenda</dt><dd id="salonAppointment"></dd></div><div><dt>Pagamento</dt><dd id="salonPayment"></dd></div></dl><div class="salon-decision"><strong>Por que essa decisão?</strong><p id="salonReason"></p></div><details class="salon-owner"><summary>Experimentar uma ação da gestora</summary><p>Na operação real, estas ações exigem acesso ao painel.</p><label class="salon-duration" for="salonDuration">Duração em minutos<input id="salonDuration" type="number" min="1" max="720" placeholder="Informe a duração"></label><small>Cenário fictício: pedido às 14h; outro atendimento das 15h às 16h.</small><button type="button" id="salonOwnerAppointment" disabled>Simular confirmação do horário</button><button type="button" id="salonOwnerReceipt" disabled>Simular conferência do Pix</button><button type="button" id="salonOwnerCancel" disabled>Simular cancelamento do horário</button><button type="button" id="salonOwnerResume" disabled>Devolver à Iana</button></details><details class="salon-audit"><summary>Ver as últimas decisões</summary><ul id="salonHistory"></ul></details></article>
   </div>
   <div class="salon-demo-close"><div><h3>É esse controle que falta no seu atendimento?</h3><p>Leve seus serviços, suas regras e seu jeito de atender para uma implantação própria.</p></div><a class="button button-primary" href="#solicitar-proposta">Quero a Iana na minha empresa →</a></div>
  </div>
@@ -852,9 +852,9 @@
       if (event.key === 'Escape') stopZionPresentation();
     });
   </script>
-  <script src="script.js?v=35-20261015" defer></script>
-  <script src="salao-demo.js?v=35-20261015" defer></script>
-  <script src="atendimento-real.js?v=35-20261015" defer></script>
+  <script src="script.js?v=36-20261015" defer></script>
+  <script src="salao-demo.js?v=36-20261015" defer></script>
+  <script src="atendimento-real.js?v=36-20261015" defer></script>
 </body>
 </html>
 

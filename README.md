@@ -141,9 +141,9 @@ A abertura apresenta automação para empresas em geral. Clínica, reposição, 
 
 As credenciais Groq e PostgreSQL ficam protegidas no n8n. O navegador envia apenas identificador aleatório da sessão, segmento, mensagem e eventuais ações do painel demonstrativo. Não há chaves no repositório. Não informe dados pessoais ou sensíveis: as mensagens são processadas pela Groq. A memória da demonstração tem validade de 30 minutos de inatividade e é mantida no schema separado `zion_webdemo_v1`, com RLS e sem concessão pública. As tabelas de negócio existentes são preservadas.
 
-Limites: 24 consultas de IA por sessão; 240 por dia no total; intervalo entre pedidos; trava de concorrência por sessão. SQL usa parâmetros e bloqueios transacionais. CORS permite somente a origem do GitHub Pages. Essas cotas limitam o custo; a demonstração pública não substitui um gateway de proteção contra abuso para operação de grande volume.
+Limites: 24 mensagens por sessão; 240 por dia no total; intervalo entre pedidos; trava de concorrência por sessão. SQL usa parâmetros e bloqueios transacionais. CORS permite somente a origem do GitHub Pages. Essas cotas limitam o custo; a demonstração pública não substitui um gateway de proteção contra abuso para operação de grande volume.
 
-Erros de IA/rede são mostrados explicitamente. Não há resposta roteirizada disfarçada de resposta da IA. Handoff pausa a assistente. Botões de confirmação financeira e agenda atuam somente nos dados de teste. O servidor impede que a IA registre recebimento por conta própria e exige ação da equipe de teste para confirmar horários do salão.
+Erros de IA/rede são mostrados explicitamente. Respostas curtas vinculadas à pergunta pendente são interpretadas diretamente pelo servidor (`context_rules`); mensagens abertas usam IA (`live_ai`). Falhas da IA não são substituídas por respostas locais. Handoff pausa a assistente. Botões de confirmação financeira e agenda atuam somente nos dados de teste. O servidor impede que a IA registre recebimento por conta própria e exige ação da equipe de teste para confirmar horários do salão.
 
 Fontes de servidor em `server-demo/`: preparação do contexto, validação do retorno e estrutura SQL. Instalar esses scripts nos nós correspondentes do fluxo isolado; nunca colocar credenciais nesses arquivos. Executar testes `site.test.cjs`, `design.test.cjs`, `live-demo.test.cjs` e `server-demo.test.cjs`. Testes DOM/CSS não equivalem à inspeção visual em navegador.
 
@@ -153,3 +153,14 @@ Fontes de servidor em `server-demo/`: preparação do contexto, validação do r
 O servidor valida a carteira antes de oferecer um imóvel: finalidade, tipo, bairro, mínimo de quartos e teto do aluguel precisam coincidir. O visitante precisa aceitar expressamente mudanças de critérios. Preços de aluguel são armazenados em reais e formatados pelo código, sem conversão implícita para centavos. `imobiliaria-guard.js` é incorporado ao nó de validação do n8n antes de `saida.js`. O navegador utiliza os IDs aprovados pelo servidor em `propertyMatches`.
 
 Dia, horário e confirmação da visita são etapas separadas. “Sim” sem horário escolhido não cria visita. Sessões antigas são reconstruídas a partir das mensagens da pessoa quando ainda não possuem a versão atual das regras. Testes de regressão do caso relatado estão em `tests/property-guard.test.cjs`.
+
+
+## Varredura das conversas — 15/10/2026
+
+`awaiting` registra a pergunta pendente. “3” após a pergunta de quartos preenche quartos; “3000” após orçamento preenche o teto em reais. “1” escolhe a primeira opção exibida, sem confundir a posição com o ID do imóvel. Perguntas paralelas preservam o contexto; confirmação de visita exige escolha explícita e aceite.
+
+Clínica e salão usam `service-guard.js` para catálogo, datas, horários, cancelamento, remarcação e pagamentos. Perguntar preço não cria agenda; promessa de Pix não registra recebimento. A remarcação mantém o horário anterior até o aceite. O salão exige confirmação da equipe de teste e permite confirmar o cancelamento no painel. Atendimento humano pausa respostas automáticas.
+
+O modelo `qwen/qwen3.8-27b` entrega texto; o servidor constrói o estado e a resposta JSON. Isso evita falhas observadas no modo JSON do provedor. Há timeout e uma repetição para falhas transitórias; limites da Groq continuam sendo informados ao visitante. Reiniciar conversa invalida respostas antigas ainda em trânsito.
+
+Testes adicionais: `conversation-sweep.test.cjs` (76 casos), `property-guard.test.cjs` (19 casos). Resultados de execução real e limitações estão em `server-demo/VALIDATION.md`.

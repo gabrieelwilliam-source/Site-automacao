@@ -1,0 +1,78 @@
+/* Conversation state belongs to the server. AI writes natural answers, never financial or booking facts. */
+function guardService(ctx,out){
+ const s=out.state,p=ctx.previous||{},seg=ctx.segment,text=String(ctx.message||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''),clone=v=>v?JSON.parse(JSON.stringify(v)):null;
+ const yes=/^(sim(?:[, ]+(?:pode confirmar|confirmo|confirmar|por favor))?|confirmo|pode confirmar|pode ser)[.! ]*$/.test(text),no=/^(nao|agora nao|nao quero|vou pensar|deixa pra depois)[.! ]*$/.test(text);
+ const money=c=>(c/100).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}),pretty=d=>String(d||'').replace(/^(\d{4})-(\d{2})-(\d{2})$/,'$3/$2/$1');
+ const catalog=seg==='salao'?[{label:'Corte',price:8000,aliases:/\bcorte\b|cortar|aparar/,duration:null},{label:'Tratamento',price:20000,aliases:/tratamento|hidratacao|nutricao|reconstrucao/,duration:null},{label:'Cronograma',price:45000,aliases:/cronograma/,duration:null},{label:'Mechas',price:null,aliases:/mechas|luzes|iluminado|loiro/,evaluation:true}]:[{label:'Avaliação estética',price:22000,aliases:/avaliacao|consulta/,duration:40},{label:'Limpeza de pele',price:28000,aliases:/limpeza|cravos/,duration:60},{label:'Botox',price:95000,aliases:/botox|toxina/,evaluation:true},{label:'Drenagem',price:16000,aliases:/drenagem/,duration:50},{label:'Bioestimulador',price:null,aliases:/bioestimulador/,evaluation:true},{label:'HIFU',price:null,aliases:/hifu/,evaluation:true}];
+ const norm=v=>String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''),known=label=>catalog.find(x=>norm(x.label)===norm(label));
+ let selected=known(p.service)||null,named=catalog.find(x=>x.aliases.test(text));
+ if(p.awaiting==='service_choice'&&/^\d[.! ]*$/.test(text))named=catalog[Number(text.match(/\d/)[0])-1];
+ const unrelated=/geladeira|\buber\b|outro salao|outra clinica|mercado|aluguel da minha casa/.test(text),refusal=/nao vou fazer|desisti|nao quero mais|nao (?:quero|pretendo|desejo) (?:agendar|marcar|fazer)/.test(text),cancel=/cancelar|desmarcar/.test(text)&&!/nao quero cancelar|nao cancele/.test(text),reschedule=/reagendar|remarcar|mudar.*horario|trocar.*horario/.test(text);
+ if(named&&!unrelated&&!refusal&&!cancel)selected=named;
+ s.service=selected?.label||null;s.expected=selected?.price??null;s.appointment=clone(p.appointment);s.booking=clone(p.booking);s.awaiting=p.awaiting||null;s.payment=clone(p.payment);s.serviceRulesVersion=1;
+ const answer=(reply,reason)=>{out.reply=reply;out.reason=reason;s.intent=reason;return out;};
+ const localParts=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).map(x=>[x.type,x.value]));
+ const today=new Date(Date.UTC(+localParts.year,+localParts.month-1,+localParts.day,12)),iso=d=>d.toISOString().slice(0,10),todayKey=iso(today);
+ function dateOf(v){let d=new Date(today);if(/depois de amanha/.test(v))d.setUTCDate(d.getUTCDate()+2);else if(/amanha/.test(v))d.setUTCDate(d.getUTCDate()+1);else if(/\bhoje\b/.test(v)){}else{const m=v.match(/\b(\d{1,2})\/(\d{1,2})(?:\/(\d{4}))?\b/),days=['domingo','segunda','terca','quarta','quinta','sexta','sabado'];if(m){d=new Date(Date.UTC(+(m[3]||localParts.year),+m[2]-1,+m[1],12));if(d.getUTCMonth()!==+m[2]-1||d.getUTCDate()!==+m[1])return'invalid';}else{const i=days.findIndex(x=>v.includes(x));if(i<0)return null;d.setUTCDate(d.getUTCDate()+((i-d.getUTCDay()+7)%7||7));}}return iso(d);}
+ function timeOf(v){const m=v.match(/\b([01]?\d|2[0-3])(?:h([0-5]\d)?|:([0-5]\d))\b|\bas\s+([01]?\d|2[0-3])\b/);if(m){let hour=Number(m[1]||m[4]);if(/da tarde|a tarde|da noite/.test(v)&&hour<12)hour+=12;return String(hour).padStart(2,'0')+':'+(m[2]||m[3]||'00');}if(s.awaiting==='booking_time'&&/^\d{1,2}[.! ]*$/.test(v)){const num=Number(v.match(/\d+/)[0]);if(seg==='clinica'&&num>=1&&num<=3)return ['09:00','11:00','14:00'][num-1];if(num<24)return String(num).padStart(2,'0')+':00';}return null;}
+ const askPending=()=>s.awaiting==='booking_date'?' Qual dia fica melhor?':s.awaiting==='booking_time'?' Qual horário você prefere?':s.awaiting==='booking_confirmation'&&s.booking?` Você confirma ${pretty(s.booking.date)} às ${s.booking.time}?`:'';
+ if(s.human)return answer('Vou encaminhar nossa conversa para a equipe, com o histórico. Você não precisa repetir as informações.','Atendimento humano solicitado');
+ if(p.awaiting==='cancel_confirmation'){
+  if(yes){s.appointment=null;s.booking=null;s.awaiting=null;return answer('O agendamento de demonstração foi cancelado. Se quiser escolher outro dia depois, estou por aqui.','Cancelamento confirmado');}
+  if(no){s.awaiting=null;return answer('Tudo bem, mantive seu agendamento como estava.','Cancelamento recusado; horário preservado');}
+ }
+ if(cancel||refusal){s.booking=null;s.awaiting=null;
+  if(s.appointment?.status==='confirmed'){
+   if(seg==='salao'){s.appointment.status='cancel_requested';return answer('Vou deixar o pedido de cancelamento para a equipe conferir o horário que estava confirmado.','Cancelamento solicitado à gestora; horário anterior preservado');}
+   s.awaiting='cancel_confirmation';return answer(`Seu horário de ${s.service||'atendimento'} é ${pretty(s.appointment.date)} às ${s.appointment.time}. Você quer cancelar esse agendamento?`,'Cancelamento precisa de confirmação');
+  }
+  s.appointment=null;s.expected=refusal?null:s.expected;return answer('Sem problema. Não vou seguir com esse pedido de horário. Se quiser retomar depois, estou por aqui.','Desistência respeitada; nenhum novo horário confirmado');
+ }
+ if(no&&['booking_offer','service_choice','booking_date','booking_time','booking_confirmation','owner_confirmation','handoff_offer'].includes(s.awaiting)){s.booking=null;if(s.appointment?.status==='requested')s.appointment=null;s.awaiting=null;return answer('Tudo bem, não confirmei esse pedido. Posso tirar alguma dúvida antes de você decidir?','Negativa respeitada; nenhuma confirmação automática');}
+ const negativePay=/nao paguei|nao fiz o pix|me enganei.*pag|pix nao caiu/.test(text),futurePay=/vou pagar|farei o pix|vou fazer o pix/.test(text),declaresPay=/paguei|fiz o pix|transferi/.test(text)&&!negativePay&&!futurePay&&!/\?/.test(text);
+ if(negativePay){if(s.payment?.status!=='received')s.payment=null;return answer(s.payment?.status==='received'?'A equipe já tinha conferido um recebimento. Vou deixar sua observação para ela revisar, sem alterar o caixa automaticamente.':'Obrigada por esclarecer. Retirei a declaração que ainda não tinha sido conferida.',s.payment?.status==='received'?'Correção exige revisão da equipe':'Pagamento não realizado; declaração não comprovada removida');}
+ if(unrelated)return answer('Entendi, esse valor é de outro assunto e não entra no pagamento deste atendimento. Posso tirar alguma dúvida sobre o serviço?','Valor de outro assunto não vira preço nem pagamento');
+ if(futurePay)return answer('Tudo bem. Quando fizer o pagamento, avise a equipe para conferir.','Promessa de pagamento não é recebimento');
+ if(declaresPay||(p.awaiting==='payment_amount'&&/^(?:r\$)?\s*\d+(?:[.,]\d+)*(?:\s*reais)?[.! ]*$/.test(text))){
+  const nums=[...text.matchAll(/\d+(?:[.,]\d+)*/g)],currency=[...text.matchAll(/r\$\s*(\d+(?:[.,]\d+)*)/g)];let amount=currency.length===1?Math.round(Number(currency[0][1].replace(/\.(?=\d{3}(?:\D|$))/g,'').replace(',','.'))*100):nums.length===1?Math.round(Number(nums[0][0].replace(/\.(?=\d{3}(?:\D|$))/g,'').replace(',','.'))*100):null;
+  if(/parcelas?|vezes/.test(text)&&currency.length!==1)amount=null;
+  if(!selected){s.awaiting='payment_service';return answer('Esse pagamento foi de qual serviço? Vou deixar a informação para a equipe conferir.','Vínculo do pagamento ainda não informado');}
+  if(!amount||amount<=0){s.awaiting='payment_amount';return answer('Qual foi o valor total que você pagou por esse serviço?','Valor de pagamento ambíguo; nada recebido no caixa');}
+  if(s.payment?.status!=='received')s.payment={status:'declared',amount};s.awaiting=null;return answer(`Obrigada por avisar. A informação de ${money(amount)} por ${selected.label.toLowerCase()} ficou para a equipe conferir.`,'Pagamento declarado; recebimento exige conferência da equipe');
+ }
+ if(p.awaiting==='payment_service'&&named){s.awaiting='payment_amount';return answer('E qual foi o valor total que você pagou?','Serviço do pagamento identificado; aguardando valor');}
+ const priceQuestion=/quanto|preco|valor|custa/.test(text),faqPayment=/aceita|formas de pagamento|parcelamento/.test(text)&&/pix|cartao|pagamento|parcel/.test(text),location=/endereco|onde fica|localizacao/.test(text),hours=/funcionamento|abre|fecha|horario de atendimento/.test(text);
+ if(priceQuestion){if(!selected){s.awaiting='price_service';return answer('De qual serviço você quer saber o valor?','Serviço necessário para informar preço');}const suffix=askPending();if(!s.awaiting||s.awaiting==='price_service')s.awaiting=selected.evaluation?'evaluation_offer':'booking_offer';return answer(selected.price===null?`O valor de ${selected.label.toLowerCase()} depende da avaliação da profissional. Não há preço fixo nesse catálogo.`+suffix:`O ${selected.label.toLowerCase()} custa ${money(selected.price)}${selected.evaluation?' como referência inicial; a indicação depende de avaliação':''}.`+(suffix||' Você quer consultar um horário?'),'Preço consultado no catálogo; sem agendamento nem pagamento automático');}
+ if(faqPayment)return answer('No cenário de demonstração, aceitamos Pix e cartão. Parcelamento precisa ser conferido com a equipe.'+askPending(),'Condição comercial consultada; contexto da agenda preservado');
+ if(location)return answer('O endereço do cenário é Rua Exemplo, 100, Centro. É um endereço fictício de demonstração.'+askPending(),'Endereço consultado; contexto preservado');
+ if(hours)return answer('O atendimento é de segunda a sábado, das 9h às 18h, com horário marcado.'+askPending(),'Funcionamento consultado; sem inventar disponibilidade');
+ if(seg==='clinica'&&/sessoes|sessao|pacote/.test(text)&&!named){return answer('O pacote demonstrativo de drenagem tem 10 sessões contratadas, 7 realizadas e 3 restantes. Quer consultar um dia para a próxima sessão?','Saldo do pacote fictício consultado');}
+ const wantsBooking=/agendar|quero marcar|pode marcar|quero fazer|quero.*horario|tem horario|ver horarios|consultar.*horario/.test(text)||reschedule;
+ if(reschedule&&!s.appointment){s.booking=null;s.awaiting=null;return answer('Não encontrei um horário confirmado nesta conversa. Você quer fazer um novo pedido de horário?','Nenhum agendamento existente para remarcar');}
+ let active=!!s.booking||['service_choice','booking_date','booking_time','booking_confirmation'].includes(s.awaiting)||wantsBooking||(yes&&['booking_offer','evaluation_offer'].includes(p.awaiting));
+ if(active){
+  if(reschedule)s.booking={service:s.service,date:null,time:null,reschedule:true};
+  if(!selected){s.awaiting='service_choice';return answer('Qual serviço você quer agendar? '+catalog.slice(0,4).map((x,i)=>`${i+1}) ${x.label}`).join('; '),'Aguardando escolha do serviço');}
+  if(selected.evaluation){
+   if(seg==='salao'){s.booking=null;s.awaiting='handoff_offer';return answer('Para mechas, a profissional precisa avaliar o cabelo antes de definir valor e duração. Você quer falar com a equipe para essa avaliação?','Serviço exige avaliação; sem preço ou horário inventado');}
+   s.interestService=selected.label;selected=catalog[0];s.service=selected.label;s.expected=selected.price;
+  }
+  const booking=s.booking||{service:s.service,date:null,time:null};if(booking.service!==s.service){booking.service=s.service;booking.time=null;}
+  const date=dateOf(text),time=timeOf(text);if(date)booking.date=date;if(time)booking.time=time;s.booking=booking;
+  if(!booking.date){s.awaiting='booking_date';return answer(`Para ${s.interestService?'começar pela avaliação de '+s.interestService:s.service.toLowerCase()}, qual dia fica melhor para você?`,'Aguardando escolha do dia');}
+  if(booking.date==='invalid'||booking.date<todayKey){booking.date=null;booking.time=null;s.awaiting='booking_date';return answer('Essa data não é válida para um novo horário. Qual dia a partir de hoje você prefere?','Data inválida ou passada rejeitada');}
+  const day=new Date(booking.date+'T12:00:00Z');if(day.getUTCDay()===0){booking.date=null;booking.time=null;s.awaiting='booking_date';return answer('O atendimento é de segunda a sábado. Qual outro dia funciona para você?','Domingo fora do funcionamento');}
+  if(!booking.time){s.awaiting='booking_time';return answer(seg==='clinica'?`Em ${pretty(booking.date)}, os horários de demonstração são 1) 09:00, 2) 11:00 e 3) 14:00. Qual você prefere?`:`Em ${pretty(booking.date)}, qual horário você prefere, entre 9h e 18h? A equipe ainda vai conferir a duração.`,'Aguardando escolha do horário');}
+  const start=+booking.time.slice(0,2)*60+(+booking.time.slice(3));
+  if(start<540||start>=1080||(seg==='clinica'&&!['09:00','11:00','14:00'].includes(booking.time))){booking.time=null;s.awaiting='booking_time';return answer(seg==='clinica'?'Esse horário não está disponível. Tenho 09:00, 11:00 ou 14:00. Qual você prefere?':'O horário precisa ser entre 9h e antes das 18h. Qual você prefere?','Horário indisponível rejeitado');}
+  booking.ready=true;
+  if(seg==='salao'){if(s.appointment?.status!=='confirmed')s.appointment={status:'requested',date:booking.date,time:booking.time};s.awaiting='owner_confirmation';return answer(`Anotei seu pedido de ${s.service.toLowerCase()} para ${pretty(booking.date)} às ${booking.time}, por ${money(s.expected)}. A equipe precisa conferir a duração e a disponibilidade antes de confirmar.`,'Pedido completo; confirmação depende da gestora');}
+  if(yes&&p.awaiting==='booking_confirmation'&&p.booking?.date===booking.date&&p.booking?.time===booking.time&&!date&&!time){s.appointment={status:'confirmed',date:booking.date,time:booking.time};s.booking=null;s.awaiting=null;return answer(`Agendamento de demonstração confirmado: ${s.service}, ${pretty(s.appointment.date)} às ${s.appointment.time}, ${money(s.expected)}. Nenhuma reserva real foi criada.`,'Confirmação explícita do horário escolhido');}
+  s.awaiting='booking_confirmation';if(s.appointment?.status!=='confirmed')s.appointment={status:'requested',date:booking.date,time:booking.time};return answer(`Confira: ${s.service}, ${pretty(booking.date)} às ${booking.time}, ${money(s.expected)}. Você confirma esse agendamento de demonstração?`,'Serviço, data e hora definidos; aguardando confirmação explícita');
+ }
+ if(named&&p.awaiting==='price_service'){s.awaiting='booking_offer';return answer(selected.price===null?'Esse serviço exige avaliação para definir o valor.':`${selected.label} custa ${money(selected.price)}. Você quer consultar um horário?`,'Serviço e preço identificados sem confirmação');}
+ if(named){s.awaiting=selected.evaluation?'evaluation_offer':'booking_offer';if(/r\$|confirmad|agendad/i.test(out.reply))return answer(selected.price===null?'Esse serviço exige avaliação para definir o valor e a duração.':`${selected.label} custa ${money(selected.price)}. Você quer tirar alguma dúvida ou consultar um horário?`,'Serviço identificado; nenhum horário presumido');}
+ if(/(?:pagamento|pix).{0,30}(?:recebido|confirmado)/i.test(out.reply)&&s.payment?.status!=='received')return answer('Ainda não há um recebimento conferido. A equipe precisa verificar o pagamento.','IA não pode confirmar recebimento por conta própria');
+ if(/confirmad|agendad/i.test(out.reply)&&!s.appointment)return answer('Ainda não há um horário confirmado. Você quer consultar um dia para atendimento?','Sem dados suficientes para confirmar agenda');
+ return out;
+}
