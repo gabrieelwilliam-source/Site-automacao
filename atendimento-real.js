@@ -24,6 +24,7 @@
     if(amounts.length){const nums=amounts.map(x=>Number(x.replace(/\.(?=\d{3}(?:\D|$))/g,'').replace(',','.'))*(/mil/i.test(p.budget)&&Number(x.replace(',','.'))<100?1000:1));max=Math.max(...nums);}
     list=realtyInventory.filter(x=>x.type===p.type&&(!p.bedrooms||x.bedrooms>=p.bedrooms)&&x.numeric<=max&&(!p.region||/sem prefer|qualquer/i.test(p.region)||x.region.toLowerCase()===String(p.region).toLowerCase()));
    }
+   if(Array.isArray(s.propertyMatches))list=realtyInventory.filter(p=>s.propertyMatches.includes(p.id));
    el('propertyMatches').hidden=!list.length;document.querySelector('#leadInlineProperties')?.remove();
    if(list.length){el('matchCount').textContent=list.length+' opções';el('propertyList').replaceChildren();renderInlineProperties(list);bindPropertyButtons();}
    if(lead.selected&&!s.human)setLeadOptions([{label:'Pedir visita',value:'Quero marcar uma visita nesse imóvel'},{label:'Outra dúvida',value:'Tenho uma dúvida sobre esse imóvel'},{label:'Falar com corretor',value:'Quero falar com uma pessoa'}]);else setLeadOptions([]);

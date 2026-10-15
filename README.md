@@ -146,3 +146,10 @@ Limites: 24 consultas de IA por sessão; 240 por dia no total; intervalo entre p
 Erros de IA/rede são mostrados explicitamente. Não há resposta roteirizada disfarçada de resposta da IA. Handoff pausa a assistente. Botões de confirmação financeira e agenda atuam somente nos dados de teste. O servidor impede que a IA registre recebimento por conta própria e exige ação da equipe de teste para confirmar horários do salão.
 
 Fontes de servidor em `server-demo/`: preparação do contexto, validação do retorno e estrutura SQL. Instalar esses scripts nos nós correspondentes do fluxo isolado; nunca colocar credenciais nesses arquivos. Executar testes `site.test.cjs`, `design.test.cjs`, `live-demo.test.cjs` e `server-demo.test.cjs`. Testes DOM/CSS não equivalem à inspeção visual em navegador.
+
+
+## Correção do teste imobiliário — 15/10/2026
+
+O servidor valida a carteira antes de oferecer um imóvel: finalidade, tipo, bairro, mínimo de quartos e teto do aluguel precisam coincidir. O visitante precisa aceitar expressamente mudanças de critérios. Preços de aluguel são armazenados em reais e formatados pelo código, sem conversão implícita para centavos. `imobiliaria-guard.js` é incorporado ao nó de validação do n8n antes de `saida.js`. O navegador utiliza os IDs aprovados pelo servidor em `propertyMatches`.
+
+Dia, horário e confirmação da visita são etapas separadas. “Sim” sem horário escolhido não cria visita. Sessões antigas são reconstruídas a partir das mensagens da pessoa quando ainda não possuem a versão atual das regras. Testes de regressão do caso relatado estão em `tests/property-guard.test.cjs`.

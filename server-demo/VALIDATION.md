@@ -13,3 +13,10 @@ Falhas encontradas e corrigidas: modelo Groq anterior indisponível; memória es
 As credenciais existentes são referenciadas apenas nos nós do n8n. Não houve envio de WhatsApp, reserva em calendário real ou mudança de dados de clientes. O fluxo público tem salvamento de execuções desabilitado. As tabelas e a memória são exclusivas da demonstração.
 
 A inspeção visual renderizada não foi realizada: o navegador de verificação estava indisponível. Testes DOM e CSS não substituem essa inspeção.
+
+
+## Regressão imobiliária relatada em 15/10/2026
+
+O caso “apartamento em Costa e Silva, 3 quartos, até R$3mil” passou a rejeitar o apartamento de 2 quartos sem flexibilização implícita. O preço canônico é R$2.650,00/mês quando o cliente aceita mudar para 2 quartos. Um “sim” não escolhe dia ou horário.
+
+19 verificações determinísticas passaram. No n8n, 15 etapas reais passaram: a sequência relatada, ajuste explícito de quartos, apresentação do preço correto, escolha separada de dia e hora, confirmação e o caso positivo de casa com 3 quartos por R$2.850,00. A interface usa a lista de imóveis validada no servidor.

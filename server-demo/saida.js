@@ -23,6 +23,7 @@ if(ctx.segment==='imobiliaria'&&!s.selectedProperty)s.visit=null;
 // Confirmation must follow a concrete proposal and an unambiguous yes.
 const yes=/^(sim(?:[,!. ]|$)|confirmo(?:[,!. ]|$)|pode confirmar(?:[,!. ]|$)|confirmar(?:[,!. ]|$))/i.test(text)&&!/nao|talvez|pensar|cancelar/.test(text);
 for(const key of ['appointment','visit'])if(ctx.segment!=='salao'&&s[key]?.status==='confirmed'&&prior[key]?.status!=='confirmed'&&(!yes||!prior[key]?.date||!prior[key]?.time)){s[key].status='requested';out.reply='Antes de confirmar, confira: '+(s.service||'visita')+', '+s[key].date+' às '+s[key].time+'. Você confirma?';}
+if(ctx.segment==='imobiliaria')guardRealty(ctx,out);
 const reason=String(out.reason||'Contexto atualizado pela assistente.').slice(0,500);s.intent=String(s.intent||'Em atendimento').slice(0,100);s.service=s.service?String(s.service).slice(0,100):null;
 session.state=s;session.updated=Date.now();session.history.push({role:'user',content:ctx.message},{role:'assistant',content:out.reply});session.history=session.history.slice(-10);
 return [{json:{status:200,headers:ctx.headers,persist:{state:s,history:session.history},result:{ok:true,mode:'live_ai',reply:out.reply,state:s,reason,remaining:Math.max(0,24-session.count)}}}];

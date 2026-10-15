@@ -1,0 +1,22 @@
+const fs=require('fs'),path=require('path'),assert=require('assert');process.chdir(path.resolve(__dirname,'..'));const guard=new Function(fs.readFileSync('server-demo/imobiliaria-guard.js','utf8')+';return guardRealty')();
+const results=[];function check(name,f){try{f();results.push({name,passed:true})}catch(e){results.push({name,passed:false,error:e.message})}}
+const run=(message,prior={},bad={})=>guard({message,previous:prior,session:{history:[]}},{reply:'Temos apartamento de 2 quartos por R$26,50. Vou marcar amanhã às 10h.',state:{lead:{},selectedProperty:3,visit:{status:'confirmed',date:'amanhã',time:'10:00'},...bad}});
+let s={};const turn=m=>{const r=run(m,s);s=JSON.parse(JSON.stringify(r.state));return r;};
+check('greeting_does_not_invent_purchase_or_rental',()=>{turn('Bom dia');assert(!s.lead.purpose);assert(!s.visit);});
+check('apartment_request_does_not_assume_rental',()=>{const r=turn('Quero conhecer apartamentos no bairro Costa e Silva');assert(!s.lead.purpose);assert(r.reply.includes('comprar ou para alugar'));});
+check('three_bedrooms_and_budget_preserved',()=>{turn('3 quartos, até 3 mil');assert.equal(s.lead.bedrooms,3);assert.equal(s.lead.budgetMax,3000);assert.deepEqual(s.propertyMatches,[]);});
+check('yes_does_not_choose_property_date_or_time',()=>{turn('Sim');assert(!s.selectedProperty);assert(!s.visit);});
+check('no_two_bedroom_substitution_after_rental_confirmed',()=>{const r=turn('É para alugar');assert.deepEqual(s.propertyMatches,[]);assert(!s.visit);assert(r.reply.includes('Não encontrei'));assert(!r.reply.includes('26,50'));});
+check('explicit_change_to_two_bedrooms_allows_property',()=>{const r=turn('Pode ser 2 quartos');assert.deepEqual(s.propertyMatches,[3]);assert(r.reply.includes('2.650,00'));assert(!r.reply.includes('26,50'));assert(!s.visit);});
+check('yes_selects_unique_property_but_never_a_visit_slot',()=>{turn('Sim');assert.equal(s.selectedProperty,3);assert(!s.visit);});
+check('visit_requires_day_preference',()=>{const r=turn('Quero visitar');assert(!s.visit);assert(r.reply.includes('qual dia'));});
+check('day_does_not_auto_pick_time',()=>{const r=turn('Amanhã');assert.equal(s.visit.time,null);assert(r.reply.includes('10:00 ou 15:30'));});
+check('yes_without_time_keeps_request_unconfirmed',()=>{turn('Sim');assert.equal(s.visit.time,null);assert.equal(s.visit.status,'requested');});
+check('time_requires_explicit_final_confirmation',()=>{turn('15h30');assert.equal(s.visit.time,'15:30');assert.equal(s.visit.status,'requested');assert.equal(s.awaiting,'visit_confirmation');});
+check('confirmation_applies_only_to_chosen_slot',()=>{turn('Sim, pode confirmar');assert.equal(s.visit.status,'confirmed');assert.equal(s.visit.time,'15:30');});
+check('unavailable_time_never_reserved',()=>{turn('Quero visitar amanhã às 17h');assert.equal(s.visit.time,null);assert.equal(s.awaiting,'visit_time');});
+check('old_incorrect_model_state_rebuilt_from_user_messages',()=>{const r=guard({message:'Sim',previous:{lead:{purpose:'Aluguel',type:'Apartamento',region:'Costa e Silva',bedrooms:2,budget:'26,50'},selectedProperty:3},session:{history:[{role:'user',content:'Quero alugar apartamento no bairro Costa e Silva'},{role:'user',content:'3 quartos, até 3 mil'}]}},{reply:'Vou marcar',state:{lead:{},visit:{status:'confirmed'}}});assert.equal(r.state.lead.bedrooms,3);assert.equal(r.state.lead.budgetMax,3000);assert(!r.state.visit);});
+for(const [raw,max] of [['até R$ 3.000,00',3000],['até 2,5 mil',2500],['até R$ 2650',2650]])check('budget_'+raw,()=>{const r=run('Quero alugar apartamento em Costa e Silva, 2 quartos, '+raw);assert.equal(r.state.lead.budgetMax,max);assert.equal(r.state.propertyMatches.includes(3),max>=2650);});
+check('different_property_type_not_suggested',()=>{const r=run('Quero alugar apartamento em Costa e Silva, 3 quartos até 3000');assert(!r.state.propertyMatches.includes(1));});
+check('purchase_never_shows_rentals',()=>{const r=run('Quero comprar apartamento em Costa e Silva, 2 quartos até 500 mil');assert.deepEqual(r.state.propertyMatches,[]);assert(!r.state.visit);});
+console.log(JSON.stringify({total:results.length,passed:results.filter(r=>r.passed).length,failed:results.filter(r=>!r.passed).length,results}));if(results.some(r=>!r.passed))process.exitCode=1;
