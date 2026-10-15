@@ -35,5 +35,5 @@
  for(const id of ['proposalCompany','proposalSegment','proposalNeed'])$(id).addEventListener('input',updateProposal);
  // Public visitors inspect fictional state only. Never call a production webhook.
  reset();
- const q=new URLSearchParams(location.search);if(q.get('demo')==='salao'||q.get('segmento')==='salao'||location.hash==='#demo-salao')$('demo-salao').scrollIntoView({behavior:'smooth',block:'start'});
+ const q=new URLSearchParams(location.search);if(q.get('demo')==='salao'||q.get('segmento')==='salao'||location.hash==='#demo-salao'){openDemo('salao');document.getElementById('demos').scrollIntoView({behavior:'smooth',block:'start'});}
 })();

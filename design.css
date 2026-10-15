@@ -149,3 +149,19 @@ main section{scroll-margin-top:96px}
  .zion-proposal{padding-bottom:100px}
  .mobile-dock{left:10px;right:10px;bottom:10px;padding:5px;border-radius:18px}
 }
+
+/* All four simulations share the same selector and visual priority. */
+.demo-tabs,.demo-shell.focus-mode .demo-tabs{grid-template-columns:repeat(4,minmax(0,1fr))}
+.solution-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+#demo-salao .salon-panel-content{padding:28px}
+#demo-salao .section-heading h2{font-size:30px!important;line-height:1.2}
+#demo-salao .section-heading{margin-bottom:24px}
+#demo-salao .section-heading p{font-size:14px}
+@media(max-width:680px){
+ .solution-grid{grid-template-columns:minmax(0,1fr)}
+ .demo-tabs,.demo-shell.focus-mode .demo-tabs{grid-template-columns:repeat(2,minmax(0,1fr));height:auto}
+ .demo-tab{min-height:54px;justify-content:flex-start;padding:14px}
+ .demo-tab small{display:block;font-size:10px;margin-top:3px}
+ #demo-salao .salon-panel-content{padding:18px 12px}
+ #demo-salao .section-heading h2{font-size:26px!important}
+}

@@ -128,3 +128,8 @@ O logo em `assets/zion-original.png` é o arquivo original aprovado, sem redesen
 Validação: 25 testes de interações e 36 verificações de cascata CSS em 360, 390, 768, 1024 e 1440 px. A ferramenta de navegador ficou indisponível; estes testes não equivalem a inspeção visual renderizada.
 
 Executar com Node e dependências jsdom e css-tree: `node tests/site.test.cjs` e `node tests/design.test.cjs`.
+
+
+## Simulações reunidas
+
+A abertura apresenta automação para empresas em geral. Clínica, reposição, imobiliária e salão dividem os mesmos cards e abas em `#demos`. O salão não ocupa mais uma seção exclusiva antes das outras soluções. Validação: 27 testes de interação e 36 de CSS; sem inspeção visual renderizada.
