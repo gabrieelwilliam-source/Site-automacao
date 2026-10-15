@@ -108,3 +108,14 @@ Depois, acesse `http://localhost:8080`.
 - [Landing Page FR Distribuidora](https://github.com/gabrieelwilliam-source/landingpages)
 - [Horizonte Prime](https://github.com/gabrieelwilliam-source/HorizontePrime)
 - [Nayara Brososki](https://github.com/gabrieelwilliam-source/Nayara-Brososki)
+
+
+## Atualização comercial 31 — 15/10/2026
+
+- Jornada principal para atendimento e gestão, com demonstração de salão e serviços.
+- Conversa e visão da gestora lado a lado: intenção, orçamento previsto, solicitação de horário, declaração de Pix, conferência humana e pausa da assistente.
+- Simulação de conflito por duração, sem nenhuma conexão com agendas reais.
+- CTA para proposta com contexto da empresa e revisão manual no WhatsApp.
+- Demonstrações antigas e estimador preservados; nenhuma promessa de tempo de resposta ou resultado garantido.
+- `salao-demo.js` é um simulador local, não usa um modelo de IA nem chama o n8n. A implantação da IA e das integrações pertence ao projeto de cada empresa. Não inserir chaves, URLs privadas ou dados reais no código público.
+- Verificação: `NODE_PATH=/caminho/para/node_modules node tests/site.test.cjs` (JSDOM). Sem dependência de produção.
