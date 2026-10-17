@@ -17,7 +17,7 @@ for(const width of [360,390,768,1024,1440]){
  assert.equal(get('#iana-servicos').backgroundColor,'rgb(250, 248, 243)');
  assert.equal(get('.menu-button').display,width<=1080?'block':'none');
  assert.equal(get('.solution-grid').gridTemplateColumns,width<=520?'minmax(0,1fr)':width<=1080?'repeat(2,minmax(0,1fr))':'repeat(4,minmax(0,1fr))');
- assert.equal(get('.demo-tabs').gridTemplateColumns,width<=520?'repeat(2,minmax(0,1fr))':'repeat(4,minmax(0,1fr))');
+ assert.equal(get('.demo-tabs').gridTemplateColumns,'repeat(4,minmax(0,1fr))');
  assert.equal(get('.hero h1').color,'rgb(7, 26, 49)');
  assert.equal(get('.official-wordmark').filter,'none');
  assert.notEqual(get('.reveal').opacity,'0');

@@ -6,6 +6,17 @@
   const closeMenu=()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false');};
   nav.addEventListener('click',e=>{if(e.target.closest('a'))closeMenu();});
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav.classList.contains('open')){closeMenu();menu.focus();}});
+  const setView=(panel,view)=>{if(!panel)return;panel.dataset.mobileView=view;panel.querySelectorAll('[data-demo-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.demoView===view)));};
+  document.addEventListener('click',e=>{
+    const toggle=e.target.closest('[data-demo-view]');
+    if(toggle)setView(toggle.closest('.demo-panel'),toggle.dataset.demoView);
+    const scenario=e.target.closest('.scenario-btn,.salon-scenarios button');
+    if(scenario)setView(scenario.closest('.demo-panel'),'conversation');
+    const anchor=e.target.closest('a[href^="#"]');
+    if(anchor){try{zionOpenTarget(document.getElementById(decodeURIComponent(anchor.hash.slice(1))));}catch{}}
+  },true);
+  const openHash=()=>{try{zionOpenTarget(document.getElementById(decodeURIComponent(location.hash.slice(1))));}catch{}};
+  window.addEventListener('hashchange',openHash);openHash();
   // The full data handling notice remains accessible without occupying the whole demo opening.
   const notice=document.querySelector('.live-demo-banner p');
   if(notice){const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='Como este teste usa IA e dados de demonstração';notice.before(details);details.append(summary,notice);}
