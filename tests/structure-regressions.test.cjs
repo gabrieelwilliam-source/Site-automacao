@@ -12,7 +12,7 @@ for(const width of [360,390,520,768,1024,1440]){
  check(`service_cards_have_readable_palette_${width}`,()=>{assert.equal(get('.solution-card').backgroundColor,'rgb(255, 255, 255)');assert.equal(get('.solution-card h3').color,'rgb(7, 26, 49)');assert.equal(get('.solution-card p').color,'rgb(80, 97, 116)');});
  check(`personalization_has_no_white_overlay_${width}`,()=>{assert.equal(get('.custom-card').backgroundColor,'rgba(0, 0, 0, 0)');assert.equal(get('.custom-card h3').color,'rgb(7, 26, 49)');assert.equal(get('.custom-card p').color,'rgb(80, 97, 116)');});
  check(`logo_is_unframed_${width}`,()=>{assert.equal(get('.official-wordmark').borderTopWidth,'0px');assert.equal(get('.official-wordmark').filter,'none');assert(!d.querySelector('.hero-visual img'));});
- check(`footer_text_not_hidden_or_stuck_inline_${width}`,()=>{assert.equal(get('.footer p').display,'block');assert.equal(get('.footer-statement>span').display,'block');});
+ check(`footer_text_not_hidden_or_stuck_inline_${width}`,()=>{assert.equal(get('.footer p').display,'block');assert(d.querySelector('.footer-statement a'));assert(!d.querySelector('.footer-statement p'));});
  dom.window.close();
 }
 function luminance(rgb){return rgb.map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((s,v,i)=>s+v*[.2126,.7152,.0722][i],0)}
