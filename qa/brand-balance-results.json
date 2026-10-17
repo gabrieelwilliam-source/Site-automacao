@@ -1,0 +1,1058 @@
+{
+  "revision": "zaion-equilibrio-4",
+  "checks": 291,
+  "passed": 291,
+  "lint": "passed",
+  "build": "passed",
+  "rendered_browser_verified": false,
+  "suites": [
+    {
+      "type": "DOM tests; fictional interactions, no rendered browser check, no external messages",
+      "total": 27,
+      "passed": 27,
+      "failed": 0,
+      "tests": [
+        {
+          "test": "page_boots_with_all_existing_demos",
+          "passed": true
+        },
+        {
+          "test": "commercial_claims_are_specific_and_no_fake_performance_promise",
+          "passed": true
+        },
+        {
+          "test": "primary_cta_leads_to_new_demo_and_proposal",
+          "passed": true
+        },
+        {
+          "test": "public_demo_is_explicitly_fictional",
+          "passed": true
+        },
+        {
+          "test": "price_question_not_a_booking",
+          "passed": true
+        },
+        {
+          "test": "other_purchase_not_service_value",
+          "passed": true
+        },
+        {
+          "test": "customer_booking_requires_owner_confirmation",
+          "passed": true
+        },
+        {
+          "test": "duration_required_before_booking",
+          "passed": true
+        },
+        {
+          "test": "overlap_blocks_booking",
+          "passed": true
+        },
+        {
+          "test": "owner_can_confirm_fictional_non_conflicting_booking",
+          "passed": true
+        },
+        {
+          "test": "claim_is_not_revenue",
+          "passed": true
+        },
+        {
+          "test": "owner_confirms_receipt_explicitly",
+          "passed": true
+        },
+        {
+          "test": "refusal_not_treated_as_acceptance",
+          "passed": true
+        },
+        {
+          "test": "negative_payment_not_paid_or_claimed",
+          "passed": true
+        },
+        {
+          "test": "ambiguous_claim_requires_clarification",
+          "passed": true
+        },
+        {
+          "test": "human_handoff_stops_robot_reply",
+          "passed": true
+        },
+        {
+          "test": "only_owner_resumes_human_handoff",
+          "passed": true
+        },
+        {
+          "test": "chat_does_not_render_visitor_html",
+          "passed": true
+        },
+        {
+          "test": "proposal_contains_business_context_and_does_not_send",
+          "passed": true
+        },
+        {
+          "test": "proposal_does_not_store_company_on_device",
+          "passed": true
+        },
+        {
+          "test": "existing_demo_tabs_still_work",
+          "passed": true
+        },
+        {
+          "test": "salon_is_a_peer_tab_inside_demo_collection",
+          "passed": true
+        },
+        {
+          "test": "hero_is_general_and_does_not_promote_a_salon",
+          "passed": true
+        },
+        {
+          "test": "all_local_navigation_targets_exist",
+          "passed": true
+        },
+        {
+          "test": "no_duplicate_ids",
+          "passed": true
+        },
+        {
+          "test": "no_production_api_or_keys_in_demo",
+          "passed": true
+        },
+        {
+          "test": "no_uncaught_errors_after_interactions",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "checks": 47,
+      "passed": 47,
+      "widths": [
+        360,
+        390,
+        768,
+        1024,
+        1440
+      ],
+      "limitation": "Static CSS cascade checks; not rendered browser or screenshot verification"
+    },
+    {
+      "suite": "reported_visual_regressions_static",
+      "total": 57,
+      "passed": 57,
+      "failed": 0,
+      "results": [
+        {
+          "name": "obsolete_forced_theme_patches_removed",
+          "passed": true
+        },
+        {
+          "name": "single_compatibility_layer",
+          "passed": true
+        },
+        {
+          "name": "header_does_not_cover_content_360",
+          "passed": true
+        },
+        {
+          "name": "demo_tabs_do_not_float_over_titles_360",
+          "passed": true
+        },
+        {
+          "name": "no_bottom_overlay_360",
+          "passed": true
+        },
+        {
+          "name": "method_has_no_dark_number_bars_360",
+          "passed": true
+        },
+        {
+          "name": "service_cards_have_readable_palette_360",
+          "passed": true
+        },
+        {
+          "name": "personalization_has_no_white_overlay_360",
+          "passed": true
+        },
+        {
+          "name": "logo_is_unframed_360",
+          "passed": true
+        },
+        {
+          "name": "footer_text_not_hidden_or_stuck_inline_360",
+          "passed": true
+        },
+        {
+          "name": "header_does_not_cover_content_390",
+          "passed": true
+        },
+        {
+          "name": "demo_tabs_do_not_float_over_titles_390",
+          "passed": true
+        },
+        {
+          "name": "no_bottom_overlay_390",
+          "passed": true
+        },
+        {
+          "name": "method_has_no_dark_number_bars_390",
+          "passed": true
+        },
+        {
+          "name": "service_cards_have_readable_palette_390",
+          "passed": true
+        },
+        {
+          "name": "personalization_has_no_white_overlay_390",
+          "passed": true
+        },
+        {
+          "name": "logo_is_unframed_390",
+          "passed": true
+        },
+        {
+          "name": "footer_text_not_hidden_or_stuck_inline_390",
+          "passed": true
+        },
+        {
+          "name": "header_does_not_cover_content_520",
+          "passed": true
+        },
+        {
+          "name": "demo_tabs_do_not_float_over_titles_520",
+          "passed": true
+        },
+        {
+          "name": "no_bottom_overlay_520",
+          "passed": true
+        },
+        {
+          "name": "method_has_no_dark_number_bars_520",
+          "passed": true
+        },
+        {
+          "name": "service_cards_have_readable_palette_520",
+          "passed": true
+        },
+        {
+          "name": "personalization_has_no_white_overlay_520",
+          "passed": true
+        },
+        {
+          "name": "logo_is_unframed_520",
+          "passed": true
+        },
+        {
+          "name": "footer_text_not_hidden_or_stuck_inline_520",
+          "passed": true
+        },
+        {
+          "name": "header_does_not_cover_content_768",
+          "passed": true
+        },
+        {
+          "name": "demo_tabs_do_not_float_over_titles_768",
+          "passed": true
+        },
+        {
+          "name": "no_bottom_overlay_768",
+          "passed": true
+        },
+        {
+          "name": "method_has_no_dark_number_bars_768",
+          "passed": true
+        },
+        {
+          "name": "service_cards_have_readable_palette_768",
+          "passed": true
+        },
+        {
+          "name": "personalization_has_no_white_overlay_768",
+          "passed": true
+        },
+        {
+          "name": "logo_is_unframed_768",
+          "passed": true
+        },
+        {
+          "name": "footer_text_not_hidden_or_stuck_inline_768",
+          "passed": true
+        },
+        {
+          "name": "header_does_not_cover_content_1024",
+          "passed": true
+        },
+        {
+          "name": "demo_tabs_do_not_float_over_titles_1024",
+          "passed": true
+        },
+        {
+          "name": "no_bottom_overlay_1024",
+          "passed": true
+        },
+        {
+          "name": "method_has_no_dark_number_bars_1024",
+          "passed": true
+        },
+        {
+          "name": "service_cards_have_readable_palette_1024",
+          "passed": true
+        },
+        {
+          "name": "personalization_has_no_white_overlay_1024",
+          "passed": true
+        },
+        {
+          "name": "logo_is_unframed_1024",
+          "passed": true
+        },
+        {
+          "name": "footer_text_not_hidden_or_stuck_inline_1024",
+          "passed": true
+        },
+        {
+          "name": "header_does_not_cover_content_1440",
+          "passed": true
+        },
+        {
+          "name": "demo_tabs_do_not_float_over_titles_1440",
+          "passed": true
+        },
+        {
+          "name": "no_bottom_overlay_1440",
+          "passed": true
+        },
+        {
+          "name": "method_has_no_dark_number_bars_1440",
+          "passed": true
+        },
+        {
+          "name": "service_cards_have_readable_palette_1440",
+          "passed": true
+        },
+        {
+          "name": "personalization_has_no_white_overlay_1440",
+          "passed": true
+        },
+        {
+          "name": "logo_is_unframed_1440",
+          "passed": true
+        },
+        {
+          "name": "footer_text_not_hidden_or_stuck_inline_1440",
+          "passed": true
+        },
+        {
+          "name": "original_logo_blends_into_shared_ivory",
+          "passed": true
+        },
+        {
+          "name": "text_contrast_506174_faf8f3",
+          "passed": true
+        },
+        {
+          "name": "text_contrast_506174_ffffff",
+          "passed": true
+        },
+        {
+          "name": "text_contrast_071a31_faf8f3",
+          "passed": true
+        },
+        {
+          "name": "text_contrast_bac8d7_102b46",
+          "passed": true
+        },
+        {
+          "name": "text_contrast_f4efe6_071a31",
+          "passed": true
+        },
+        {
+          "name": "text_contrast_071a31_d7b46a",
+          "passed": true
+        }
+      ],
+      "limitation": "CSS structure and contrast checks; no rendered screenshot assertion."
+    },
+    {
+      "suite": "redesign",
+      "total": 14,
+      "passed": 14,
+      "tests": [
+        {
+          "name": "official_primary_logo_replaces_all_legacy_wordmarks",
+          "passed": true
+        },
+        {
+          "name": "lion_secondary_only_once_in_page",
+          "passed": true
+        },
+        {
+          "name": "no_third_party_font_requests",
+          "passed": true
+        },
+        {
+          "name": "all_local_assets_exist",
+          "passed": true
+        },
+        {
+          "name": "logo_layout_dimensions_preserve_original_aspect",
+          "passed": true
+        },
+        {
+          "name": "arrow_keyboard_navigates_demo_tabs",
+          "passed": true
+        },
+        {
+          "name": "home_end_keys_select_first_and_last_tab",
+          "passed": true
+        },
+        {
+          "name": "menu_escape_restores_trigger",
+          "passed": true
+        },
+        {
+          "name": "privacy_explanation_kept_accessible",
+          "passed": true
+        },
+        {
+          "name": "optional_operational_sections_are_not_lost",
+          "passed": true
+        },
+        {
+          "name": "no_fake_cases_or_results_added",
+          "passed": true
+        },
+        {
+          "name": "live_endpoint_unchanged",
+          "passed": true
+        },
+        {
+          "name": "cta_uses_existing_phone_with_user_review",
+          "passed": true
+        },
+        {
+          "name": "semantic_heading_and_primary_navigation",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "total": 77,
+      "passed": 77,
+      "failed": 0,
+      "results": [
+        {
+          "name": "imob_short_bedrooms_3",
+          "passed": true
+        },
+        {
+          "name": "imob_short_bedrooms_três",
+          "passed": true
+        },
+        {
+          "name": "imob_short_bedrooms_tres",
+          "passed": true
+        },
+        {
+          "name": "imob_short_bedrooms_3.",
+          "passed": true
+        },
+        {
+          "name": "imob_old_session_question_recovers_bare_number",
+          "passed": true
+        },
+        {
+          "name": "imob_short_budget_3000",
+          "passed": true
+        },
+        {
+          "name": "imob_short_budget_3 mil",
+          "passed": true
+        },
+        {
+          "name": "imob_short_budget_3.000,00",
+          "passed": true
+        },
+        {
+          "name": "imob_number_without_context_not_bedroom_or_budget",
+          "passed": true
+        },
+        {
+          "name": "imob_bedroom_number_does_not_set_budget",
+          "passed": true
+        },
+        {
+          "name": "imob_number_one_selects_first_displayed_property_not_id_one",
+          "passed": true
+        },
+        {
+          "name": "imob_words_first_select_displayed_property",
+          "passed": true
+        },
+        {
+          "name": "imob_negative_does_not_create_visit",
+          "passed": true
+        },
+        {
+          "name": "salao_price_has_authoritative_value",
+          "passed": true
+        },
+        {
+          "name": "salao_price_question_never_creates_appointment",
+          "passed": true
+        },
+        {
+          "name": "salao_bare_yes_does_not_create_appointment",
+          "passed": true
+        },
+        {
+          "name": "salao_unrelated_purchase_not_payment",
+          "passed": true
+        },
+        {
+          "name": "salao_future_payment_not_receipt",
+          "passed": true
+        },
+        {
+          "name": "salao_negative_payment_clears_unverified_declaration",
+          "passed": true
+        },
+        {
+          "name": "salao_old_payment_declaration_survives_unrelated_question",
+          "passed": true
+        },
+        {
+          "name": "salao_confirmed_owner_receipt_not_overwritten",
+          "passed": true
+        },
+        {
+          "name": "salao_cancel_keeps_confirmed_slot_pending_confirmation",
+          "passed": true
+        },
+        {
+          "name": "salao_handoff_after_offer_and_yes",
+          "passed": true
+        },
+        {
+          "name": "salao_negative_handoff_does_not_pause",
+          "passed": true
+        },
+        {
+          "name": "clinica_price_has_authoritative_value",
+          "passed": true
+        },
+        {
+          "name": "clinica_price_question_never_creates_appointment",
+          "passed": true
+        },
+        {
+          "name": "clinica_bare_yes_does_not_create_appointment",
+          "passed": true
+        },
+        {
+          "name": "clinica_unrelated_purchase_not_payment",
+          "passed": true
+        },
+        {
+          "name": "clinica_future_payment_not_receipt",
+          "passed": true
+        },
+        {
+          "name": "clinica_negative_payment_clears_unverified_declaration",
+          "passed": true
+        },
+        {
+          "name": "clinica_old_payment_declaration_survives_unrelated_question",
+          "passed": true
+        },
+        {
+          "name": "clinica_confirmed_owner_receipt_not_overwritten",
+          "passed": true
+        },
+        {
+          "name": "clinica_cancel_keeps_confirmed_slot_pending_confirmation",
+          "passed": true
+        },
+        {
+          "name": "clinica_handoff_after_offer_and_yes",
+          "passed": true
+        },
+        {
+          "name": "clinica_negative_handoff_does_not_pause",
+          "passed": true
+        },
+        {
+          "name": "clinica_collect_day_then_hour_in_separate_messages",
+          "passed": true
+        },
+        {
+          "name": "clinica_yes_without_time_never_chooses_hour",
+          "passed": true
+        },
+        {
+          "name": "clinica_question_does_not_erase_booking_context",
+          "passed": true
+        },
+        {
+          "name": "clinica_invalid_date_rejected",
+          "passed": true
+        },
+        {
+          "name": "clinica_past_date_rejected",
+          "passed": true
+        },
+        {
+          "name": "clinica_sunday_rejected",
+          "passed": true
+        },
+        {
+          "name": "clinica_closed_hour_rejected",
+          "passed": true
+        },
+        {
+          "name": "clinica_payment_asks_amount_and_accepts_bare_amount",
+          "passed": true
+        },
+        {
+          "name": "clinica_payment_question_preserves_missing_amount",
+          "passed": true
+        },
+        {
+          "name": "clinica_thousand_payment_parsed_as_reais",
+          "passed": true
+        },
+        {
+          "name": "clinica_two_installments_not_guessed_as_total",
+          "passed": true
+        },
+        {
+          "name": "clinica_price_question_during_confirmation_keeps_explicit_confirmation",
+          "passed": true
+        },
+        {
+          "name": "salao_collect_day_then_hour_in_separate_messages",
+          "passed": true
+        },
+        {
+          "name": "salao_yes_without_time_never_chooses_hour",
+          "passed": true
+        },
+        {
+          "name": "salao_question_does_not_erase_booking_context",
+          "passed": true
+        },
+        {
+          "name": "salao_invalid_date_rejected",
+          "passed": true
+        },
+        {
+          "name": "salao_past_date_rejected",
+          "passed": true
+        },
+        {
+          "name": "salao_sunday_rejected",
+          "passed": true
+        },
+        {
+          "name": "salao_closed_hour_rejected",
+          "passed": true
+        },
+        {
+          "name": "salao_payment_asks_amount_and_accepts_bare_amount",
+          "passed": true
+        },
+        {
+          "name": "salao_payment_question_preserves_missing_amount",
+          "passed": true
+        },
+        {
+          "name": "salao_thousand_payment_parsed_as_reais",
+          "passed": true
+        },
+        {
+          "name": "salao_two_installments_not_guessed_as_total",
+          "passed": true
+        },
+        {
+          "name": "salao_price_question_during_confirmation_keeps_explicit_confirmation",
+          "passed": true
+        },
+        {
+          "name": "clinic_confirmation_needs_exact_yes",
+          "passed": true
+        },
+        {
+          "name": "clinic_confirmation_after_price_question",
+          "passed": true
+        },
+        {
+          "name": "clinic_cancel_confirmation_then_no_keeps_booking",
+          "passed": true
+        },
+        {
+          "name": "clinic_cancel_confirmation_then_yes_clears_booking",
+          "passed": true
+        },
+        {
+          "name": "clinic_reschedule_keeps_original_until_new_confirmation",
+          "passed": true
+        },
+        {
+          "name": "clinic_botox_booking_routes_to_evaluation",
+          "passed": true
+        },
+        {
+          "name": "salon_mechas_does_not_invent_price_or_slot",
+          "passed": true
+        },
+        {
+          "name": "imob_cancel_confirmed_visit_requires_confirmation",
+          "passed": true
+        },
+        {
+          "name": "imob_bare_hour_after_day_choice",
+          "passed": true
+        },
+        {
+          "name": "imob_first_available_hour_by_number",
+          "passed": true
+        },
+        {
+          "name": "imob_FAQ_during_visit_preserves_day",
+          "passed": true
+        },
+        {
+          "name": "imob_yes_after_FAQ_cannot_confirm_visit_implicitly",
+          "passed": true
+        },
+        {
+          "name": "imob_FAQ_while_collecting_bedrooms_does_not_lose_pending_number",
+          "passed": true
+        },
+        {
+          "name": "salao_explicit_refusal_to_book_does_not_start_booking",
+          "passed": true
+        },
+        {
+          "name": "clinica_explicit_refusal_to_book_does_not_start_booking",
+          "passed": true
+        },
+        {
+          "name": "imob_tiny_bare_budget_requires_unit_clarification",
+          "passed": true
+        },
+        {
+          "name": "salon_no_after_request_withdraws_unconfirmed_request",
+          "passed": true
+        },
+        {
+          "name": "tomorrow_sunday_rejected_for_both_service_segments",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "total": 19,
+      "passed": 19,
+      "failed": 0,
+      "results": [
+        {
+          "name": "greeting_does_not_invent_purchase_or_rental",
+          "passed": true
+        },
+        {
+          "name": "apartment_request_does_not_assume_rental",
+          "passed": true
+        },
+        {
+          "name": "three_bedrooms_and_budget_preserved",
+          "passed": true
+        },
+        {
+          "name": "yes_does_not_choose_property_date_or_time",
+          "passed": true
+        },
+        {
+          "name": "no_two_bedroom_substitution_after_rental_confirmed",
+          "passed": true
+        },
+        {
+          "name": "explicit_change_to_two_bedrooms_allows_property",
+          "passed": true
+        },
+        {
+          "name": "yes_selects_unique_property_but_never_a_visit_slot",
+          "passed": true
+        },
+        {
+          "name": "visit_requires_day_preference",
+          "passed": true
+        },
+        {
+          "name": "day_does_not_auto_pick_time",
+          "passed": true
+        },
+        {
+          "name": "yes_without_time_keeps_request_unconfirmed",
+          "passed": true
+        },
+        {
+          "name": "time_requires_explicit_final_confirmation",
+          "passed": true
+        },
+        {
+          "name": "confirmation_applies_only_to_chosen_slot",
+          "passed": true
+        },
+        {
+          "name": "unavailable_time_never_reserved",
+          "passed": true
+        },
+        {
+          "name": "old_incorrect_model_state_rebuilt_from_user_messages",
+          "passed": true
+        },
+        {
+          "name": "budget_até R$ 3.000,00",
+          "passed": true
+        },
+        {
+          "name": "budget_até 2,5 mil",
+          "passed": true
+        },
+        {
+          "name": "budget_até R$ 2650",
+          "passed": true
+        },
+        {
+          "name": "different_property_type_not_suggested",
+          "passed": true
+        },
+        {
+          "name": "purchase_never_shows_rentals",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "total": 16,
+      "passed": 16,
+      "failed": 0,
+      "results": [
+        {
+          "name": "database_denial_returns_without_AI",
+          "passed": true
+        },
+        {
+          "name": "only_fixed_protected_groq_call_prepared",
+          "passed": true
+        },
+        {
+          "name": "quoted_service_price_recovered_when_model_misses_state",
+          "passed": true
+        },
+        {
+          "name": "AI_cannot_mark_money_received",
+          "passed": true
+        },
+        {
+          "name": "unrelated_purchase_never_becomes_receipt",
+          "passed": true
+        },
+        {
+          "name": "salon_requires_owner_to_confirm",
+          "passed": true
+        },
+        {
+          "name": "proposed_handoff_does_not_pause_before_acceptance",
+          "passed": true
+        },
+        {
+          "name": "explicit_handoff_pauses",
+          "passed": true
+        },
+        {
+          "name": "paused_robot_is_silent_and_does_not_call_AI",
+          "passed": true
+        },
+        {
+          "name": "owner_can_resume_demo",
+          "passed": true
+        },
+        {
+          "name": "appointment_overlap_rejected",
+          "passed": true
+        },
+        {
+          "name": "valid_owner_demo_confirmation",
+          "passed": true
+        },
+        {
+          "name": "owner_receipt_requires_a_declaration",
+          "passed": true
+        },
+        {
+          "name": "clinic_cancel_scenario_loads_only_fixed_demo_fixture",
+          "passed": true
+        },
+        {
+          "name": "scenario_does_not_overwrite_an_existing_conversation",
+          "passed": true
+        },
+        {
+          "name": "malformed_provider_response_is_503",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "total": 15,
+      "passed": 15,
+      "failed": 0,
+      "results": [
+        {
+          "name": "live_mode_enabled_and_disclosed",
+          "passed": true
+        },
+        {
+          "name": "salon_free_text_calls_only_isolated_demo",
+          "passed": true
+        },
+        {
+          "name": "credentials_not_sent_from_browser",
+          "passed": true
+        },
+        {
+          "name": "session_reused_within_segment",
+          "passed": true
+        },
+        {
+          "name": "independent_segments",
+          "passed": true
+        },
+        {
+          "name": "property_buttons_use_readable_message",
+          "passed": true
+        },
+        {
+          "name": "unmatched_properties_are_not_shown",
+          "passed": true
+        },
+        {
+          "name": "request_errors_are_not_fake_assistant_messages",
+          "passed": true
+        },
+        {
+          "name": "new_conversation_changes_server_session",
+          "passed": true
+        },
+        {
+          "name": "prevent_overlapping_requests_in_same_chat",
+          "passed": true
+        },
+        {
+          "name": "reset_during_request_discards_stale_AI_response",
+          "passed": true
+        },
+        {
+          "name": "clinic_cancel_button_requests_a_demo_fixture",
+          "passed": true
+        },
+        {
+          "name": "stock_count_change_invalidates_approval",
+          "passed": true
+        },
+        {
+          "name": "approved_stock_order_cannot_duplicate",
+          "passed": true
+        },
+        {
+          "name": "no_script_errors",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "suite": "mobile_journey",
+      "total": 19,
+      "passed": 19,
+      "checks": [
+        {
+          "name": "concise_value_section_before_demo",
+          "passed": true
+        },
+        {
+          "name": "seven_primary_chapters",
+          "passed": true
+        },
+        {
+          "name": "demo-clinica_perspectives_preserve_conversation",
+          "passed": true
+        },
+        {
+          "name": "demo-clinica_options_are_optional",
+          "passed": true
+        },
+        {
+          "name": "demo-reposicao_perspectives_preserve_conversation",
+          "passed": true
+        },
+        {
+          "name": "demo-reposicao_options_are_optional",
+          "passed": true
+        },
+        {
+          "name": "demo-imobiliaria_perspectives_preserve_conversation",
+          "passed": true
+        },
+        {
+          "name": "demo-imobiliaria_options_are_optional",
+          "passed": true
+        },
+        {
+          "name": "demo-salao_perspectives_preserve_conversation",
+          "passed": true
+        },
+        {
+          "name": "demo-salao_options_are_optional",
+          "passed": true
+        },
+        {
+          "name": "clinic_scenarios_after_chat",
+          "passed": true
+        },
+        {
+          "name": "salon_scenarios_optional",
+          "passed": true
+        },
+        {
+          "name": "calculators_preserved_under_planning",
+          "passed": true
+        },
+        {
+          "name": "programmatic_navigation_opens_ancestors_before_scroll",
+          "passed": true
+        },
+        {
+          "name": "hash_navigation_opens_optional_section",
+          "passed": true
+        },
+        {
+          "name": "one_contact_block_with_optional_fields",
+          "passed": true
+        },
+        {
+          "name": "short_footer",
+          "passed": true
+        },
+        {
+          "name": "implementation_explained_without_disclosure",
+          "passed": true
+        },
+        {
+          "name": "roi_surface_targets_real_article_markup",
+          "passed": true
+        }
+      ],
+      "limitation": "DOM and CSS checks only; no rendered viewport verification"
+    }
+  ]
+}

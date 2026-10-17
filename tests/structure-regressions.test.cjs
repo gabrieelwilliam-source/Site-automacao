@@ -15,6 +15,7 @@ for(const width of [360,390,520,768,1024,1440]){
  check(`footer_text_not_hidden_or_stuck_inline_${width}`,()=>{assert.equal(get('.footer p').display,'block');assert(d.querySelector('.footer-statement a'));assert(!d.querySelector('.footer-statement p'));});
  dom.window.close();
 }
+check('original_logo_blends_into_shared_ivory',()=>{assert(design.includes('.site-header,.hero{background:#f4efe6}'));assert(design.includes('.official-wordmark{mix-blend-mode:darken}'));});
 function luminance(rgb){return rgb.map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((s,v,i)=>s+v*[.2126,.7152,.0722][i],0)}
 for(const [fg,bg] of [['506174','faf8f3'],['506174','ffffff'],['071a31','faf8f3'],['bac8d7','102b46'],['f4efe6','071a31'],['071a31','d7b46a']])check(`text_contrast_${fg}_${bg}`,()=>{const rgb=x=>x.match(/../g).map(v=>parseInt(v,16)),a=luminance(rgb(fg)),b=luminance(rgb(bg));assert((Math.max(a,b)+.05)/(Math.min(a,b)+.05)>=4.5);});
 console.log(JSON.stringify({suite:'reported_visual_regressions_static',total:results.length,passed:results.filter(r=>r.passed).length,failed:results.filter(r=>!r.passed).length,results,limitation:'CSS structure and contrast checks; no rendered screenshot assertion.'}));if(results.some(r=>!r.passed))process.exitCode=1;
