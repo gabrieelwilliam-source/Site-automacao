@@ -1,0 +1,127 @@
+{
+  "revision": "zaion-significado-7",
+  "checks": 25,
+  "passed": 25,
+  "scope": "Testes focados de conteúdo, navegação e interações; sem repetir toda a suíte por alteração textual.",
+  "lint": "passed",
+  "build": "passed",
+  "rendered_browser_verified": false,
+  "suites": [
+    {
+      "suite": "reading_and_brand_experience",
+      "total": 8,
+      "passed": 8,
+      "checks": [
+        {
+          "name": "chapter_links_target_visible_sections",
+          "passed": true
+        },
+        {
+          "name": "chapter_click_marks_exactly_one_location",
+          "passed": true
+        },
+        {
+          "name": "reading_progress_is_bounded_and_updates_after_frame",
+          "passed": true
+        },
+        {
+          "name": "brand_story_uses_owners_original_meaning",
+          "passed": true
+        },
+        {
+          "name": "brand_explanation_optional_and_keyboard_native",
+          "passed": true
+        },
+        {
+          "name": "salon_and_clinic_share_header_and_composer_structure",
+          "passed": true
+        },
+        {
+          "name": "uniform_chat_does_not_remove_salons_log_or_input",
+          "passed": true
+        },
+        {
+          "name": "no_bottom_overlay_or_scroll_capture",
+          "passed": true
+        }
+      ],
+      "limitation": "DOM and interaction tests only; not rendered screenshot verification."
+    },
+    {
+      "suite": "cinematic_interactions",
+      "total": 17,
+      "passed": 17,
+      "checks": [
+        {
+          "name": "story_initial_scene_is_illustrative_and_accessible",
+          "passed": true
+        },
+        {
+          "name": "manual_step_switches_scene_summary_and_progress_without_scroll",
+          "passed": true
+        },
+        {
+          "name": "step_keyboard_wraps_and_keeps_focus_on_control",
+          "passed": true
+        },
+        {
+          "name": "desktop_scroll_selects_intersecting_step",
+          "passed": true
+        },
+        {
+          "name": "mobile_scroll_leaves_scene_under_manual_control",
+          "passed": true
+        },
+        {
+          "name": "os_reduced_motion_disables_automatic_changes",
+          "passed": true
+        },
+        {
+          "name": "manual_motion_preference_persists_and_can_be_restored",
+          "passed": true
+        },
+        {
+          "name": "saved_reduction_applies_at_initialization",
+          "passed": true
+        },
+        {
+          "name": "os_preference_change_updates_motion",
+          "passed": true
+        },
+        {
+          "name": "brand_explorer_uses_existing_approved_definitions",
+          "passed": true
+        },
+        {
+          "name": "brand_keyboard_selects_the_last_symbol",
+          "passed": true
+        },
+        {
+          "name": "fallback_remains_readable_without_javascript",
+          "passed": true
+        },
+        {
+          "name": "no_observer_or_storage_does_not_break_manual_interactions",
+          "passed": true
+        },
+        {
+          "name": "motion_never_hides_unobserved_content",
+          "passed": true
+        },
+        {
+          "name": "cinematic_assets_packaged_and_linted",
+          "passed": true
+        },
+        {
+          "name": "reduced_motion_cancels_running_brand_animations",
+          "passed": true
+        },
+        {
+          "name": "manual_reduction_also_disables_guided_smooth_scroll",
+          "passed": true
+        }
+      ],
+      "limitation": "DOM, mocked intersection and keyboard checks. No real rendered scroll/screenshot validation."
+    }
+  ]
+}
