@@ -54,7 +54,7 @@
     }
   }
 
-  // Brand text is read from the approved manual-derived definitions already on the page.
+  // Brand text is read from the owner-approved brand definitions already on the page.
   const explorer=document.querySelector('.brand-explorer');
   const definitions=[...document.querySelectorAll('.brand-symbols dl>div')].map(row=>({label:row.querySelector('dt').textContent,description:row.querySelector('dd').textContent}));
   if(explorer&&definitions.length){
