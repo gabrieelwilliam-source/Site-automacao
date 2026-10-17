@@ -1,10 +1,10 @@
 {
   "name": "zaion-automacoes",
   "private": true,
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Landing page zAIon — identidade oficial e demonstrações interativas",
   "scripts": {
-    "test": "node tests/site.test.cjs && node tests/design.test.cjs && node tests/structure-regressions.test.cjs && node tests/redesign.test.cjs && node tests/conversation-sweep.test.cjs && node tests/property-guard.test.cjs && node tests/server-demo.test.cjs && node tests/live-demo.test.cjs && node tests/mobile-journey.test.cjs",
+    "test": "node tests/site.test.cjs && node tests/design.test.cjs && node tests/structure-regressions.test.cjs && node tests/redesign.test.cjs && node tests/conversation-sweep.test.cjs && node tests/property-guard.test.cjs && node tests/server-demo.test.cjs && node tests/live-demo.test.cjs && node tests/mobile-journey.test.cjs && node tests/experience.test.cjs",
     "lint": "node tests/lint.cjs",
     "build": "node scripts/build.cjs"
   },

@@ -17,6 +17,22 @@
   },true);
   const openHash=()=>{try{zionOpenTarget(document.getElementById(decodeURIComponent(location.hash.slice(1))));}catch{}};
   window.addEventListener('hashchange',openHash);openHash();
+  // Native scrolling with lightweight position feedback; no scroll capture or automated jumps.
+  const chapterLinks=[...document.querySelectorAll('.journey-links a')];
+  const markChapter=id=>chapterLinks.forEach(a=>{if(a.hash==='#'+id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});
+  chapterLinks.forEach(a=>a.addEventListener('click',()=>markChapter(a.hash.slice(1))));
+  const visibleChapters=new Map();
+  const chapterObserver=new IntersectionObserver(entries=>{
+    entries.forEach(e=>visibleChapters.set(e.target.id,e.isIntersecting));
+    const current=chapterLinks.map(a=>a.hash.slice(1)).find(id=>visibleChapters.get(id));
+    if(current)markChapter(current);
+  },{rootMargin:'-60px 0px -55% 0px',threshold:0});
+  chapterLinks.forEach(a=>{const section=document.getElementById(a.hash.slice(1));if(section)chapterObserver.observe(section);});
+  const progress=document.querySelector('.reading-progress');let readingFrame=0;
+  const updateReading=()=>{readingFrame=0;if(!progress)return;const page=document.scrollingElement||document.documentElement;const distance=page.scrollHeight-page.clientHeight;const fraction=distance>0?Math.min(1,Math.max(0,page.scrollTop/distance)):0;progress.style.transform='scaleX('+fraction+')';};
+  const scheduleReading=()=>{if(!readingFrame)readingFrame=requestAnimationFrame(updateReading);};
+  window.addEventListener('scroll',scheduleReading,{passive:true});window.addEventListener('resize',scheduleReading,{passive:true});
+  document.addEventListener('toggle',scheduleReading,true);scheduleReading();
   // The full data handling notice remains accessible without occupying the whole demo opening.
   const notice=document.querySelector('.live-demo-banner p');
   if(notice){const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='Como este teste usa IA e dados de demonstração';notice.before(details);details.append(summary,notice);}
