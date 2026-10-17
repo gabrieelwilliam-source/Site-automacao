@@ -1,6 +1,6 @@
 
 function zionOpenTarget(target){if(!target)return;for(let p=target.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')p.open=true;if(target.tagName==='DETAILS')target.open=true;}
-function zionScrollTo(target,options){if(!target)return;zionOpenTarget(target);target.scrollIntoView(options||{behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});}
+function zionScrollTo(target,options){if(!target)return;zionOpenTarget(target);const settings={behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start',...options};if(document.documentElement.classList.contains('cinema-static'))settings.behavior='auto';target.scrollIntoView(settings);}
 const $=(s,p=document)=>p.querySelector(s);const $$=(s,p=document)=>[...p.querySelectorAll(s)];const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 function now(){return new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}
 function toast(text){const t=$('#toast');t.textContent=text;t.classList.add('show');clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove('show'),1800)}
