@@ -6,7 +6,7 @@ function toast(text){const t=$('#toast');t.textContent=text;t.classList.add('sho
 const menuButton=$('#menuButton'),navLinks=$('#navLinks');menuButton.addEventListener('click',()=>{const open=navLinks.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(open));menuButton.setAttribute('aria-label',open?'Fechar menu':'Abrir menu')});document.querySelectorAll('#navLinks a').forEach(a=>a.addEventListener('click',()=>{navLinks.classList.remove('open');menuButton.setAttribute('aria-expanded','false');menuButton.setAttribute('aria-label','Abrir menu')}));
 
 // scroll progress + reveal
-function updateProgress(){const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;$('#scrollProgress').style.width=(max?scrollY/max*100:0)+'%'}window.addEventListener('scroll',updateProgress,{passive:true});updateProgress();
+function updateProgress(){if(!$('#scrollProgress'))return;const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;$('#scrollProgress').style.width=(max?scrollY/max*100:0)+'%'}window.addEventListener('scroll',updateProgress,{passive:true});updateProgress();
 const revealObserver=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view');revealObserver.unobserve(e.target)}}),{threshold:.12});$$('.reveal').forEach(el=>revealObserver.observe(el));
 
 // counter hero

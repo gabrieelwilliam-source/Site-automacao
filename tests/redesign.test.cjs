@@ -5,7 +5,7 @@ w.IntersectionObserver=class{observe(){}unobserve(){}};w.ResizeObserver=class{ob
 for(const e of d.querySelectorAll('script:not([src]):not([type="application/ld+json"])'))w.eval(e.textContent);
 for(const f of ['script.js','salao-demo.js','premium.js'])w.eval(fs.readFileSync(f,'utf8'));
 const tests=[];function check(name,fn){try{fn();tests.push({name,passed:true})}catch(e){tests.push({name,passed:false,error:e.message})}}
-check('official_primary_logo_replaces_all_legacy_wordmarks',()=>{assert.equal(d.querySelectorAll('.brand .official-wordmark').length,2);assert(!d.querySelector('.brand-wordmark'));assert(!d.querySelector('img[src="assets/zion-original.png"]'));assert(d.querySelector('.signature-frame img').src.endsWith('zaion-logo-official.png'));});
+check('official_primary_logo_replaces_all_legacy_wordmarks',()=>{assert.equal(d.querySelectorAll('.brand .official-wordmark').length,2);assert(!d.querySelector('.brand-wordmark'));assert(!d.querySelector('img[src="assets/zion-original.png"]'));assert(!d.querySelector('.signature-frame'));assert(d.querySelector('.brand img').src.endsWith('zaion-logo-official.png'));});
 check('lion_secondary_only_once_in_page',()=>assert.equal(d.querySelectorAll('img[src$="zaion-lion-official.png"]').length,1));
 check('no_third_party_font_requests',()=>assert(!d.querySelector('link[href*="fonts.google"]')));
 check('all_local_assets_exist',()=>{for(const e of d.querySelectorAll('script[src],link[href],img[src]')){const v=e.getAttribute('src')||e.getAttribute('href');if(/^https?:|^#/.test(v))continue;assert(fs.existsSync(v.split('?')[0]),v);}});

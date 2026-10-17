@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-17",
+  "total_checks": 271,
+  "passed": 271,
+  "suites": [
+    {
+      "type": "DOM tests; fictional interactions, no rendered browser check, no external messages",
+      "total": 27,
+      "passed": 27,
+      "failed": 0
+    },
+    {
+      "checks": 47,
+      "passed": 47,
+      "widths": [
+        360,
+        390,
+        768,
+        1024,
+        1440
+      ],
+      "limitation": "Static CSS cascade checks; not rendered browser or screenshot verification"
+    },
+    {
+      "suite": "reported_visual_regressions_static",
+      "total": 56,
+      "passed": 56,
+      "failed": 0,
+      "limitation": "CSS structure and contrast checks; no rendered screenshot assertion."
+    },
+    {
+      "suite": "redesign",
+      "total": 14,
+      "passed": 14
+    },
+    {
+      "total": 77,
+      "passed": 77,
+      "failed": 0
+    },
+    {
+      "total": 19,
+      "passed": 19,
+      "failed": 0
+    },
+    {
+      "total": 16,
+      "passed": 16,
+      "failed": 0
+    },
+    {
+      "total": 15,
+      "passed": 15,
+      "failed": 0
+    }
+  ],
+  "forced_legacy_priorities_removed": 85,
+  "obsolete_theme_layers_removed": [
+    "V13",
+    "V14",
+    "V21",
+    "V22",
+    "V23",
+    "V24",
+    "V25",
+    "V30"
+  ],
+  "compatibility_in_lower_cascade_layer": true,
+  "official_files_unchanged": true,
+  "production_integrations_unchanged": true,
+  "browser_review": "Cloud browser navigation timed out; no screenshot validation completed.",
+  "screenshots_generated": false,
+  "customer_contact_performed": false
+}
