@@ -3,8 +3,8 @@ const dom=new JSDOM(fs.readFileSync('index.html','utf8'),{url:'https://example.o
 w.matchMedia=()=>({matches:true,addEventListener(){}});w.IntersectionObserver=class{observe(){}};w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=function(){for(let p=this.parentElement;p;p=p.parentElement)if(p.tagName==='DETAILS')assert(p.open);};w.fetch=()=>{throw Error('Network forbidden')};
 for(const f of ['script.js','premium.js'])w.eval(fs.readFileSync(f,'utf8'));
 const checks=[];function check(name,f){try{f();checks.push({name,passed:true})}catch(e){checks.push({name,passed:false,error:e.message})}}
-check('concise_value_section_before_demo',()=>{assert.equal(d.querySelector('main').children[1].id,'iana-servicos');assert.equal(d.querySelector('main').children[2].id,'demos');assert.equal(d.querySelectorAll('.value-overview article').length,3);});
-check('seven_primary_chapters',()=>assert.equal(d.querySelector('main').children.length,7));
+check('concise_value_section_before_demo',()=>{assert(d.querySelector('.hero + .journey-nav + #iana-servicos + #demos'));assert.equal(d.querySelectorAll('.value-overview article').length,3);});
+check('eight_primary_sections',()=>assert.equal(d.querySelectorAll('main>section').length,8));
 for(const p of d.querySelectorAll('.demo-panel')){
  check(p.id+'_perspectives_preserve_conversation',()=>{const input=p.querySelector('input');if(input)input.value='12';p.querySelector('[data-demo-view=management]').click();assert.equal(p.dataset.mobileView,'management');assert.equal(p.querySelector('[data-demo-view=management]').getAttribute('aria-pressed'),'true');p.querySelector('[data-demo-view=conversation]').click();assert.equal(p.dataset.mobileView,'conversation');if(input)assert.equal(input.value,'12');});
  check(p.id+'_options_are_optional',()=>assert(p.querySelector('.demo-support:not([open]),.scenario-picker:not([open])')));
