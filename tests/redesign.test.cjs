@@ -1,0 +1,22 @@
+const fs=require('fs'),path=require('path'),assert=require('assert'),{JSDOM}=require('jsdom');
+process.chdir(path.resolve(__dirname,'..'));
+const html=fs.readFileSync('index.html','utf8'),dom=new JSDOM(html,{url:'https://gabrieelwilliam-source.github.io/Site-automacao/',runScripts:'outside-only',pretendToBeVisual:true}),w=dom.window,d=w.document;
+w.IntersectionObserver=class{observe(){}unobserve(){}};w.ResizeObserver=class{observe(){}};w.matchMedia=()=>({matches:true,addEventListener(){}});w.HTMLElement.prototype.scrollIntoView=function(){};w.scrollTo=()=>{};w.scrollBy=()=>{};w.fetch=()=>{throw Error('No network requests allowed');};w.open=()=>{throw Error('No real customer contact');};
+for(const e of d.querySelectorAll('script:not([src]):not([type="application/ld+json"])'))w.eval(e.textContent);
+for(const f of ['script.js','salao-demo.js','premium.js'])w.eval(fs.readFileSync(f,'utf8'));
+const tests=[];function check(name,fn){try{fn();tests.push({name,passed:true})}catch(e){tests.push({name,passed:false,error:e.message})}}
+check('official_primary_logo_replaces_all_legacy_wordmarks',()=>{assert.equal(d.querySelectorAll('.brand .official-wordmark').length,2);assert(!d.querySelector('.brand-wordmark'));assert(!d.querySelector('img[src="assets/zion-original.png"]'));assert(d.querySelector('.signature-frame img').src.endsWith('zaion-logo-official.png'));});
+check('lion_secondary_only_once_in_page',()=>assert.equal(d.querySelectorAll('img[src$="zaion-lion-official.png"]').length,1));
+check('no_third_party_font_requests',()=>assert(!d.querySelector('link[href*="fonts.google"]')));
+check('all_local_assets_exist',()=>{for(const e of d.querySelectorAll('script[src],link[href],img[src]')){const v=e.getAttribute('src')||e.getAttribute('href');if(/^https?:|^#/.test(v))continue;assert(fs.existsSync(v.split('?')[0]),v);}});
+check('logo_layout_dimensions_preserve_original_aspect',()=>{for(const i of d.querySelectorAll('img[src$="zaion-logo-official.png"]'))assert.equal(+i.width/+i.height,1536/732);});
+check('arrow_keyboard_navigates_demo_tabs',()=>{const t=d.getElementById('tab-clinica');t.click();t.dispatchEvent(new w.KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));assert.equal(d.activeElement.id,'tab-reposicao');assert.equal(d.getElementById('tab-reposicao').getAttribute('aria-selected'),'true');assert.equal(d.querySelectorAll('.demo-tab[tabindex="0"]').length,1);});
+check('home_end_keys_select_first_and_last_tab',()=>{d.activeElement.dispatchEvent(new w.KeyboardEvent('keydown',{key:'End',bubbles:true}));assert.equal(d.activeElement.id,'tab-salao');d.activeElement.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Home',bubbles:true}));assert.equal(d.activeElement.id,'tab-clinica');});
+check('menu_escape_restores_trigger',()=>{d.getElementById('menuButton').click();assert(d.getElementById('navLinks').classList.contains('open'));d.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));assert.equal(d.getElementById('menuButton').getAttribute('aria-expanded'),'false');assert.equal(d.activeElement.id,'menuButton');});
+check('privacy_explanation_kept_accessible',()=>{const x=d.querySelector('.live-demo-banner details');assert(x);assert(x.textContent.includes('30 minutos'));assert(d.getElementById('liveDemoStatus'));});
+check('optional_operational_sections_are_not_lost',()=>{for(const id of ['processo','experiencia'])assert(d.getElementById(id).closest('details'));assert(d.getElementById('roi'));assert(d.getElementById('demoHistory'));});
+check('no_fake_cases_or_results_added',()=>assert(!/\+\d+%|milhares de clientes|resultado garantido/i.test(d.querySelector('.hero').textContent)));
+check('live_endpoint_unchanged',()=>assert(fs.readFileSync('atendimento-real.js','utf8').includes('https://n8n.vps12198.panel.icontainer.cloud/webhook/zion-demonstracao-conversa-v1')));
+check('cta_uses_existing_phone_with_user_review',()=>{const a=d.getElementById('proposalWhatsapp');assert(a.href.startsWith('https://wa.me/5547988927391'));assert.equal(a.target,'_blank');assert(a.rel.includes('noopener'));});
+check('semantic_heading_and_primary_navigation',()=>{assert.equal(d.querySelectorAll('h1').length,1);assert.equal(d.documentElement.lang,'pt-BR');assert(d.querySelector('.skip-link'));assert(d.querySelector('link[rel="canonical"]'));});
+const result={suite:'redesign',total:tests.length,passed:tests.filter(x=>x.passed).length,tests};console.log(JSON.stringify(result));dom.window.close();if(result.passed!==result.total)process.exitCode=1;

@@ -1,0 +1,12 @@
+{
+  "name": "zaion-automacoes",
+  "private": true,
+  "version": "2.0.0",
+  "description": "Landing page zAIon — identidade oficial e demonstrações interativas",
+  "scripts": {
+    "test": "node tests/site.test.cjs && node tests/design.test.cjs && node tests/redesign.test.cjs && node tests/conversation-sweep.test.cjs && node tests/property-guard.test.cjs && node tests/server-demo.test.cjs && node tests/live-demo.test.cjs",
+    "lint": "node tests/lint.cjs",
+    "build": "node scripts/build.cjs"
+  },
+  "devDependencies": {"css-tree": "3.1.0", "jsdom": "26.1.0"}
+}

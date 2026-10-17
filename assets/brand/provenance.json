@@ -1,0 +1,12 @@
+{
+  "logo": {
+    "source": "02-1000071970.png",
+    "file": "assets/brand/zaion-logo-official.png",
+    "sha256": "b7ff1d53e35e176225c3e94a9dbdcd9f347ff2a42dfc5c5ac8998c119a9cb725"
+  },
+  "lion": {
+    "source": "01-1000072007.png",
+    "file": "assets/brand/zaion-lion-official.png",
+    "sha256": "d7f38729f41822259cad6d231143d5321880c05ae04d3f912229ee5d577f63b0"
+  }
+}

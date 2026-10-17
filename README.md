@@ -1,166 +1,41 @@
-# Zion Automações — Site Comercial Interativo
+# zAIon Automações
 
-Site comercial responsivo desenvolvido para apresentar serviços de automação de forma visual, interativa e orientada à conversão.
+Landing page institucional com identidade oficial, quatro demonstrações interativas e estimador de projeto. HTML, CSS e JavaScript sem framework ou dependência de produção.
 
-O projeto combina **landing page, demonstrações interativas, simulações de negócio e estimador comercial** em uma única experiência.
+## Executar e verificar
 
-## Objetivo
+Requer Node.js 20.19+ (verificado com Node 24).
 
-Criar uma página que não apenas explique um serviço, mas permita ao visitante **testar como ele funciona antes de entrar em contato**.
+```sh
+npm ci --ignore-scripts
+npm run lint
+npm test
+npm run build
+```
 
-A navegação conduz o usuário por:
-
-**proposta → demonstração → funcionamento → impacto → investimento → contato**
-
-## Destaques do projeto
-
-- hero comercial com CTAs claros;
-- identidade visual premium em navy + gold;
-- três demonstrações interativas;
-- experiência para clínica/estética;
-- simulação de reposição e operação;
-- qualificação imobiliária com matching de imóveis;
-- cards com imagens de imóveis;
-- painel mostrando o que acontece por trás das automações;
-- apresentação guiada;
-- calculadora de impacto operacional;
-- estimador de projeto;
-- relatório após demonstração;
-- CTA contextual por segmento;
-- histórico local;
-- navegação responsiva;
-- melhorias de acessibilidade;
-- SEO e Open Graph.
-
-## Diferenciais de front-end
-
-O projeto foi desenvolvido sem framework e trabalha com uma grande quantidade de estados de interface e interações em JavaScript.
-
-Foram implementados:
-
-- tabs acessíveis;
-- estados ativos;
-- sliders;
-- formulários;
-- chat simulado;
-- cards dinâmicos;
-- scroll guiado;
-- personalização por URL;
-- feedback visual de execução;
-- persistência local com localStorage;
-- layout desktop e mobile.
-
-## Tecnologias
-
-- HTML5
-- CSS3
-- JavaScript
-- GitHub Pages
-
-## Meu papel
-
-- estrutura e arquitetura da página;
-- desenvolvimento front-end;
-- design responsivo;
-- identidade visual;
-- UX e jornada comercial;
-- implementação das interações;
-- refinamento de contraste e acessibilidade;
-- testes e correções de comportamento;
-- publicação via GitHub Pages.
-
-## O que este projeto demonstra
-
-Este projeto é uma amostra de trabalho para criação de:
-
-- landing pages;
-- sites comerciais;
-- páginas de produto;
-- interfaces interativas;
-- páginas orientadas a conversão;
-- experiências responsivas;
-- protótipos funcionais para negócios.
+O build gera `dist/` com os arquivos públicos. **Nenhum comando realiza deploy.** A hospedagem existente continua no GitHub Pages. A branch de redesign deve ser revisada antes de qualquer merge ou publicação.
 
 ## Estrutura
 
-```text
-.
-├── assets/
-├── index.html
-├── script.js
-├── styles.css
-├── AUDIT.md
-└── README.md
-```
+- `index.html`: conteúdo semântico e componentes existentes.
+- `styles.css`: estrutura das demonstrações e compatibilidade legada.
+- `design.css`: sistema visual zAIon, temas e layouts responsivos.
+- `premium.js`: teclado, foco, menu e exposição progressiva dos detalhes.
+- `script.js`, `salao-demo.js`: estimador e demonstrações locais.
+- `atendimento-real.js`: integração existente com o webhook isolado de demonstração, preservada.
+- `assets/brand/`: imagens oficiais sem alterações; hashes e origem documentados.
+- `assets/fonts/`: Inter e Newsreader locais em WOFF2, com licenças OFL.
+- `server-demo/`: lógica existente do ambiente de demonstração. Não é incluída no build estático.
+- `tests/`: regressões de conversa, integrações com respostas controladas, acessibilidade e cascata CSS.
 
-## Execução local
+## Integrações
 
-Não há dependências de build.
+O WhatsApp comercial e o webhook de IA demonstrativa existentes foram preservados. O formulário abre uma mensagem que o visitante revisa e decide enviar. Nenhuma chave é necessária no frontend. Não inserir credenciais, dados de clientes ou endpoints de envio de produção no código público.
 
-```bash
-python -m http.server 8080
-```
+As demonstrações de clínica, imobiliária e salão usam o endpoint isolado existente; a operação de reposição é simulada. Nenhuma dessas experiências cria compromisso real, confirma pagamento bancário ou envia WhatsApp a clientes. A indicação de IA conectada depende da resposta efetiva do backend. Mensagens de erro continuam visíveis.
 
-Depois, acesse `http://localhost:8080`.
+## Identidade e validação
 
-## Portfólio relacionado
+Paleta e aplicações seguem os materiais oficiais fornecidos em 17/10/2026. O logotipo e o leão são cópias binárias das imagens aprovadas. Não há marca redesenhada ou gerada por IA.
 
-- [Landing Page FR Distribuidora](https://github.com/gabrieelwilliam-source/landingpages)
-- [Horizonte Prime](https://github.com/gabrieelwilliam-source/HorizontePrime)
-- [Nayara Brososki](https://github.com/gabrieelwilliam-source/Nayara-Brososki)
-
-
-## Atualização comercial 31 — 15/10/2026
-
-- Jornada principal para atendimento e gestão, com demonstração de salão e serviços.
-- Conversa e visão da gestora lado a lado: intenção, orçamento previsto, solicitação de horário, declaração de Pix, conferência humana e pausa da assistente.
-- Simulação de conflito por duração, sem nenhuma conexão com agendas reais.
-- CTA para proposta com contexto da empresa e revisão manual no WhatsApp.
-- Demonstrações antigas e estimador preservados; nenhuma promessa de tempo de resposta ou resultado garantido.
-- `salao-demo.js` é um simulador local, não usa um modelo de IA nem chama o n8n. A implantação da IA e das integrações pertence ao projeto de cada empresa. Não inserir chaves, URLs privadas ou dados reais no código público.
-- Verificação: `NODE_PATH=/caminho/para/node_modules node tests/site.test.cjs` (JSDOM). Sem dependência de produção.
-
-
-## Correção visual — 15/10/2026
-
-O logo em `assets/zion-original.png` é o arquivo original aprovado, sem redesenho. `design.css` define a apresentação clara com azul-marinho e dourado e a área de demonstração escura. É carregado depois do CSS legado das demonstrações. O layout da abertura usa uma coluna até 820 px.
-
-Validação: 25 testes de interações e 36 verificações de cascata CSS em 360, 390, 768, 1024 e 1440 px. A ferramenta de navegador ficou indisponível; estes testes não equivalem a inspeção visual renderizada.
-
-Executar com Node e dependências jsdom e css-tree: `node tests/site.test.cjs` e `node tests/design.test.cjs`.
-
-
-## Simulações reunidas
-
-A abertura apresenta automação para empresas em geral. Clínica, reposição, imobiliária e salão dividem os mesmos cards e abas em `#demos`. O salão não ocupa mais uma seção exclusiva antes das outras soluções. Validação: 27 testes de interação e 36 de CSS; sem inspeção visual renderizada.
-
-
-## Atendimento com IA real
-
-`atendimento-real.js` conecta clínica, imobiliária e salão ao webhook isolado de demonstração do n8n. A Groq responde de verdade; catálogo, empresas, CRM e agendas são fictícios. Reposição continua sendo uma simulação operacional com cálculo e aprovação. Nenhum cliente real, WhatsApp, tabela de negócio ou Google Calendar é acessado por essa integração.
-
-As credenciais Groq e PostgreSQL ficam protegidas no n8n. O navegador envia apenas identificador aleatório da sessão, segmento, mensagem e eventuais ações do painel demonstrativo. Não há chaves no repositório. Não informe dados pessoais ou sensíveis: as mensagens são processadas pela Groq. A memória da demonstração tem validade de 30 minutos de inatividade e é mantida no schema separado `zion_webdemo_v1`, com RLS e sem concessão pública. As tabelas de negócio existentes são preservadas.
-
-Limites: 24 mensagens por sessão; 240 por dia no total; intervalo entre pedidos; trava de concorrência por sessão. SQL usa parâmetros e bloqueios transacionais. CORS permite somente a origem do GitHub Pages. Essas cotas limitam o custo; a demonstração pública não substitui um gateway de proteção contra abuso para operação de grande volume.
-
-Erros de IA/rede são mostrados explicitamente. Respostas curtas vinculadas à pergunta pendente são interpretadas diretamente pelo servidor (`context_rules`); mensagens abertas usam IA (`live_ai`). Falhas da IA não são substituídas por respostas locais. Handoff pausa a assistente. Botões de confirmação financeira e agenda atuam somente nos dados de teste. O servidor impede que a IA registre recebimento por conta própria e exige ação da equipe de teste para confirmar horários do salão.
-
-Fontes de servidor em `server-demo/`: preparação do contexto, validação do retorno e estrutura SQL. Instalar esses scripts nos nós correspondentes do fluxo isolado; nunca colocar credenciais nesses arquivos. Executar testes `site.test.cjs`, `design.test.cjs`, `live-demo.test.cjs` e `server-demo.test.cjs`. Testes DOM/CSS não equivalem à inspeção visual em navegador.
-
-
-## Correção do teste imobiliário — 15/10/2026
-
-O servidor valida a carteira antes de oferecer um imóvel: finalidade, tipo, bairro, mínimo de quartos e teto do aluguel precisam coincidir. O visitante precisa aceitar expressamente mudanças de critérios. Preços de aluguel são armazenados em reais e formatados pelo código, sem conversão implícita para centavos. `imobiliaria-guard.js` é incorporado ao nó de validação do n8n antes de `saida.js`. O navegador utiliza os IDs aprovados pelo servidor em `propertyMatches`.
-
-Dia, horário e confirmação da visita são etapas separadas. “Sim” sem horário escolhido não cria visita. Sessões antigas são reconstruídas a partir das mensagens da pessoa quando ainda não possuem a versão atual das regras. Testes de regressão do caso relatado estão em `tests/property-guard.test.cjs`.
-
-
-## Varredura das conversas — 15/10/2026
-
-`awaiting` registra a pergunta pendente. “3” após a pergunta de quartos preenche quartos; “3000” após orçamento preenche o teto em reais. “1” escolhe a primeira opção exibida, sem confundir a posição com o ID do imóvel. Perguntas paralelas preservam o contexto; confirmação de visita exige escolha explícita e aceite.
-
-Clínica e salão usam `service-guard.js` para catálogo, datas, horários, cancelamento, remarcação e pagamentos. Perguntar preço não cria agenda; promessa de Pix não registra recebimento. A remarcação mantém o horário anterior até o aceite. O salão exige confirmação da equipe de teste e permite confirmar o cancelamento no painel. Atendimento humano pausa respostas automáticas.
-
-O modelo `qwen/qwen3.8-27b` entrega texto; o servidor constrói o estado e a resposta JSON. Isso evita falhas observadas no modo JSON do provedor. Há timeout e uma repetição para falhas transitórias; limites da Groq continuam sendo informados ao visitante. Reiniciar conversa invalida respostas antigas ainda em trânsito.
-
-Testes adicionais: `conversation-sweep.test.cjs` (76 casos), `property-guard.test.cjs` (19 casos). Resultados de execução real e limitações estão em `server-demo/VALIDATION.md`.
+Leia `REDESIGN.md` e `qa/redesign-results.json` para os resultados e limites. As verificações responsivas são de cascata CSS em cinco larguras, **não são capturas ou testes em um navegador renderizado**. A revisão visual desktop/mobile e o Lighthouse permanecem pendentes por indisponibilidade de navegador de QA neste ambiente.
