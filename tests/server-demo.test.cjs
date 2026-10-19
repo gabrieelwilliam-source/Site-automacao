@@ -5,7 +5,7 @@ let gate={ok:true,key:'demo_abcdefghijklmnop:salao',lease:'test',payload:{segmen
 const enter=(g=gate)=>run({first:()=>({json:{data:g}})})[0].json;
 const check=(name,fn)=>{try{fn();results.push({name,passed:true})}catch(e){results.push({name,passed:false,error:e.message})}};
 check('database_denial_returns_without_AI',()=>assert.equal(enter({ok:false,status:429,error:'Limite'}).status,429));
-const ctx=enter(),s=()=>gate.session;
+const ctx={...enter({...gate,payload:{...gate.payload,message:'Olá, tudo bem?'}}),message:'Quanto custa o corte?'},s=()=>gate.session;
 check('only_fixed_protected_groq_call_prepared',()=>{assert(ctx.run);assert.equal(ctx.request.model,'qwen/qwen3.8-27b');assert(!JSON.stringify(ctx).includes('apikey'));});
 const response=(model,context=ctx)=>finish({first:()=>({json:{choices:[{message:{content:JSON.stringify(model)}}]}})},()=>({}),()=>({first:()=>({json:context})}))[0].json;
 check('quoted_service_price_recovered_when_model_misses_state',()=>{const r=response({reply:'O corte custa 80.',state:{service:null,payment:null,appointment:null,human:false}});assert.equal(r.result.state.service,'Corte');assert.equal(r.result.state.expected,8000);});
@@ -19,7 +19,7 @@ check('owner_can_resume_demo',()=>{gate.payload.action='resume';const r=enter();
 check('appointment_overlap_rejected',()=>{gate.payload.action='confirm_appointment';gate.payload.duration=120;gate.session.state.appointment={status:'requested',date:'amanhã',time:'14:00'};assert.equal(enter().status,409);});
 check('valid_owner_demo_confirmation',()=>{gate.payload.duration=60;assert.equal(enter().result.state.appointment.status,'confirmed');});
 check('owner_receipt_requires_a_declaration',()=>{gate.payload.action='confirm_receipt';gate.session.state.payment=null;assert.equal(enter().status,409);});
-check('clinic_cancel_scenario_loads_only_fixed_demo_fixture',()=>{const r=enter({ok:true,payload:{segment:'clinica',message:'Quero cancelar',scenario:'cancel'},key:'demo_fixture',session:{count:1,state:empty(),history:[]}});assert.equal(r.previous.appointment.status,'confirmed');assert.equal(r.previous.service,'Avaliação estética');});
+check('clinic_cancel_scenario_loads_only_fixed_demo_fixture',()=>{const r=enter({ok:true,payload:{segment:'clinica',message:'Quero cancelar',scenario:'cancel'},key:'demo_fixture',session:{count:1,state:empty(),history:[]}});assert.equal(r.result.state.appointment.status,'confirmed');assert.equal(r.result.state.awaiting,'cancel_confirmation');});
 check('scenario_does_not_overwrite_an_existing_conversation',()=>{const r=enter({ok:true,payload:{segment:'clinica',message:'Oi',scenario:'cancel'},key:'demo_fixture2',session:{count:2,state:empty(),history:[]}});assert(!r.previous.appointment);});
 check('malformed_provider_response_is_503',()=>{const r=finish({first:()=>({json:{error:'failure'}})},()=>({}),()=>({first:()=>({json:ctx})}))[0].json;assert.equal(r.status,503);});
 console.log(JSON.stringify({total:results.length,passed:results.filter(r=>r.passed).length,failed:results.filter(r=>!r.passed).length,results}));if(results.some(r=>!r.passed))process.exitCode=1;

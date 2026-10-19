@@ -1,0 +1,1 @@
+const r=$input.first().json,b=r.body||r,c=b.candidates?.[0];const text=c?.finishReason==='STOP'?(c.content?.parts||[]).filter(x=>!x.thought).map(x=>x.text||'').join(''):'';return [{json:text?{choices:[{message:{content:text}}],demo_provider:'gemini'}:{error:{message:'Assistente indisponível temporariamente; tente novamente.'}}}];

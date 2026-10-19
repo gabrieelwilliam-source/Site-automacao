@@ -387,4 +387,4 @@ document.querySelectorAll('[data-demo-cta]').forEach(link=>link.addEventListener
 
 
 // Stable view adapter for the isolated real-AI chat; credentials stay server-side.
-window.ZionLegacyDemo={clinic,lead,realtyInventory,clinicChat,leadChat};
+window.ZionLegacyDemo={clinic,lead,realtyInventory,clinicChat,leadChat,clinicServices};

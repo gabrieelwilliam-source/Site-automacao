@@ -29,8 +29,10 @@ function guardRealty(ctx,out){
  // Existing sessions may have model-inferred fields; an unverified old budget is not authoritative.
  if(!profile.budgetMax&&profile.budget){const raw=normalize(profile.budget),m=raw.match(/\d+(?:[.,]\d+)*/);if(m){let v=+m[0].replace(/\.(?=\d{3}(?:\D|$))/g,'').replace(',','.');if(/mil/.test(raw)&&v<1000)v*=1000;if(v>0)profile.budgetMax=v;}}
  s.lead=profile;s.service=null;s.expected=null;s.payment=null;s.appointment=null;
+ const browseRequested=/^(?:quero |pode |gostaria de )?(?:ver|conhecer|mostrar|listar).*(?:imoveis|imovel|opcoes|carteira)|quais.*(?:imoveis|opcoes)|catalogo/.test(text);
+ const catalogMode=profile.purpose!=='Compra'&&(browseRequested||prior.propertyCatalog===true);s.propertyCatalog=catalogMode;
  const complete=profile.purpose&&profile.type&&profile.region&&profile.bedrooms&&profile.budgetMax;
- const matches=complete&&profile.purpose==='Aluguel'?inventory.filter(p=>p.type===profile.type&&(profile.region==='Sem preferência'||normalize(p.region)===normalize(profile.region))&&p.bedrooms>=profile.bedrooms&&p.rent<=profile.budgetMax):[];
+ const matches=catalogMode?inventory.filter(p=>(!profile.type||p.type===profile.type)&&(!profile.region||profile.region==='Sem preferência'||normalize(p.region)===normalize(profile.region))&&(!profile.bedrooms||p.bedrooms>=profile.bedrooms)&&(!profile.budgetMax||p.rent<=profile.budgetMax)):complete&&profile.purpose==='Aluguel'?inventory.filter(p=>p.type===profile.type&&(profile.region==='Sem preferência'||normalize(p.region)===normalize(profile.region))&&p.bedrooms>=profile.bedrooms&&p.rent<=profile.budgetMax):[];
  s.propertyMatches=matches.map(p=>p.id);s.selectedProperty=matches.some(p=>p.id===prior.selectedProperty)?prior.selectedProperty:null;s.visit=s.selectedProperty?prior.visit||null:null;s.awaiting=prior.awaiting||null;
  if(changed){s.visit=null;s.awaiting=null;}
  const answer=(reply,reason)=>{out.reply=reply;out.reason=reason;s.intent=reason;return out;};
@@ -38,13 +40,14 @@ function guardRealty(ctx,out){
  const greeting=/^(bom dia|boa tarde|boa noite|oi|ola)[!., ]*$/.test(text);
  if(greeting&&!Object.keys(profile).length)return out;
  if(/condominio|financiamento|documentos|iptu|taxas|pet|animais|endereco/.test(text)){s.awaiting=pending==='visit_confirmation'?'visit_confirmation_interrupted':pending;return answer('Essa informação não está cadastrada nesta carteira de demonstração. Um corretor precisa conferir antes de você decidir.','Informação não cadastrada; contexto da pergunta anterior preservado');}
- if(!profile.purpose){s.awaiting='purpose';return answer('Você procura esse imóvel para comprar ou para alugar?','Objetivo da busca ainda não informado');}
+ if(browseRequested&&catalogMode&&!/(?:imovel|id)\s*\d/.test(text)){s.awaiting='property_choice';return answer(matches.length?'Esta é a carteira demonstrativa de aluguéis'+(Object.keys(profile).length?' conforme as preferências já informadas':'')+':\n\n'+matches.map((p,i)=>`${i+1}. ${p.title} · ${p.region} · ${p.bedrooms} quartos · ${money(p.rent)}/mês (ID ${p.id})`).join('\n')+'\n\nVocê pode abrir as fotos e escolher um imóvel abaixo. Qual chamou sua atenção?':'Não há imóveis nessa carteira para os critérios informados. Posso procurar com outro bairro ou tipo, se você quiser.','Carteira demonstrativa consultada; sem presumir orçamento ou criar visita');}
+ if(!profile.purpose&&!catalogMode){s.awaiting='purpose';return answer('Você procura esse imóvel para comprar ou para alugar?','Objetivo da busca ainda não informado');}
  if(profile.purpose==='Compra'){s.awaiting='handoff_offer';s.selectedProperty=null;s.visit=null;s.propertyMatches=[];return answer('Nesta carteira de demonstração há apenas imóveis para aluguel. Posso encaminhar seu perfil de compra para um corretor, sem apresentar aluguéis como opções de compra. Você quer seguir assim?','Sem imóveis de compra no catálogo demonstrativo');}
- if(!profile.type){s.awaiting='type';return answer('Você prefere apartamento, casa ou terreno?','Tipo de imóvel ainda não informado');}
- if(!profile.region){s.awaiting='region';return answer('Em qual bairro você quer procurar?','Bairro ainda não informado');}
- if(!profile.bedrooms){s.awaiting='bedrooms';return answer('Quantos quartos você precisa?','Quantidade de quartos ainda não informada');}
+ if(!profile.type&&!catalogMode){s.awaiting='type';return answer('Você prefere apartamento, casa ou terreno?','Tipo de imóvel ainda não informado');}
+ if(!profile.region&&!catalogMode){s.awaiting='region';return answer('Em qual bairro você quer procurar?','Bairro ainda não informado');}
+ if(!profile.bedrooms&&!catalogMode){s.awaiting='bedrooms';return answer('Quantos quartos você precisa?','Quantidade de quartos ainda não informada');}
  if(budgetNeedsUnit){s.awaiting='budget';return answer('Para não confundir o valor: você pode informar o orçamento com a unidade? Por exemplo, 3 mil ou R$ 3.000.','Orçamento curto sem unidade; valor não presumido');}
- if(!profile.budgetMax){s.awaiting='budget';return answer('Qual é o valor máximo de aluguel por mês que você procura?','Orçamento mensal ainda não informado');}
+ if(!profile.budgetMax&&!catalogMode){s.awaiting='budget';return answer('Qual é o valor máximo de aluguel por mês que você procura?','Orçamento mensal ainda não informado');}
  if(!matches.length){s.selectedProperty=null;s.visit=null;s.awaiting='criteria';return answer(`Não encontrei ${profile.type.toLowerCase()} com pelo menos ${profile.bedrooms} quartos em ${profile.region} até ${money(profile.budgetMax)}/mês nesta carteira. Vou manter seus critérios. Você prefere procurar outro bairro ou rever o tipo de imóvel?`,'Nenhum imóvel atende a todos os critérios; nenhuma visita criada');}
  const yes=/^(sim|pode ser|quero sim|confirmo|pode confirmar|confirmar)(?:[!., ]|$)/.test(text)&&!/nao|talvez|pensar|cancel/.test(text);
  const requestedId=text.match(/(?:imovel|id)\s*(\d+)\b/);let chosen=requestedId?matches.find(p=>p.id===+requestedId[1]):null;

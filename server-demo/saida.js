@@ -28,4 +28,4 @@ if(ctx.segment==='imobiliaria')guardRealty(ctx,out);
 if(ctx.segment==='clinica'||ctx.segment==='salao')guardService(ctx,out);
 const reason=String(out.reason||'Contexto atualizado pela assistente.').slice(0,500);s.intent=String(s.intent||'Em atendimento').slice(0,100);s.service=s.service?String(s.service).slice(0,100):null;
 session.state=s;session.updated=Date.now();session.history.push({role:'user',content:ctx.message},{role:'assistant',content:out.reply});session.history=session.history.slice(-10);
-return [{json:{status:200,headers:ctx.headers,persist:{state:s,history:session.history},result:{ok:true,mode:'live_ai',reply:out.reply,state:s,reason,remaining:Math.max(0,24-session.count)}}}];
+return [{json:{status:200,headers:ctx.headers,persist:{state:s,history:session.history},result:{ok:true,mode:'live_ai',provider:$input.first().json.demo_provider||'groq',reply:out.reply,state:s,reason,remaining:Math.max(0,24-session.count)}}}];
