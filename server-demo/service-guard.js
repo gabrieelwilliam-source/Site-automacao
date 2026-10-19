@@ -19,6 +19,16 @@ function guardService(ctx,out){
  function timeOf(v){const m=v.match(/\b([01]?\d|2[0-3])(?:h([0-5]\d)?|:([0-5]\d))\b|\bas\s+([01]?\d|2[0-3])\b/);if(m){let hour=Number(m[1]||m[4]);if(/da tarde|a tarde|da noite/.test(v)&&hour<12)hour+=12;return String(hour).padStart(2,'0')+':'+(m[2]||m[3]||'00');}if(s.awaiting==='booking_time'&&/^\d{1,2}[.! ]*$/.test(v)){const num=Number(v.match(/\d+/)[0]);if(seg==='clinica'&&num>=1&&num<=3)return ['09:00','11:00','14:00'][num-1];if(num<24)return String(num).padStart(2,'0')+':00';}return null;}
  const askPending=()=>s.awaiting==='booking_date'?' Qual dia fica melhor?':s.awaiting==='booking_time'?' Qual horário você prefere?':s.awaiting==='booking_confirmation'&&s.booking?` Você confirma ${pretty(s.booking.date)} às ${s.booking.time}?`:'';
  if(s.human)return answer('Vou encaminhar nossa conversa para a equipe, com o histórico. Você não precisa repetir as informações.','Atendimento humano solicitado');
+
+ const socialReceipt=/^(?:(?:ok|okay|certo|entendi|beleza|perfeito|combinado|ta bom|tudo bem|obrigad[oa](?: mesmo)?|valeu|no aguardo|fico no aguardo|vou pensar)(?:[\s,!.;]+|$))+$/;
+ if(socialReceipt.test(text.trim())){
+  if(s.awaiting==='cancel_confirmation')return answer('Por nada. Para concluir o cancelamento, ainda preciso da sua confirmação. Você quer cancelar o horário apresentado?','Resposta social não autoriza cancelamento');
+  if(s.awaiting==='booking_confirmation')return answer('Claro. O horário ainda não foi confirmado.'+askPending(),'Resposta social não confirma agendamento');
+  if(s.awaiting==='owner_confirmation')return answer('Combinado. Seu pedido continua aguardando a conferência da equipe.','Pedido preservado; confirmação depende da equipe');
+  if(s.booking)return answer('Claro, sem pressa.'+askPending(),'Etapa do agendamento preservada; sem repetir serviço');
+  if(s.appointment?.status==='confirmed')return answer('Por nada. Seu horário continua confirmado na demonstração. Se precisar de algo, é só me chamar.','Encerramento natural; agendamento preservado');
+  return answer('Por nada. Quando precisar, estou por aqui.','Encerramento natural; sem repetir catálogo ou criar agendamento');
+ }
  if(p.awaiting==='cancel_confirmation'){
   if(yes){s.appointment=null;s.booking=null;s.awaiting=null;return answer('O agendamento de demonstração foi cancelado. Se quiser escolher outro dia depois, estou por aqui.','Cancelamento confirmado');}
   if(no){s.awaiting=null;return answer('Tudo bem, mantive seu agendamento como estava.','Cancelamento recusado; horário preservado');}
@@ -78,4 +88,3 @@ function guardService(ctx,out){
  if(/confirmad|agendad/i.test(out.reply)&&!s.appointment)return answer('Ainda não há um horário confirmado. Você quer consultar um dia para atendimento?','Sem dados suficientes para confirmar agenda');
  return out;
 }
-
