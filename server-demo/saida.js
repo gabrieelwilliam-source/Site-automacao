@@ -26,6 +26,7 @@ const yes=/^(sim(?:[,!. ]|$)|confirmo(?:[,!. ]|$)|pode confirmar(?:[,!. ]|$)|con
 for(const key of ['appointment','visit'])if(ctx.segment!=='salao'&&s[key]?.status==='confirmed'&&prior[key]?.status!=='confirmed'&&(!yes||!prior[key]?.date||!prior[key]?.time)){s[key].status='requested';out.reply='Antes de confirmar, confira: '+(s.service||'visita')+', '+s[key].date+' às '+s[key].time+'. Você confirma?';}
 if(ctx.segment==='imobiliaria')guardRealty(ctx,out);
 if(ctx.segment==='clinica'||ctx.segment==='salao')guardService(ctx,out);
+if(!(session.history||[]).some(m=>m.role==='assistant')&&!/\bIana\b/i.test(out.reply)){const company={clinica:'da Clínica Horizonte Estético',salao:'do Studio Aurora',imobiliaria:'da Horizonte Prime Imóveis'}[ctx.segment];out.reply='Sou a Iana, assistente virtual '+company+'.\n\n'+out.reply;}
 const reason=String(out.reason||'Contexto atualizado pela assistente.').slice(0,500);s.intent=String(s.intent||'Em atendimento').slice(0,100);s.service=s.service?String(s.service).slice(0,100):null;
 session.state=s;session.updated=Date.now();session.history.push({role:'user',content:ctx.message},{role:'assistant',content:out.reply});session.history=session.history.slice(-10);
 return [{json:{status:200,headers:ctx.headers,persist:{state:s,history:session.history},result:{ok:true,mode:'live_ai',provider:$input.first().json.demo_provider||'groq',reply:out.reply,state:s,reason,remaining:Math.max(0,24-session.count)}}}];
