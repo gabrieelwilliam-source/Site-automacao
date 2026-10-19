@@ -1,0 +1,438 @@
+{
+  "date": "2026-10-19",
+  "environment": "isolated n8n QA; no client messages, calendar bookings or ERP orders",
+  "initial_failure": "Salon numeric selection returned price without service name; corrected and passed retest.",
+  "executions": 60,
+  "successful_executions": 59,
+  "batches": {
+    "consultative": {
+      "executions": 39,
+      "passed": 38,
+      "results": [
+        {
+          "segment": "imobiliaria",
+          "message": "Comprar",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Tipo de imóvel ainda não informado"
+        },
+        {
+          "segment": "imobiliaria",
+          "message": "Quero ver os imóveis disponíveis",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Carteira demonstrativa consultada; sem presumir orçamento ou criar visita"
+        },
+        {
+          "segment": "imobiliaria",
+          "message": "Tenho interesse no imóvel 4: Apartamento • Centro",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Ficha do imóvel escolhido; espaço para dúvidas antes da visita"
+        },
+        {
+          "segment": "imobiliaria",
+          "message": "Tenho uma dúvida sobre esse imóvel",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Dúvida priorizada; sem relistar imóveis ou oferecer visita"
+        },
+        {
+          "segment": "imobiliaria",
+          "message": "Qual a metragem?",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Pergunta respondida com dados da ficha; contexto preservado"
+        },
+        {
+          "segment": "imobiliaria",
+          "message": "Tem garagem?",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Pergunta respondida com dados da ficha; contexto preservado"
+        },
+        {
+          "segment": "imobiliaria",
+          "message": "Quanto é o condomínio?",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Informação ausente; sem inventar condições, endereço ou custos"
+        },
+        {
+          "segment": "imobiliaria",
+          "message": "Agora não",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Encaminhamento recusado; contexto preservado"
+        },
+        {
+          "segment": "imobiliaria",
+          "message": "Prefiro um lugar tranquilo para morar, o que você acha?",
+          "passed": true,
+          "mode": "live_ai",
+          "reason": "Conversa respondida pela IA; fatos operacionais validados no servidor."
+        },
+        {
+          "segment": "imobiliaria",
+          "message": "Quero marcar uma visita nesse imóvel",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Aguardando escolha do dia; nenhum horário presumido"
+        },
+        {
+          "segment": "imobiliaria",
+          "message": "ok",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Preferências e etapa da visita preservadas"
+        },
+        {
+          "segment": "imobiliaria",
+          "message": "amanhã",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Aguardando escolha do horário; nenhum horário presumido"
+        },
+        {
+          "segment": "imobiliaria",
+          "message": "Quanto é o IPTU?",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Informação ausente; sem inventar condições, endereço ou custos"
+        },
+        {
+          "segment": "imobiliaria",
+          "message": "10h",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Dia e horário escolhidos; aguardando confirmação explícita"
+        },
+        {
+          "segment": "imobiliaria",
+          "message": "Sim",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Visita demonstrativa confirmada após escolha e aceite explícitos"
+        },
+        {
+          "segment": "imobiliaria",
+          "message": "Quero cancelar",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Cancelamento precisa de confirmação"
+        },
+        {
+          "segment": "imobiliaria",
+          "message": "Sim",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Cancelamento confirmado pela pessoa"
+        },
+        {
+          "segment": "clinica",
+          "message": "Quais tratamentos vocês fazem?",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Catálogo consultado; sem criar agendamento"
+        },
+        {
+          "segment": "clinica",
+          "message": "2",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Serviço consultado no catálogo; nenhum horário presumido"
+        },
+        {
+          "segment": "clinica",
+          "message": "Quanto custa limpeza de pele?",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Preço consultado no catálogo; sem agendamento nem pagamento automático"
+        },
+        {
+          "segment": "clinica",
+          "message": "Quero conhecer laser para manchas",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Serviço consultado no catálogo; nenhum horário presumido"
+        },
+        {
+          "segment": "clinica",
+          "message": "Quais outros procedimentos vocês têm?",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Catálogo consultado; sem criar agendamento"
+        },
+        {
+          "segment": "clinica",
+          "message": "Quero agendar avaliação amanhã às 9h",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Serviço, data e hora definidos; aguardando confirmação explícita"
+        },
+        {
+          "segment": "clinica",
+          "message": "Perfeito",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Resposta social não confirma agendamento"
+        },
+        {
+          "segment": "clinica",
+          "message": "sim",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Confirmação explícita do horário escolhido"
+        },
+        {
+          "segment": "clinica",
+          "message": "Quero remarcar para depois de amanhã às 11h",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Serviço, data e hora definidos; aguardando confirmação explícita"
+        },
+        {
+          "segment": "clinica",
+          "message": "sim",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Confirmação explícita do horário escolhido"
+        },
+        {
+          "segment": "clinica",
+          "message": "Quero cancelar",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Cancelamento precisa de confirmação"
+        },
+        {
+          "segment": "clinica",
+          "message": "sim",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Cancelamento confirmado"
+        },
+        {
+          "segment": "clinica",
+          "message": "Obrigado",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Encerramento natural; sem repetir catálogo ou criar agendamento"
+        },
+        {
+          "segment": "clinica",
+          "message": "Bom dia, tudo bem? Estou conhecendo a clínica.",
+          "passed": true,
+          "mode": "live_ai",
+          "reason": "Conversa respondida pela IA; fatos operacionais validados no servidor."
+        },
+        {
+          "segment": "salao",
+          "message": "Quais serviços vocês fazem?",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Catálogo consultado; sem criar agendamento"
+        },
+        {
+          "segment": "salao",
+          "message": "1",
+          "passed": false,
+          "mode": "context_rules",
+          "reason": "Serviço consultado no catálogo; nenhum horário presumido"
+        },
+        {
+          "segment": "salao",
+          "message": "Quanto custa o corte?",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Preço consultado no catálogo; sem agendamento nem pagamento automático"
+        },
+        {
+          "segment": "salao",
+          "message": "Paguei 450 numa geladeira",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Valor de outro assunto não vira preço nem pagamento"
+        },
+        {
+          "segment": "salao",
+          "message": "Quero fazer corte amanhã às 14h",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Pedido completo; confirmação depende da gestora"
+        },
+        {
+          "segment": "salao",
+          "message": "Obrigada",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Pedido preservado; confirmação depende da equipe"
+        },
+        {
+          "segment": "salao",
+          "message": "Quero falar com uma pessoa",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Atendimento humano solicitado"
+        },
+        {
+          "segment": "salao",
+          "message": "Oi, ainda estou esperando",
+          "passed": true,
+          "mode": "live_ai"
+        }
+      ]
+    },
+    "consultative_retest": {
+      "executions": 9,
+      "passed": 9,
+      "results": [
+        {
+          "segment": "salao",
+          "message": "Quais serviços vocês fazem?",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Catálogo consultado; sem criar agendamento"
+        },
+        {
+          "segment": "salao",
+          "message": "1",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Serviço consultado no catálogo; nenhum horário presumido"
+        },
+        {
+          "segment": "salao",
+          "message": "Quanto custa o corte?",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Preço consultado no catálogo; sem agendamento nem pagamento automático"
+        },
+        {
+          "segment": "salao",
+          "message": "Quero fazer corte amanhã às 14h",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Pedido completo; confirmação depende da gestora"
+        },
+        {
+          "segment": "salao",
+          "message": "Obrigada",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Pedido preservado; confirmação depende da equipe"
+        },
+        {
+          "segment": "salao",
+          "message": "Quero falar com uma pessoa",
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Atendimento humano solicitado"
+        },
+        {
+          "segment": "salao",
+          "message": "Oi, ainda estou esperando",
+          "passed": true,
+          "mode": "live_ai"
+        },
+        {
+          "segment": "clinica",
+          "message": "Bom dia, tudo bem? Estou conhecendo a clínica.",
+          "passed": true,
+          "mode": "live_ai",
+          "reason": "Conversa respondida pela IA; fatos operacionais validados no servidor."
+        },
+        {
+          "segment": "clinica",
+          "message": "Gostaria de entender quais cuidados são necessários antes de escolher um procedimento",
+          "passed": true,
+          "mode": "live_ai",
+          "reason": "Conversa respondida pela IA; fatos operacionais validados no servidor."
+        }
+      ]
+    },
+    "owner_controls": {
+      "executions": 12,
+      "passed": 12,
+      "results": [
+        {
+          "message": "Quero fazer corte amanhã às 14h",
+          "action": null,
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Pedido completo; confirmação depende da gestora"
+        },
+        {
+          "message": "Ação de teste da equipe",
+          "action": "confirm_appointment",
+          "passed": true
+        },
+        {
+          "message": "Ação de teste da equipe",
+          "action": "confirm_appointment",
+          "passed": true,
+          "mode": "live_ai"
+        },
+        {
+          "message": "Fiz o pix de 80 pelo corte",
+          "action": null,
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Pagamento declarado; recebimento exige conferência da equipe"
+        },
+        {
+          "message": "Ação de teste da equipe",
+          "action": "confirm_receipt",
+          "passed": true,
+          "mode": "live_ai"
+        },
+        {
+          "message": "Quero cancelar",
+          "action": null,
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Cancelamento solicitado à gestora; horário anterior preservado"
+        },
+        {
+          "message": "Ação de teste da equipe",
+          "action": "confirm_cancel",
+          "passed": true,
+          "mode": "live_ai"
+        },
+        {
+          "message": "Quero falar com uma pessoa",
+          "action": null,
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Atendimento humano solicitado"
+        },
+        {
+          "message": "Estou aguardando",
+          "action": null,
+          "passed": true,
+          "mode": "live_ai"
+        },
+        {
+          "message": "Ação de teste da equipe",
+          "action": "resume",
+          "passed": true,
+          "mode": "live_ai"
+        },
+        {
+          "message": "Quero conhecer limpeza de pele",
+          "action": null,
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Serviço consultado no catálogo; nenhum horário presumido"
+        },
+        {
+          "message": "Sim",
+          "action": null,
+          "passed": true,
+          "mode": "context_rules",
+          "reason": "Resposta curta esclarecida; sem presumir pedido de agendamento"
+        }
+      ]
+    }
+  }
+}

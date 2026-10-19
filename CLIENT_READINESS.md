@@ -29,3 +29,5 @@ Validação local desta revisão: 380 verificações em 13 suítes, lint e build
 A resposta de escolha numérica no salão identifica o serviço escolhido. No primeiro retorno por IA, a apresentação identifica Iana como assistente virtual; a apresentação não se repete na continuidade.
 
 Um “sim” após “O que você gostaria de saber?” pede esclarecimento e não é aceite de agendamento.
+
+Validação integrada: 60 execuções na cópia isolada do n8n; 59 aprovadas. A única falha inicial (escolha do salão sem identificar o serviço) foi corrigida e passou na reexecução. Inclui controles da gestora, conflito de horário, conferência de pagamento, cancelamento e retomada após handoff. Nenhuma falha reproduzida ficou aberta nesta bateria. Evidências resumidas em `qa/n8n-customer-journeys.json`.
