@@ -26,7 +26,7 @@
    }
    if(Array.isArray(s.propertyMatches))list=realtyInventory.filter(p=>s.propertyMatches.includes(p.id));
    el('propertyMatches').hidden=!list.length;document.querySelector('#leadInlineProperties')?.remove();
-   if(list.length){el('matchCount').textContent=list.length+' opções';el('propertyList').replaceChildren();renderInlineProperties(list);bindPropertyButtons();}
+   if(list.length){el('matchCount').textContent=list.length+' opções';el('propertyList').replaceChildren();renderInlineProperties(list);const title=el('leadInlineProperties')?.querySelector('.lead-inline-label');if(title)title.textContent=s.propertyCatalog?'CARTEIRA DE DEMONSTRAÇÃO':'IMÓVEIS PARA O SEU PERFIL';document.querySelectorAll('#leadInlineProperties .lead-inline-property').forEach(card=>el('propertyList').append(card.cloneNode(true)));bindPropertyButtons();}
    if(lead.selected&&!s.human)setLeadOptions([{label:'Pedir visita',value:'Quero marcar uma visita nesse imóvel'},{label:'Outra dúvida',value:'Tenho uma dúvida sobre esse imóvel'},{label:'Falar com corretor',value:'Quero falar com uma pessoa'}]);else setLeadOptions([]);
    el('visitPreview').hidden=!s.visit;
    if(s.visit){el('visitProperty').textContent=lead.selected?.title||'Imóvel a conferir';el('visitDate').textContent=dateLabel(s.visit.date)||'A definir';el('visitTime').textContent=s.visit.time||'A definir';el('visitProtocol').textContent=s.visit.status==='confirmed'?'Confirmação demonstrativa · sem reserva real':'Solicitação demonstrativa · aguarda confirmação';}
@@ -35,14 +35,14 @@
  }
  async function request(seg,message,extra={}){
   if(busy[seg])return null;busy[seg]=true;status(segmentNames[seg]+': consultando a assistente…');
-  const revision=revisions[seg]||0;const controller=new AbortController();controllers[seg]=controller;const timer=setTimeout(()=>controller.abort(),35000);
+  const revision=revisions[seg]||0;const controller=new AbortController();controllers[seg]=controller;const timer=setTimeout(()=>controller.abort(),60000);
   const box=seg==='salao'?el('salonMessages'):seg==='clinica'?el('clinicChat'):el('leadChat'),indicator=document.createElement('p');indicator.className='live-typing';indicator.textContent='Iana está digitando…';box.append(indicator);box.scrollTop=box.scrollHeight;
   try{
    const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},credentials:'omit',body:JSON.stringify({session:session(seg),segment:seg,message,...extra}),signal:controller.signal});const result=await response.json();
    if((revisions[seg]||0)!==revision)return null;
    if(!response.ok||!result.ok)throw Error(result.error||'Não foi possível acessar a assistente.');
-   if(result.reply)add(seg,result.reply,extra.action?'owner':'bot');if(result.state)apply(seg,result);
-   status(result.state?.human?'Conversa com a equipe demonstrativa · assistente pausada':result.mode==='context_rules'?'Atendimento conectado · resposta validada': 'IA real conectada · dados de demonstração');
+   box.querySelectorAll('.live-request-error').forEach(n=>n.remove());if(result.reply)add(seg,result.reply,extra.action?'owner':'bot');if(result.state)apply(seg,result);
+   status(result.state?.human?'Conversa com a equipe demonstrativa · assistente pausada':result.mode==='context_rules'?'Atendimento conectado · resposta validada': 'Atendimento conectado · dados de demonstração');
    recordDemo(seg,'Interação com IA real · dados de demonstração');return result;
   }catch(err){if((revisions[seg]||0)!==revision)return null;const message=err.name==='AbortError'?'A assistente demorou para responder. Tente novamente.':err.message;status(message);const notice=document.createElement('p');notice.className='live-request-error';notice.textContent=message+' Sua mensagem não foi confirmada. Tente enviar novamente.';box.append(notice);return null;}
   finally{clearTimeout(timer);indicator.remove();if(controllers[seg]===controller){busy[seg]=false;delete controllers[seg];}}
