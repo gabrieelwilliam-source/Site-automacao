@@ -20,6 +20,8 @@ const fs=require('fs'),path=require('path'),assert=require('assert'),{JSDOM}=req
  await check('clinic_cancel_button_requests_a_demo_fixture',async()=>{w.document.querySelector('[data-clinic-scenario="cancel"]').click();await new Promise(r=>setTimeout(r,0));assert.equal(calls.at(-1).body.scenario,'cancel');assert.equal(calls.at(-1).body.segment,'clinica');});
  await check('stock_count_change_invalidates_approval',async()=>{await w.calculateStock(true);w.document.querySelector('[data-step-stock]').click();assert(w.document.getElementById('confirmOrder').disabled);});
  await check('approved_stock_order_cannot_duplicate',async()=>{await w.calculateStock(true);const button=w.document.getElementById('confirmOrder');button.click();assert(button.disabled);});
+ await check('approved_order_contains_per_product_quantities',()=>{assert(w.document.querySelector('#orderConfirmation li'));assert(w.document.querySelector('#orderConfirmation').textContent.includes('caixas de'));});
+ await check('sufficient_stock_does_not_create_zero_quantity_order',async()=>{for(const input of w.document.querySelectorAll('[data-stock-input]')){input.value=1000;input.dispatchEvent(new w.Event('input',{bubbles:true}));}await w.calculateStock(true);assert.equal(w.document.getElementById('stockTotalUnits').textContent,'0');assert(w.document.getElementById('confirmOrder').disabled);});
  await check('no_script_errors',()=>assert.deepEqual(errors,[]));
  console.log(JSON.stringify({total:results.length,passed:results.filter(r=>r.passed).length,failed:results.filter(r=>!r.passed).length,results}));dom.window.close();if(results.some(r=>!r.passed))process.exitCode=1;
 })();

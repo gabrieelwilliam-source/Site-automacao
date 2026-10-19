@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-19",
+  "checks": 377,
+  "suites": [
+    {
+      "suite": "existing_tests",
+      "checks": 27,
+      "passed": 27,
+      "failed": 0
+    },
+    {
+      "suite": "existing_tests",
+      "checks": 47,
+      "passed": 47,
+      "failed": 0
+    },
+    {
+      "suite": "reported_visual_regressions_static",
+      "checks": 57,
+      "passed": 57,
+      "failed": 0
+    },
+    {
+      "suite": "redesign",
+      "checks": 14,
+      "passed": 14,
+      "failed": 0
+    },
+    {
+      "suite": "existing_tests",
+      "checks": 77,
+      "passed": 77,
+      "failed": 0
+    },
+    {
+      "suite": "existing_tests",
+      "checks": 19,
+      "passed": 19,
+      "failed": 0
+    },
+    {
+      "suite": "existing_tests",
+      "checks": 16,
+      "passed": 16,
+      "failed": 0
+    },
+    {
+      "suite": "existing_tests",
+      "checks": 17,
+      "passed": 17,
+      "failed": 0
+    },
+    {
+      "suite": "mobile_journey",
+      "checks": 19,
+      "passed": 19,
+      "failed": 0
+    },
+    {
+      "suite": "reading_and_brand_experience",
+      "checks": 8,
+      "passed": 8,
+      "failed": 0
+    },
+    {
+      "suite": "cinematic_interactions",
+      "checks": 17,
+      "passed": 17,
+      "failed": 0
+    },
+    {
+      "suite": "demo_readiness",
+      "checks": 36,
+      "passed": 36,
+      "failed": 0
+    },
+    {
+      "suite": "realty_customer_experience",
+      "checks": 23,
+      "passed": 23,
+      "failed": 0
+    }
+  ],
+  "lint": "passed",
+  "build": "passed",
+  "limitation": "Viewport CSS checks are static, not physical-device coverage."
+}

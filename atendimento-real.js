@@ -27,9 +27,18 @@
    if(Array.isArray(s.propertyMatches))list=realtyInventory.filter(p=>s.propertyMatches.includes(p.id));
    if(p.purpose==='Compra')list=list.map(item=>({...item,numeric:item.salePrice,price:Number(item.salePrice).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}),tag:'Compra'}));
    window.ZionDemoCatalog?.setPurpose(p.purpose||s.catalogPurpose||'Aluguel');
-   el('propertyMatches').hidden=!list.length;document.querySelector('#leadInlineProperties')?.remove();
-   if(list.length){el('matchCount').textContent=list.length+' opções';el('propertyList').replaceChildren();renderInlineProperties(list);if(s.propertyCatalog&&!(p.purpose&&p.type&&p.region&&p.bedrooms&&p.budget)){document.querySelectorAll('#leadInlineProperties .lead-inline-property').forEach((card,i)=>{card.classList.remove('best');card.querySelector('.lead-inline-property-top span').textContent='Imóvel '+list[i].id;});}const title=el('leadInlineProperties')?.querySelector('.lead-inline-label');if(title)title.textContent=s.propertyCatalog?'CARTEIRA DE DEMONSTRAÇÃO':'IMÓVEIS PARA O SEU PERFIL';document.querySelectorAll('#leadInlineProperties .lead-inline-property').forEach(card=>el('propertyList').append(card.cloneNode(true)));bindPropertyButtons();}
-   if(lead.selected&&!s.human)setLeadOptions([{label:'Pedir visita',value:'Quero marcar uma visita nesse imóvel'},{label:'Outra dúvida',value:'Tenho uma dúvida sobre esse imóvel'},{label:'Falar com corretor',value:'Quero falar com uma pessoa'}]);else setLeadOptions([]);
+   if(s.selectedProperty&&s.showProperties!==true)list=list.filter(item=>item.id===s.selectedProperty);
+   el('propertyMatches').hidden=!list.length;
+   if(list.length){
+    el('matchCount').textContent=list.length+(list.length===1?' opção':' opções');el('propertyList').replaceChildren();
+    const cards=renderInlineProperties(list,{inline:s.showProperties!==false});
+    const qualified=!!(p.purpose&&p.type&&p.region&&p.bedrooms&&p.budget);
+    if(!qualified)cards.querySelectorAll('.lead-inline-property').forEach((card,i)=>{card.classList.remove('best');card.querySelector('.lead-inline-property-top span').textContent='Imóvel '+list[i].id;});
+    cards.querySelector('.lead-inline-label').textContent=s.selectedProperty?'IMÓVEL EM CONVERSA':qualified?'IMÓVEIS PARA O SEU PERFIL':'OPÇÕES DA CARTEIRA';
+    cards.querySelectorAll('.lead-inline-property').forEach(card=>el('propertyList').append(card.cloneNode(true)));bindPropertyButtons();
+    el('propertyMatches').querySelector('h3').textContent=s.selectedProperty?'Imóvel em conversa':qualified?'Compatíveis com o perfil':'Opções da carteira';
+   }
+   if(lead.selected&&!s.human&&!s.visit)setLeadOptions([{label:'Tirar uma dúvida',value:'Tenho uma dúvida sobre esse imóvel'},{label:'Consultar visita',value:'Quero marcar uma visita nesse imóvel'},{label:'Falar com corretor',value:'Quero falar com uma pessoa'}]);else setLeadOptions([]);
    el('visitPreview').hidden=!s.visit;
    if(s.visit){el('visitProperty').textContent=lead.selected?.title||'Imóvel a conferir';el('visitDate').textContent=dateLabel(s.visit.date)||'A definir';el('visitTime').textContent=s.visit.time||'A definir';el('visitProtocol').textContent=s.visit.status==='confirmed'?'Confirmação demonstrativa · sem reserva real':'Solicitação demonstrativa · aguarda confirmação';}
    if(s.human){el('handoff').textContent='Conversa encaminhada à equipe demonstrativa. A Iana fica pausada.';}

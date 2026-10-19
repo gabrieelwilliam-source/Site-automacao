@@ -12,7 +12,7 @@ function guardService(ctx,out){
  s.service=selected?.label||null;s.expected=selected?.price??null;s.appointment=clone(p.appointment);s.booking=clone(p.booking);s.awaiting=p.awaiting||null;s.payment=clone(p.payment);s.serviceRulesVersion=1;
  const answer=(reply,reason)=>{out.reply=reply;out.reason=reason;s.intent=reason;return out;};
  const menu=/quais.*(?:servicos|tratamentos|procedimentos)|(?:ver|conhecer|mostrar|listar|todos|outros|outras).*(?:servicos|tratamentos|procedimentos)|catalogo/.test(text);
- if(menu&&!s.human){s.booking=null;s.awaiting='service_choice';s.catalogRequested=true;return answer('Claro. Estes são os serviços da demonstração:\n\n'+catalog.filter(x=>!x.legacy).map((x,i)=>`${i+1}. ${x.label} — ${x.price===null?'mediante avaliação':money(x.price)}${x.duration?' · '+x.duration+' min':''}`).join('\n')+'\n\nQual deles você gostaria de conhecer melhor?','Catálogo consultado; sem criar agendamento');}
+ if(menu&&!s.human){s.booking=null;s.bookingRequested=false;s.awaiting='service_choice';s.catalogRequested=true;return answer('Claro. Estes são os serviços da demonstração:\n\n'+catalog.filter(x=>!x.legacy).map((x,i)=>`${i+1}. ${x.label} — ${x.price===null?'mediante avaliação':money(x.price)}${x.duration?' · '+x.duration+' min':''}`).join('\n')+'\n\nQual deles você gostaria de conhecer melhor?','Catálogo consultado; sem criar agendamento');}
  const localParts=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date()).map(x=>[x.type,x.value]));
  const today=new Date(Date.UTC(+localParts.year,+localParts.month-1,+localParts.day,12)),iso=d=>d.toISOString().slice(0,10),todayKey=iso(today);
  function dateOf(v){let d=new Date(today);if(/depois de amanha/.test(v))d.setUTCDate(d.getUTCDate()+2);else if(/amanha/.test(v))d.setUTCDate(d.getUTCDate()+1);else if(/\bhoje\b/.test(v)){}else{const m=v.match(/\b(\d{1,2})\/(\d{1,2})(?:\/(\d{4}))?\b/),days=['domingo','segunda','terca','quarta','quinta','sexta','sabado'];if(m){d=new Date(Date.UTC(+(m[3]||localParts.year),+m[2]-1,+m[1],12));if(d.getUTCMonth()!==+m[2]-1||d.getUTCDate()!==+m[1])return'invalid';}else{const i=days.findIndex(x=>v.includes(x));if(i<0)return null;d.setUTCDate(d.getUTCDate()+((i-d.getUTCDay()+7)%7||7));}}return iso(d);}
@@ -61,7 +61,8 @@ function guardService(ctx,out){
  if(seg==='clinica'&&/sessoes|sessao|pacote/.test(text)&&!named){return answer('O pacote demonstrativo de drenagem tem 10 sessões contratadas, 7 realizadas e 3 restantes. Quer consultar um dia para a próxima sessão?','Saldo do pacote fictício consultado');}
  const wantsBooking=/agendar|quero marcar|pode marcar|quero fazer|quero.*horario|tem horario|ver horarios|consultar.*horario/.test(text)||reschedule;
  if(reschedule&&!s.appointment){s.booking=null;s.awaiting=null;return answer('Não encontrei um horário confirmado nesta conversa. Você quer fazer um novo pedido de horário?','Nenhum agendamento existente para remarcar');}
- let active=!!s.booking||['service_choice','booking_date','booking_time','booking_confirmation'].includes(s.awaiting)||wantsBooking||(yes&&['booking_offer','evaluation_offer'].includes(p.awaiting));
+ if(wantsBooking)s.bookingRequested=true;
+ let active=!!s.booking||['booking_date','booking_time','booking_confirmation'].includes(s.awaiting)||(s.awaiting==='service_choice'&&s.bookingRequested)||wantsBooking||(yes&&['booking_offer','evaluation_offer'].includes(p.awaiting));
  if(active){
   if(reschedule)s.booking={service:s.service,date:null,time:null,reschedule:true};
   if(!selected){s.awaiting='service_choice';return answer('Qual serviço você quer agendar? '+catalog.slice(0,4).map((x,i)=>`${i+1}) ${x.label}`).join('; '),'Aguardando escolha do serviço');}
