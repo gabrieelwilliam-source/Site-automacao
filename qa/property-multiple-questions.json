@@ -1,0 +1,24 @@
+{
+  "environment": "isolated n8n QA",
+  "passed": 3,
+  "tests": [
+    {
+      "segment": "imobiliaria",
+      "message": "Comprar",
+      "passed": true,
+      "reply": "Você prefere apartamento, casa ou terreno?"
+    },
+    {
+      "segment": "imobiliaria",
+      "message": "Tenho interesse no imóvel 4",
+      "passed": true,
+      "reply": "Esse apartamento no Centro tem 2 quartos, 74 m² e 1 vaga. O valor de compra é R$ 420.000,00. O que você gostaria de saber sobre ele?"
+    },
+    {
+      "segment": "imobiliaria",
+      "message": "Qual a metragem e tem garagem?",
+      "passed": true,
+      "reply": "A área informada é de 74 m². A ficha informa 1 vaga de garagem."
+    }
+  ]
+}
