@@ -1,6 +1,6 @@
 {
   "suites": 12,
-  "passed": 329,
+  "passed": 343,
   "failed": 0,
   "checks": [
     {
@@ -1169,8 +1169,8 @@
     },
     {
       "suite": "demo_readiness",
-      "total": 13,
-      "passed": 13,
+      "total": 27,
+      "passed": 27,
       "results": [
         {
           "name": "nine_services",
@@ -1206,6 +1206,62 @@
         },
         {
           "name": "purchase_not_rental",
+          "passed": true
+        },
+        {
+          "name": "social_reply_preserves_catalog_No aguardo",
+          "passed": true
+        },
+        {
+          "name": "social_reply_preserves_catalog_Obrigado",
+          "passed": true
+        },
+        {
+          "name": "social_reply_preserves_catalog_Perfeito, obrigado!",
+          "passed": true
+        },
+        {
+          "name": "social_reply_preserves_catalog_Vou olhar",
+          "passed": true
+        },
+        {
+          "name": "social_reply_preserves_catalog_Entendi",
+          "passed": true
+        },
+        {
+          "name": "receipt_cannot_confirm_visit",
+          "passed": true
+        },
+        {
+          "name": "thanks_after_confirmed_visit_preserves_it",
+          "passed": true
+        },
+        {
+          "name": "thanks_cannot_cancel_visit",
+          "passed": true
+        },
+        {
+          "name": "sale_alias_is_not_rental",
+          "passed": true
+        },
+        {
+          "name": "rental_alias",
+          "passed": true
+        },
+        {
+          "name": "clinic_thanks_does_not_repeat_old_service",
+          "passed": true
+        },
+        {
+          "name": "clinic_social_receipt_not_booking_consent",
+          "passed": true
+        },
+        {
+          "name": "clinic_thanks_during_cancel_not_consent",
+          "passed": true
+        },
+        {
+          "name": "salon_thanks_not_owner_confirmation",
           "passed": true
         },
         {

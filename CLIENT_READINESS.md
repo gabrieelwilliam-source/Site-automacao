@@ -8,3 +8,5 @@
 - Clínica, salão, imobiliária e reposição permanecem cenários de demonstração. Nenhum WhatsApp, cobrança ou compromisso real é criado.
 
 Validação: `npm test`, `npm run lint`, `npm run build`, conversas contra cópia isolada do n8n e conferência da publicação. Resultados locais em `qa/client-readiness-results.json`. As verificações de larguras no código não substituem toda combinação possível de aparelho e navegador.
+
+Revisão de continuidade: respostas sociais (como “No aguardo”, “Entendi” e “Obrigado”) preservam a etapa da conversa sem repetir imóveis ou procedimentos, confirmar visitas ou cancelar horários. “Venda” e “locar” também são reconhecidos. A carteira geral usa identificação neutra dos imóveis, sem apresentar a primeira opção como mais aderente antes da qualificação.

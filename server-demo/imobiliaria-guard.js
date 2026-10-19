@@ -10,7 +10,7 @@ function guardRealty(ctx,out){
  const inputs=prior.matchRulesVersion===2?[ctx.message]:[...(ctx.session?.history||[]).filter(m=>m.role==='user').map(m=>m.content),ctx.message];
  for(const input of inputs){const text=normalize(input);
  const positive=text.replace(/nao (?:quero |e para )?(?:comprar|alugar|compra|aluguel)/g,'');
- if(/alugar|aluguel|locacao/.test(positive))set('purpose','Aluguel');else if(/comprar|\bcompra\b/.test(positive))set('purpose','Compra');
+ if(/alugar|aluguel|locacao|\blocar\b|\brent\b/.test(positive))set('purpose','Aluguel');else if(/comprar|\bcompra\b|\bvenda\b|\bbuy\b|\bsale\b/.test(positive))set('purpose','Compra');
  if(/apartamento|\bapto\b/.test(positive))set('type','Apartamento');else if(/\bcasa|sobrado/.test(positive))set('type','Casa');else if(/terreno/.test(positive))set('type','Terreno');
  const region=/costa e silva/.test(text)?'Costa e Silva':/\bamerica\b/.test(text)?'América':/\bcentro\b/.test(text)?'Centro':null;if(region)set('region',region);
  else {const r=text.match(/(?:no bairro|na regiao de|no bairro de|bairro)\s+([a-z ]{3,40}?)(?:[,.;!?]|$)/);if(r)set('region',r[1].trim());}
@@ -39,6 +39,16 @@ function guardRealty(ctx,out){
  if(s.human)return answer('Vou passar a conversa para a equipe, com suas preferências registradas para você não precisar repetir.','Atendimento humano solicitado');
  const greeting=/^(bom dia|boa tarde|boa noite|oi|ola)[!., ]*$/.test(text);
  if(greeting&&!Object.keys(profile).length)return out;
+ // Social replies acknowledge the current stage; never re-run listing presentation.
+ const receipt=/^(?:(?:ok|okay|certo|entendi|beleza|perfeito|combinado|ta bom|tudo bem|obrigad[oa](?: mesmo)?|valeu|no aguardo|fico no aguardo|estou aguardando|aguardando|vou (?:ver|olhar|pensar|analisar))(?:[\s,!.;]+|$))+$/;
+ if(!changed&&(receipt.test(text.trim())||greeting)){
+  s.awaiting=prior.awaiting||null;
+  if(prior.awaiting==='visit_confirmation'||prior.awaiting==='visit_cancel_confirmation')return answer(prior.awaiting==='visit_cancel_confirmation'?'Tudo bem. O cancelamento ainda depende da sua confirmação. Você quer cancelar a visita?':'Tudo bem. O horário ainda depende da sua confirmação. Você confirma a visita no dia e horário apresentados?','Resposta social não confirma nem cancela visita');
+  if(prior.visit?.status==='confirmed')return answer('Por nada. Sua visita de demonstração continua confirmada. Se precisar de algum ajuste, é só me chamar.','Continuidade após confirmação; visita preservada');
+  if(prior.awaiting==='visit_date'||prior.awaiting==='visit_time')return answer(prior.awaiting==='visit_date'?'Claro. Quando decidir, me diga o dia que prefere para a visita.':'Claro. Quando decidir, me diga qual dos horários apresentados funciona melhor.','Preferências e etapa da visita preservadas');
+  return answer('Claro, fique à vontade para olhar. Quando quiser, me diga qual imóvel chamou sua atenção ou qual dúvida posso esclarecer.','Reconhecimento contextual; sem repetir carteira nem presumir escolha');
+ }
+
  if(/condominio|financiamento|documentos|iptu|taxas|pet|animais|endereco/.test(text)){s.awaiting=pending==='visit_confirmation'?'visit_confirmation_interrupted':pending;return answer('Essa informação não está cadastrada nesta carteira de demonstração. Um corretor precisa conferir antes de você decidir.','Informação não cadastrada; contexto da pergunta anterior preservado');}
  if(browseRequested&&catalogMode&&!/(?:imovel|id)\s*\d/.test(text)){s.awaiting='property_choice';return answer(matches.length?'Esta é a carteira demonstrativa de aluguéis'+(Object.keys(profile).length?' conforme as preferências já informadas':'')+':\n\n'+matches.map((p,i)=>`${i+1}. ${p.title} · ${p.region} · ${p.bedrooms} quartos · ${money(p.rent)}/mês (ID ${p.id})`).join('\n')+'\n\nVocê pode abrir as fotos e escolher um imóvel abaixo. Qual chamou sua atenção?':'Não há imóveis nessa carteira para os critérios informados. Posso procurar com outro bairro ou tipo, se você quiser.','Carteira demonstrativa consultada; sem presumir orçamento ou criar visita');}
  if(!profile.purpose&&!catalogMode){s.awaiting='purpose';return answer('Você procura esse imóvel para comprar ou para alugar?','Objetivo da busca ainda não informado');}
