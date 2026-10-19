@@ -76,14 +76,15 @@ function guardRealty(ctx,out){
   return answer('Essa informação não está cadastrada na ficha'+(selected?' desse imóvel':'')+'. Prefiro confirmar com o corretor para te passar a informação certa.'+(pending==='visit_confirmation'?' O horário continua aguardando sua confirmação.':preservePending?' Podemos continuar de onde paramos.':' Você quer que eu encaminhe essa dúvida?'),'Informação ausente; sem inventar condições, endereço ou custos');
  }
  if(selected&&propertyQuestion){
-  let fact=null;
-  if(/quartos|dormitorios/.test(text))fact='Ele tem '+selected.bedrooms+' quartos.';
-  else if(/metragem|quantos metros|area|tamanho/.test(text))fact=chosenDetails.area?'A área informada é de '+chosenDetails.area+' m².':'A metragem não está informada nessa ficha. Posso pedir ao corretor para confirmar.';
-  else if(/vaga|garagem/.test(text))fact=chosenDetails.parking?'A ficha informa '+chosenDetails.parking+(chosenDetails.parking===1?' vaga de garagem.':' vagas de garagem.'):'A quantidade de vagas não está informada na ficha. Posso confirmar com o corretor.';
-  else if(/suite/.test(text))fact=chosenDetails.suite?'Sim, a ficha informa uma suíte.':'A ficha não informa se há suíte. Posso confirmar esse detalhe com o corretor.';
-  else if(/garden|quintal/.test(text))fact=chosenDetails.garden?'Sim, é um apartamento garden. As medidas da área externa precisam ser confirmadas com o corretor.':'Esse detalhe não está informado na ficha. Posso confirmar com o corretor.';
-  else if(/bairro|regiao|localizacao/.test(text))fact='Ele fica no bairro '+selected.region+', em Joinville.';
-  else if(/preco|valor|custa|quanto (?:e|esta|fica)/.test(text))fact='O '+(purchase?'valor de compra':'aluguel mensal')+' é '+priceLabel(selected)+'.';
+  const facts=[];
+  if(/quartos|dormitorios/.test(text))facts.push('Ele tem '+selected.bedrooms+' quartos.');
+  if(/metragem|quantos metros|area|tamanho/.test(text))facts.push(chosenDetails.area?'A área informada é de '+chosenDetails.area+' m².':'A metragem não está informada nessa ficha. Posso pedir ao corretor para confirmar.');
+  if(/vaga|garagem/.test(text))facts.push(chosenDetails.parking?'A ficha informa '+chosenDetails.parking+(chosenDetails.parking===1?' vaga de garagem.':' vagas de garagem.'):'A quantidade de vagas não está informada na ficha. Posso confirmar com o corretor.');
+  if(/suite/.test(text))facts.push(chosenDetails.suite?'Sim, a ficha informa uma suíte.':'A ficha não informa se há suíte. Posso confirmar esse detalhe com o corretor.');
+  if(/garden|quintal/.test(text))facts.push(chosenDetails.garden?'Sim, é um apartamento garden. As medidas da área externa precisam ser confirmadas com o corretor.':'Esse detalhe não está informado na ficha. Posso confirmar com o corretor.');
+  if(/bairro|regiao|localizacao/.test(text))facts.push('Ele fica no bairro '+selected.region+', em Joinville.');
+  if(/preco|valor|custa|quanto (?:e|esta|fica)/.test(text))facts.push('O '+(purchase?'valor de compra':'aluguel mensal')+' é '+priceLabel(selected)+'.');
+  const fact=facts.join(' ');
   if(fact){s.awaiting=pending==='visit_confirmation'?'visit_confirmation_interrupted':pending||'property_question';return answer(fact,'Pergunta respondida com dados da ficha; contexto preservado');}
  }
  if(!selected&&!profile.purpose&&!catalogMode){s.awaiting='purpose';return answer('Você procura esse imóvel para comprar ou para alugar?','Objetivo da busca ainda não informado');}
