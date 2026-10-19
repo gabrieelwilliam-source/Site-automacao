@@ -1,6 +1,6 @@
 {
   "date": "2026-10-19",
-  "checks": 379,
+  "checks": 380,
   "suites": [
     {
       "suite": "existing_tests",
@@ -70,8 +70,8 @@
     },
     {
       "suite": "demo_readiness",
-      "checks": 37,
-      "passed": 37,
+      "checks": 38,
+      "passed": 38,
       "failed": 0
     },
     {

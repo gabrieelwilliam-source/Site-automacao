@@ -24,6 +24,8 @@ Carteira de compra e locação: os quatro imóveis fictícios possuem referênci
 - Consultar ou selecionar um serviço no catálogo não inicia um agendamento. Pedidos explícitos continuam coletando serviço, data e hora.
 - Reposição apresenta unidades e caixas por produto no pedido aprovado, bloqueia pedido zerado e invalida a aprovação ao mudar a contagem.
 
-Validação local desta revisão: 379 verificações em 13 suítes, lint e build aprovados. Jornadas n8n são executadas em uma cópia isolada antes da publicação. Reposição utiliza o motor local do site, sem conexão com ERP real. Informações ausentes no catálogo não são ofertas verificadas.
+Validação local desta revisão: 380 verificações em 13 suítes, lint e build aprovados. Jornadas n8n são executadas em uma cópia isolada antes da publicação. Reposição utiliza o motor local do site, sem conexão com ERP real. Informações ausentes no catálogo não são ofertas verificadas.
 
 A resposta de escolha numérica no salão identifica o serviço escolhido. No primeiro retorno por IA, a apresentação identifica Iana como assistente virtual; a apresentação não se repete na continuidade.
+
+Um “sim” após “O que você gostaria de saber?” pede esclarecimento e não é aceite de agendamento.

@@ -7,6 +7,7 @@ ck('other_services_after_laser',()=>assert(turn('clinica','Quero conhecer outros
 ck('catalog_selection_is_information_not_appointment',()=>{const a=turn('clinica','Quero ver todos os serviços');const b=turn('clinica','2',a.state);assert(b.reply.includes('Limpeza'));assert(!b.state.booking);assert(!b.state.appointment);assert(!b.reply.includes('qual dia'));});
 ck('booking_service_selection_continues_booking',()=>{const a=turn('clinica','Quero agendar');const b=turn('clinica','2',a.state);assert.equal(b.state.awaiting,'booking_date');assert(b.state.booking);});
 ck('salon_catalog_choice_names_the_service',()=>{const a=turn('salao','Quais serviços vocês fazem?');const b=turn('salao','1',a.state);assert(b.reply.includes('Corte'));assert(!b.state.booking);});
+ck('yes_after_service_question_is_not_booking_consent',()=>{const a=turn('clinica','Quero conhecer limpeza de pele');const b=turn('clinica','Sim',a.state);assert(!b.state.booking);assert(!b.state.appointment);assert(b.reply.includes('gostaria de saber'));});
 ck('hifu_price',()=>assert.equal(turn('clinica','Quanto custa HIFU?').state.expected,220000));
 ck('filler_price',()=>assert.equal(turn('clinica','Quanto custa preenchimento?').state.expected,150000));
 ck('expression_lines',()=>assert(turn('clinica','Quero entender linhas de expressão').reply.includes('Botox')));
