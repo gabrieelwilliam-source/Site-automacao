@@ -1,6 +1,6 @@
 {
   "suites": 12,
-  "passed": 343,
+  "passed": 350,
   "failed": 0,
   "checks": [
     {
@@ -1169,8 +1169,8 @@
     },
     {
       "suite": "demo_readiness",
-      "total": 27,
-      "passed": 27,
+      "total": 34,
+      "passed": 34,
       "results": [
         {
           "name": "nine_services",
@@ -1265,6 +1265,30 @@
           "passed": true
         },
         {
+          "name": "buy_button_browses_without_budget",
+          "passed": true
+        },
+        {
+          "name": "purchase_budget_filters_sale_prices",
+          "passed": true
+        },
+        {
+          "name": "purchase_low_budget_never_uses_rent",
+          "passed": true
+        },
+        {
+          "name": "purpose_switch_resets_budget_and_selection",
+          "passed": true
+        },
+        {
+          "name": "purchase_visit_keeps_sale_price",
+          "passed": true
+        },
+        {
+          "name": "rental_button_still_shows_monthly_prices",
+          "passed": true
+        },
+        {
           "name": "nine_clinic_cards",
           "passed": true
         },
@@ -1274,6 +1298,10 @@
         },
         {
           "name": "catalogs_inside_panels",
+          "passed": true
+        },
+        {
+          "name": "purchase_catalog_has_sale_prices",
           "passed": true
         },
         {

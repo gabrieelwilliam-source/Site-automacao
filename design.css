@@ -72,3 +72,5 @@ html{scroll-padding-top:72px}.journey-nav{position:sticky;top:0;z-index:30;backg
 .demo-catalog-card button{width:100%;padding:10px!important;min-height:44px;font-size:12px!important;white-space:normal}
 .demo-catalog-card button:disabled{opacity:.6;cursor:wait}
 @media(max-width:480px){.demo-catalog-grid{grid-template-columns:1fr;max-height:300px}.demo-catalog-card img{height:150px}}
+
+.demo-catalog-purpose{display:flex;gap:8px;padding:0 16px 12px}.demo-catalog-purpose .btn{min-height:44px;flex:1}.demo-catalog-purpose [aria-pressed="true"]{background:#D7B46A;color:#071A31;border-color:#D7B46A}

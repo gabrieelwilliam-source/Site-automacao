@@ -175,10 +175,10 @@ resetStock();
 
 // imobiliária — motor conversacional e matching V7
 const realtyInventory=[
-  {id:1,title:'Casa contemporânea • Costa e Silva',type:'Casa',region:'Costa e Silva',bedrooms:3,price:'R$ 2.850/mês',numeric:2850,feature:'3 quartos • 2 vagas • 118 m²',tag:'Mais aderente',image:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=78'},
-  {id:2,title:'Sobrado geminado • América',type:'Casa',region:'América',bedrooms:3,price:'R$ 3.200/mês',numeric:3200,feature:'3 quartos • suíte • 105 m²',tag:'Boa opção',image:'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=900&q=78'},
-  {id:3,title:'Apartamento Garden • Costa e Silva',type:'Apartamento',region:'Costa e Silva',bedrooms:2,price:'R$ 2.650/mês',numeric:2650,feature:'2 quartos • garden • 1 vaga',tag:'Alternativa',image:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=78'},
-  {id:4,title:'Apartamento • Centro',type:'Apartamento',region:'Centro',bedrooms:2,price:'R$ 2.300/mês',numeric:2300,feature:'2 quartos • 74 m² • 1 vaga',tag:'Bom custo',image:'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=78'}
+  {id:1,salePrice:680000,title:'Casa contemporânea • Costa e Silva',type:'Casa',region:'Costa e Silva',bedrooms:3,price:'R$ 2.850/mês',numeric:2850,feature:'3 quartos • 2 vagas • 118 m²',tag:'Mais aderente',image:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=78'},
+  {id:2,salePrice:720000,title:'Sobrado geminado • América',type:'Casa',region:'América',bedrooms:3,price:'R$ 3.200/mês',numeric:3200,feature:'3 quartos • suíte • 105 m²',tag:'Boa opção',image:'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=900&q=78'},
+  {id:3,salePrice:480000,title:'Apartamento Garden • Costa e Silva',type:'Apartamento',region:'Costa e Silva',bedrooms:2,price:'R$ 2.650/mês',numeric:2650,feature:'2 quartos • garden • 1 vaga',tag:'Alternativa',image:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=78'},
+  {id:4,salePrice:420000,title:'Apartamento • Centro',type:'Apartamento',region:'Centro',bedrooms:2,price:'R$ 2.300/mês',numeric:2300,feature:'2 quartos • 74 m² • 1 vaga',tag:'Bom custo',image:'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=900&q=78'}
 ];
 const lead={stage:'intent',intent:null,type:null,region:null,budget:null,bedrooms:null,timeline:null,selected:null,visit:null,messages:0};
 const leadChat=$('#leadChat'),leadOptions=$('#leadOptions'),leadInput=$('#leadInput');

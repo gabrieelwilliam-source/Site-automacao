@@ -25,6 +25,8 @@
     list=realtyInventory.filter(x=>x.type===p.type&&(!p.bedrooms||x.bedrooms>=p.bedrooms)&&x.numeric<=max&&(!p.region||/sem prefer|qualquer/i.test(p.region)||x.region.toLowerCase()===String(p.region).toLowerCase()));
    }
    if(Array.isArray(s.propertyMatches))list=realtyInventory.filter(p=>s.propertyMatches.includes(p.id));
+   if(p.purpose==='Compra')list=list.map(item=>({...item,numeric:item.salePrice,price:Number(item.salePrice).toLocaleString('pt-BR',{style:'currency',currency:'BRL'}),tag:'Compra'}));
+   window.ZionDemoCatalog?.setPurpose(p.purpose||s.catalogPurpose||'Aluguel');
    el('propertyMatches').hidden=!list.length;document.querySelector('#leadInlineProperties')?.remove();
    if(list.length){el('matchCount').textContent=list.length+' opções';el('propertyList').replaceChildren();renderInlineProperties(list);if(s.propertyCatalog&&!(p.purpose&&p.type&&p.region&&p.bedrooms&&p.budget)){document.querySelectorAll('#leadInlineProperties .lead-inline-property').forEach((card,i)=>{card.classList.remove('best');card.querySelector('.lead-inline-property-top span').textContent='Imóvel '+list[i].id;});}const title=el('leadInlineProperties')?.querySelector('.lead-inline-label');if(title)title.textContent=s.propertyCatalog?'CARTEIRA DE DEMONSTRAÇÃO':'IMÓVEIS PARA O SEU PERFIL';document.querySelectorAll('#leadInlineProperties .lead-inline-property').forEach(card=>el('propertyList').append(card.cloneNode(true)));bindPropertyButtons();}
    if(lead.selected&&!s.human)setLeadOptions([{label:'Pedir visita',value:'Quero marcar uma visita nesse imóvel'},{label:'Outra dúvida',value:'Tenho uma dúvida sobre esse imóvel'},{label:'Falar com corretor',value:'Quero falar com uma pessoa'}]);else setLeadOptions([]);
