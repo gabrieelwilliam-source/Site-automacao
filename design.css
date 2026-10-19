@@ -88,3 +88,6 @@ html{scroll-padding-top:72px}.journey-nav{position:sticky;top:0;z-index:30;backg
 .demo-catalog-purpose .btn{font-size:14px;padding:10px}
 .demo-catalog-purpose .btn[aria-pressed="true"]{background:#D7B46A;color:#071A31;border-color:#D7B46A}
 @media(max-width:480px){#propertyList{grid-template-columns:1fr}#propertyList .lead-inline-property-image{height:160px}}
+/* Legacy last-child rule made the card body a horizontal row. */
+.lead-inline-property>.lead-inline-property-body:last-child{display:block;min-width:0}
+.lead-inline-property .lead-inline-property-top span,.lead-inline-property .lead-inline-property-top b{font-size:10px;line-height:1.5}
