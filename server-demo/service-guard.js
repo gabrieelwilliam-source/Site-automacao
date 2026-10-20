@@ -54,6 +54,16 @@ function guardService(ctx,out){
   if(s.payment?.status!=='received')s.payment={status:'declared',amount};s.awaiting=null;return answer(`Obrigada por avisar. A informação de ${money(amount)} por ${selected.label.toLowerCase()} ficou para a equipe conferir.`,'Pagamento declarado; recebimento exige conferência da equipe');
  }
  if(p.awaiting==='payment_service'&&named){s.awaiting='payment_amount';return answer('E qual foi o valor total que você pagou?','Serviço do pagamento identificado; aguardando valor');}
+ // Questions interrupt scheduling without authorizing or replacing an existing proposal.
+ const mentioned=catalog.filter(x=>!x.legacy&&x.aliases.test(text));
+ const infoQuestion=/como funciona|como e feito|diferenca|comparar|para que serve|o que e |me (?:explica|explique)|quero entender/.test(text);
+ const asksPrice=/preco|valor|custa/.test(text),asksDuration=/quanto tempo|quantos minutos|duracao/.test(text);
+ if(mentioned.length>1&&(infoQuestion||asksPrice||asksDuration)){
+  const details=mentioned.map(x=>x.label+': '+(infoQuestion?(x.description||'a profissional orienta o atendimento conforme sua necessidade')+'. ':'' )+((asksPrice||infoQuestion)?(x.price===null?'valor mediante avaliação':money(x.price)):'')+((asksPrice||infoQuestion)&&(asksDuration||infoQuestion)&&x.duration?' · ':'')+((asksDuration||infoQuestion)&&x.duration?x.duration+' min':'')).join('\n\n');
+  return answer(details+(seg==='clinica'&&infoQuestion?'\n\nA indicação é individual e precisa ser avaliada pela profissional.':'')+askPending(),'Comparação consultada no catálogo; proposta anterior preservada');
+ }
+ if(infoQuestion&&selected&&selected.description){return answer(selected.label+' é '+selected.description+'. '+(selected.important||'')+askPending(),'Dúvida sobre procedimento respondida antes de retomar agenda');}
+ if(/(?:tenho|tirar|tirasse|esclarecer).*(?:duvida|pergunta)/.test(text)&&!infoQuestion&&!asksPrice&&!asksDuration)return answer('Claro. Qual é sua dúvida?','Dúvida acolhida; aguardando pergunta sem confirmar horário');
  const durationQuestion=/quanto tempo|quantos minutos|qual.*duracao|demora|dura(?:r|cao)?\b/.test(text);
  if(durationQuestion){if(!selected)return answer('De qual serviço você quer saber a duração?','Duração exige identificar o serviço');return answer(selected.duration?`${selected.label} tem duração prevista de ${selected.duration} minutos.`+(/preco|valor|custa/.test(text)&&selected.price!==null?' A referência de valor é '+money(selected.price)+'.':'')+askPending():'A profissional precisa conferir a duração de '+selected.label.toLowerCase()+' conforme o atendimento.'+askPending(),'Duração consultada; sem confundir tempo com preço');}
  const priceQuestion=/quanto|preco|valor|custa/.test(text),faqPayment=/aceita|formas de pagamento|parcelamento/.test(text)&&/pix|cartao|pagamento|parcel/.test(text),location=/endereco|onde fica|localizacao/.test(text),hours=/funcionamento|abre|fecha|horario de atendimento/.test(text);

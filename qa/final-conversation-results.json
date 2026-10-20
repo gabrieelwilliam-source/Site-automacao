@@ -1,0 +1,309 @@
+{
+  "date_utc": "2026-10-20",
+  "local_checks": 408,
+  "suites": 14,
+  "lint": "passed",
+  "build": "passed",
+  "n8n_qa": {
+    "steps": 58,
+    "passed": 58,
+    "cases": [
+      {
+        "segment": "clinica",
+        "case": "price_Avaliação",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "duration",
+        "passed": true
+      },
+      {
+        "segment": "imobiliaria",
+        "case": "strict_criteria",
+        "passed": true
+      },
+      {
+        "segment": "salao",
+        "case": "catalog",
+        "passed": true
+      },
+      {
+        "segment": "salao",
+        "case": "choice",
+        "passed": true
+      },
+      {
+        "segment": "imobiliaria",
+        "case": "correct_bedrooms",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "book_cleaning",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "price_Limpeza",
+        "passed": true
+      },
+      {
+        "segment": "salao",
+        "case": "request",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "comparison",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "price_Botox",
+        "passed": true
+      },
+      {
+        "segment": "imobiliaria",
+        "case": "change_region",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "question_interrupt",
+        "passed": true
+      },
+      {
+        "segment": "salao",
+        "case": "browse_other_price",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "price_Preenchimento",
+        "passed": true
+      },
+      {
+        "segment": "imobiliaria",
+        "case": "select",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "price_Bioestimulador",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "two_prices",
+        "passed": true
+      },
+      {
+        "segment": "salao",
+        "case": "conflict",
+        "passed": true
+      },
+      {
+        "segment": "imobiliaria",
+        "case": "doubt",
+        "passed": true
+      },
+      {
+        "segment": "salao",
+        "case": "owner_confirms_correct_service",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "price_HIFU",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "two_durations",
+        "passed": true
+      },
+      {
+        "segment": "imobiliaria",
+        "case": "compound_question",
+        "passed": true
+      },
+      {
+        "segment": "salao",
+        "case": "payment_declared",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "doubt_before_confirmation",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "price_Laser",
+        "passed": true
+      },
+      {
+        "segment": "imobiliaria",
+        "case": "visit",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "price_Radiofrequência",
+        "passed": true
+      },
+      {
+        "segment": "salao",
+        "case": "receipt",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "browse_price_during_booking",
+        "passed": true
+      },
+      {
+        "segment": "imobiliaria",
+        "case": "mixed_confirmation",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "price_Criolipólise",
+        "passed": true
+      },
+      {
+        "segment": "salao",
+        "case": "cancel_requested",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "confirm_correct_service",
+        "passed": true
+      },
+      {
+        "segment": "imobiliaria",
+        "case": "resume_confirmation",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "browse_other_service",
+        "passed": true
+      },
+      {
+        "segment": "salao",
+        "case": "owner_cancel",
+        "passed": true
+      },
+      {
+        "segment": "imobiliaria",
+        "case": "confirm",
+        "passed": true
+      },
+      {
+        "segment": "salao",
+        "case": "human",
+        "passed": true
+      },
+      {
+        "segment": "imobiliaria",
+        "case": "thanks",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "reschedule_original_service",
+        "passed": true
+      },
+      {
+        "segment": "imobiliaria",
+        "case": "cancel",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "decline_reschedule",
+        "passed": true
+      },
+      {
+        "segment": "salao",
+        "case": "silent",
+        "passed": true
+      },
+      {
+        "segment": "salao",
+        "case": "resume",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "reschedule_again",
+        "passed": true
+      },
+      {
+        "segment": "imobiliaria",
+        "case": "decline_cancel",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "confirm_reschedule",
+        "passed": true
+      },
+      {
+        "segment": "imobiliaria",
+        "case": "cancel_again",
+        "passed": true
+      },
+      {
+        "segment": "imobiliaria",
+        "case": "confirm_cancel",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "decline_new_booking",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "cancel_identity",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "cancel_yes",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "thanks",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "laser",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "other_procedures",
+        "passed": true
+      },
+      {
+        "segment": "clinica",
+        "case": "catalog_choice",
+        "passed": true
+      }
+    ]
+  },
+  "limits": [
+    "Fictional catalogs and schedules; isolated web sessions",
+    "No real WhatsApp, Calendar reservations or ERP orders",
+    "Desktop browser verified; mobile checks are static CSS/DOM tests",
+    "No claim of zero defects or unlimited provider availability"
+  ]
+}
