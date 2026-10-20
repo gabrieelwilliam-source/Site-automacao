@@ -45,3 +45,12 @@ Revisão da conferência pública: perguntas combinadas sobre um imóvel (por ex
 - O painel clínico mostra a duração real da requisição; as etapas de estoque usam status em vez de tempos ilustrativos.
 
 Validação: 403 verificações locais em 14 suítes, lint e build aprovados; 53 etapas integradas aprovadas na cópia isolada do n8n. Evidências em `qa/professional-journeys-results.json`. Dados de clientes, credenciais existentes e integrações de produção comercial preservados.
+
+
+## Conferência final de perguntas e contexto — 20/10/2026 UTC
+
+Comparações entre procedimentos e perguntas sobre dois preços ou durações recebem os dados de todos os serviços mencionados. Uma explicação sobre outro procedimento interrompe a marcação sem substituir seu serviço ou horário. “Tenho uma dúvida antes de confirmar” solicita a pergunta, sem tratar a mensagem como confirmação.
+
+Cinco regressões foram reproduzidas antes da correção e passaram depois. A revisão local totaliza 408 verificações em 14 suítes. O catálogo continua sendo a fonte de preços, durações e descrições; indicação clínica exige avaliação profissional. O site apresenta cenários isolados: não cria reservas reais no Calendar, não envia WhatsApp e não emite pedidos no ERP.
+
+Validação integrada final: 58/58 etapas aprovadas na cópia isolada do n8n; cópia desativada ao concluir. Evidências: `qa/final-conversation-results.json`.
