@@ -1,0 +1,440 @@
+{
+  "date_utc": "2026-10-20",
+  "local_checks": 403,
+  "local_suites": 14,
+  "lint": "passed",
+  "build": "passed",
+  "integrated_steps": 53,
+  "integrated_passed": 53,
+  "integration_environment": "n8n QA isolated workflow; fictional sessions; no external bookings, sends, customer or ERP writes",
+  "cases": [
+    {
+      "group": "realty",
+      "segment": "imobiliaria",
+      "case": "strict_criteria",
+      "message": "Quero comprar apartamento no Costa e Silva, 3 quartos até 500 mil",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "catalog",
+      "segment": "clinica",
+      "case": "price_Avaliação",
+      "message": "Quanto custa Avaliação?",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "salon",
+      "segment": "salao",
+      "case": "catalog",
+      "message": "Quais serviços vocês fazem?",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "clinic",
+      "segment": "clinica",
+      "case": "duration",
+      "message": "Quanto tempo dura limpeza de pele?",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "salon",
+      "segment": "salao",
+      "case": "choice",
+      "message": "1",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "realty",
+      "segment": "imobiliaria",
+      "case": "correct_bedrooms",
+      "message": "Pode ser 2 quartos",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "clinic",
+      "segment": "clinica",
+      "case": "book_cleaning",
+      "message": "Quero agendar limpeza amanhã às 9h",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "catalog",
+      "segment": "clinica",
+      "case": "price_Limpeza",
+      "message": "Quanto custa Limpeza?",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "realty",
+      "segment": "imobiliaria",
+      "case": "change_region",
+      "message": "Pode ser no Centro",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "salon",
+      "segment": "salao",
+      "case": "request",
+      "message": "Quero agendar corte amanhã às 14h",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "clinic",
+      "segment": "clinica",
+      "case": "browse_price_during_booking",
+      "message": "Quanto custa botox?",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "catalog",
+      "segment": "clinica",
+      "case": "price_Botox",
+      "message": "Quanto custa Botox?",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "catalog",
+      "segment": "clinica",
+      "case": "price_Preenchimento",
+      "message": "Quanto custa Preenchimento?",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "realty",
+      "segment": "imobiliaria",
+      "case": "select",
+      "message": "Tenho interesse no imóvel 4",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "salon",
+      "segment": "salao",
+      "case": "browse_other_price",
+      "message": "Quanto custa tratamento?",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "clinic",
+      "segment": "clinica",
+      "case": "confirm_correct_service",
+      "message": "Sim",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "realty",
+      "segment": "imobiliaria",
+      "case": "doubt",
+      "message": "Tenho uma dúvida sobre esse imóvel",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "clinic",
+      "segment": "clinica",
+      "case": "browse_other_service",
+      "message": "Quero conhecer preenchimento",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "salon",
+      "segment": "salao",
+      "case": "conflict",
+      "message": "Ação da equipe",
+      "status": 409,
+      "passed": true
+    },
+    {
+      "group": "catalog",
+      "segment": "clinica",
+      "case": "price_Bioestimulador",
+      "message": "Quanto custa Bioestimulador?",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "salon",
+      "segment": "salao",
+      "case": "owner_confirms_correct_service",
+      "message": "Ação da equipe",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "clinic",
+      "segment": "clinica",
+      "case": "reschedule_original_service",
+      "message": "Quero remarcar para depois de amanhã às 11h",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "realty",
+      "segment": "imobiliaria",
+      "case": "compound_question",
+      "message": "Qual a metragem e tem garagem?",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "catalog",
+      "segment": "clinica",
+      "case": "price_HIFU",
+      "message": "Quanto custa HIFU?",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "catalog",
+      "segment": "clinica",
+      "case": "price_Laser",
+      "message": "Quanto custa Laser?",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "clinic",
+      "segment": "clinica",
+      "case": "decline_reschedule",
+      "message": "Não",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "salon",
+      "segment": "salao",
+      "case": "payment_declared",
+      "message": "Fiz o pix de 80 pelo corte",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "realty",
+      "segment": "imobiliaria",
+      "case": "visit",
+      "message": "Quero visitar amanhã às 10h",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "catalog",
+      "segment": "clinica",
+      "case": "price_Radiofrequência",
+      "message": "Quanto custa Radiofrequência?",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "clinic",
+      "segment": "clinica",
+      "case": "reschedule_again",
+      "message": "Quero remarcar para depois de amanhã às 11h",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "salon",
+      "segment": "salao",
+      "case": "receipt",
+      "message": "Ação da equipe",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "realty",
+      "segment": "imobiliaria",
+      "case": "mixed_confirmation",
+      "message": "Sim, mas antes preciso tirar uma dúvida",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "clinic",
+      "segment": "clinica",
+      "case": "confirm_reschedule",
+      "message": "Sim",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "catalog",
+      "segment": "clinica",
+      "case": "price_Criolipólise",
+      "message": "Quanto custa Criolipólise?",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "realty",
+      "segment": "imobiliaria",
+      "case": "resume_confirmation",
+      "message": "Sim",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "salon",
+      "segment": "salao",
+      "case": "cancel_requested",
+      "message": "Quero cancelar",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "clinic",
+      "segment": "clinica",
+      "case": "decline_new_booking",
+      "message": "Não quero agendar outro, só conhecer botox",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "realty",
+      "segment": "imobiliaria",
+      "case": "confirm",
+      "message": "Sim",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "salon",
+      "segment": "salao",
+      "case": "owner_cancel",
+      "message": "Ação da equipe",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "salon",
+      "segment": "salao",
+      "case": "human",
+      "message": "Quero falar com uma pessoa",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "clinic",
+      "segment": "clinica",
+      "case": "cancel_identity",
+      "message": "Quero cancelar",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "realty",
+      "segment": "imobiliaria",
+      "case": "thanks",
+      "message": "No aguardo",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "realty",
+      "segment": "imobiliaria",
+      "case": "cancel",
+      "message": "Quero cancelar",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "salon",
+      "segment": "salao",
+      "case": "silent",
+      "message": "Ainda estou esperando",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "clinic",
+      "segment": "clinica",
+      "case": "cancel_yes",
+      "message": "Sim",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "clinic",
+      "segment": "clinica",
+      "case": "thanks",
+      "message": "Obrigado",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "salon",
+      "segment": "salao",
+      "case": "resume",
+      "message": "Ação da equipe",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "realty",
+      "segment": "imobiliaria",
+      "case": "decline_cancel",
+      "message": "Não",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "realty",
+      "segment": "imobiliaria",
+      "case": "cancel_again",
+      "message": "Quero cancelar",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "clinic",
+      "segment": "clinica",
+      "case": "laser",
+      "message": "Quero conhecer laser para manchas",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "realty",
+      "segment": "imobiliaria",
+      "case": "confirm_cancel",
+      "message": "Sim",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "clinic",
+      "segment": "clinica",
+      "case": "other_procedures",
+      "message": "Quais outros procedimentos vocês oferecem?",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "group": "clinic",
+      "segment": "clinica",
+      "case": "catalog_choice",
+      "message": "2",
+      "status": 200,
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "Desktop browser check is performed after publication. Width checks in the regression suite are static CSS checks, not physical-device coverage.",
+    "The site uses fictional inventory and scheduling. Replenishment is a local calculation engine; no ERP order is sent."
+  ]
+}
