@@ -33,3 +33,15 @@ Um “sim” após “O que você gostaria de saber?” pede esclarecimento e n�
 Validação integrada: 60 execuções na cópia isolada do n8n; 59 aprovadas. A única falha inicial (escolha do salão sem identificar o serviço) foi corrigida e passou na reexecução. Inclui controles da gestora, conflito de horário, conferência de pagamento, cancelamento e retomada após handoff. Nenhuma falha reproduzida ficou aberta nesta bateria. Evidências resumidas em `qa/n8n-customer-journeys.json`.
 
 Revisão da conferência pública: perguntas combinadas sobre um imóvel (por exemplo, metragem e garagem) recebem todos os dados conhecidos em uma resposta, sem modificar as preferências pessoais ou repetir cartões.
+
+
+## Revisão profissional — 20/10/2026 UTC
+
+- O agendamento guarda seu próprio serviço, preço, duração e protocolo. Consultar outro procedimento não altera o atendimento confirmado; remarcação e cancelamento identificam o serviço correto.
+- Perguntas de duração não recebem preço por engano. Perguntas combinadas recebem duração e valor quando solicitados.
+- Recusar um novo pedido não cancela o horário já confirmado. Confirmações imobiliárias com ressalvas não concluem uma visita.
+- O estoque crítico invalida a análise anterior, e recalcular pedido confirmado não libera duplicidade.
+- Falhas de conexão oferecem repetição da mensagem sem criar outra bolha de usuário. O chat expõe o estado de processamento à acessibilidade.
+- O painel clínico mostra a duração real da requisição; as etapas de estoque usam status em vez de tempos ilustrativos.
+
+Validação: 403 verificações locais em 14 suítes, lint e build aprovados; 53 etapas integradas aprovadas na cópia isolada do n8n. Evidências em `qa/professional-journeys-results.json`. Dados de clientes, credenciais existentes e integrações de produção comercial preservados.

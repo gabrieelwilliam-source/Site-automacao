@@ -91,3 +91,6 @@ html{scroll-padding-top:72px}.journey-nav{position:sticky;top:0;z-index:30;backg
 /* Legacy last-child rule made the card body a horizontal row. */
 .lead-inline-property>.lead-inline-property-body:last-child{display:block;min-width:0}
 .lead-inline-property .lead-inline-property-top span,.lead-inline-property .lead-inline-property-top b{font-size:10px;line-height:1.5}
+
+/* A recovery action stays attached to the failed conversation turn. */
+.live-retry{margin-left:.4rem;border:1px solid currentColor;border-radius:6px;padding:.45rem .7rem;background:transparent;color:inherit;font:inherit;font-weight:600;cursor:pointer}.live-retry:focus-visible{outline:2px solid #D7B46A;outline-offset:3px}

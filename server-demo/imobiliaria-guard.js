@@ -58,7 +58,7 @@ function guardRealty(ctx,out){
  }
 
  if(browseRequested&&catalogMode&&!/(?:imovel|id)\s*\d/.test(text)){if(prior.visit?.status!=='confirmed'){s.selectedProperty=null;s.visit=null;}s.showProperties=true;s.awaiting='property_choice';return answer(matches.length?'Separei estas opções de '+(purchase?'compra':'aluguel')+':\n\n'+matches.map((p,i)=>`${i+1}. ${p.title} · ${p.region} · ${p.bedrooms} quartos · ${priceLabel(p)} (ID ${p.id})`).join('\n')+'\n\nVocê pode abrir as fotos e escolher um imóvel abaixo. Qual chamou sua atenção?':'Não há imóveis nessa carteira para os critérios informados. Posso procurar com outro bairro ou tipo, se você quiser.','Carteira demonstrativa consultada; sem presumir orçamento ou criar visita');}
- const yes=/^(sim|pode ser|quero sim|confirmo|pode confirmar|confirmar)(?:[!., ]|$)/.test(text)&&!/nao|talvez|pensar|cancel/.test(text);
+ const yes=/^(sim(?:[, ]+(?:pode confirmar|confirmo|por favor))?|pode ser|quero sim|confirmo|pode confirmar|confirmar)[!., ]*$/.test(text)&&!/nao|talvez|pensar|cancel/.test(text);
  const requestedId=text.match(/(?:imovel|id)\s*(\d+)\b/);let chosen=requestedId?matches.find(p=>p.id===+requestedId[1]):null;
  const option=text.match(/opcao\s*(\d+)|^(\d+)[.! ]*$/);const ordinal=/primeir/.test(text)?1:/segund/.test(text)?2:/terceir/.test(text)?3:null;
  if(!chosen&&pending==='property_choice'&&(option||ordinal))chosen=matches[(ordinal||Number(option[1]||option[2]))-1];

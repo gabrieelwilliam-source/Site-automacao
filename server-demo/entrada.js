@@ -14,12 +14,12 @@ if(b.action){
  if(b.action==='resume'){state.human=false;}
  if(b.action==='confirm_receipt'){if(!state.payment||state.payment.status!=='declared')return stop(409,'Não há pagamento declarado para conferir.');state.payment.status='received';reply='Recebemos e conferimos seu pagamento. Obrigada!';}
  if(b.action==='confirm_appointment'){
-  const a=state.booking?.ready?{status:'requested',date:state.booking.date,time:state.booking.time}:state.appointment,d=Number(b.duration);if(!a||a.status!=='requested'||!a.date||!/^\d{2}:\d{2}$/.test(a.time||''))return stop(409,'Primeiro informe serviço, dia e horário na conversa.');
+  const a=state.booking?.ready?{status:'requested',service:state.booking.service,price:state.booking.price??state.expected,date:state.booking.date,time:state.booking.time}:state.appointment,d=Number(b.duration);if(!a||a.status!=='requested'||!a.date||!/^\d{2}:\d{2}$/.test(a.time||''))return stop(409,'Primeiro informe serviço, dia e horário na conversa.');
   if(!Number.isInteger(d)||d<1||d>720)return stop(409,'Informe uma duração entre 1 e 720 minutos.');
   const start=+a.time.slice(0,2)*60+(+a.time.slice(3));
   if(start<540||start+d>1080)return stop(409,'O atendimento ficaria fora do funcionamento, das 9h às 18h.');
   if(start<960&&start+d>900)return stop(409,'Há conflito com outro atendimento fictício das 15h às 16h.');
-  a.status='confirmed';a.duration=d;state.appointment=a;state.booking=null;state.awaiting=null;reply=`Seu horário de ${state.service} foi confirmado: ${a.date} às ${a.time}. Esperamos você!`;
+  a.status='confirmed';a.service=a.service||state.service;a.protocol=a.protocol||'SAL-'+new Date().toISOString().slice(0,10).replaceAll('-','')+'-'+Math.random().toString(36).slice(2,10).toUpperCase();a.duration=d;state.service=a.service;state.expected=a.price??state.expected;state.appointment=a;state.booking=null;state.awaiting=null;reply=`Seu horário de ${a.service} foi confirmado: ${a.date} às ${a.time}. Esperamos você!`;
  }
  if(b.action==='confirm_cancel'){if(state.appointment?.status!=='cancel_requested')return stop(409,'Não há pedido de cancelamento para conferir.');state.appointment=null;state.booking=null;state.awaiting=null;reply='O horário de demonstração foi cancelado pela equipe.';}
  session.state=state;return [{json:{run:false,status:200,headers,persist:{state,history:session.history},result:{ok:true,mode:'live_ai',reply,state,notice:'Ação da equipe aplicada somente ao ambiente de demonstração.'}}}];
